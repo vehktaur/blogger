@@ -5,7 +5,7 @@ import Link from 'next/link';
 const BlogCard = ({ blog }: { blog: Blog }) => {
   return (
     <Link href={`/blogs/${blog.title}`}>
-      <div className="hover:shadow-offset w-full max-w-[20.625rem] sm:max-w-[18.75rem] border border-black transition-shadow duration-300">
+      <div className="hover:shadow-offset w-full max-w-[20.625rem] sm:max-w-[18.75rem] border border-black transition-shadow duration-500 shadow group">
         <div className="border-b border-black">
           <Image
             className="w-full object-cover"
@@ -35,9 +35,15 @@ const BlogCard = ({ blog }: { blog: Blog }) => {
           </p>
 
           <div className="mt-4">
-            <button className="flex gap-1.5 items-center ~text-sm/base font-bold">
+            <button className="flex gap-2 items-center ~text-sm/base font-bold">
               Read more{' '}
-              <Image src="/arrow.png" width={12} height={9} alt="arrow" />
+              <Image
+                className="group-hover:animate-bounce"
+                src="/arrow.png"
+                width={12}
+                height={9}
+                alt="arrow"
+              />
             </button>
           </div>
         </div>

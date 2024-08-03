@@ -19,7 +19,7 @@ export default function Home() {
             </p>
           </section>
 
-          <section className="mb-4">
+          <section className="~mb-8/16">
             <form className="flex items-stretch shadow-offset min-w-[260px] w-4/5 max-w-[35rem] mx-auto ~mt-8/12">
               <input
                 className="~px-3/4 ~py-2.5/3 border border-black w-full outline-none"

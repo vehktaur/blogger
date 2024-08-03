@@ -1,6 +1,6 @@
 'use client';
 
-import { blogData } from '@/assets/assets';
+import { blogData } from '@/lib/placeholder-data';
 import BlogCard from './BlogCard';
 import { useState } from 'react';
 import { Blog as BlogData, Category } from '@/lib/definitions';
@@ -40,8 +40,8 @@ const BlogList = () => {
               key={category}
               onClick={() => filterBlogs(category)}
               className={clsx(
-                'hover:text-white hover:bg-black transition-colors duration-300 ~px-2/3 py-1 rounded-sm',
-                { 'text-white bg-black': active }
+                'hover:text-white hover:bg-[#444] transition-colors duration-300 ~px-2/3 py-1 rounded-sm',
+                { 'text-white bg-black hover:!bg-black': active }
               )}
             >
               {category}
