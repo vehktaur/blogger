@@ -1,10 +1,12 @@
 import type { Metadata } from 'next';
-import { Outfit } from 'next/font/google';
+import { Barlow } from 'next/font/google';
 import './globals.css';
+import 'swiper/css';
+import 'swiper/css/pagination';
 
 import Footer from '@/app/components/Footer';
 
-const outfit = Outfit({
+const barlow = Barlow({
   subsets: ['latin'],
   weight: ['400', '500', '600', '700']
 });
@@ -21,7 +23,7 @@ export default function RootLayout({
 }>) {
   return (
     <html className="scroll-smooth" lang="en">
-      <body className={`min-h-screen grid ${outfit.className}`}>
+      <body className={`min-h-screen grid ${barlow.className}`}>
         <main>{children}</main>
 
         <Footer />

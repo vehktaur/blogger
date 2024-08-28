@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 const BlogCard = ({ blog }: { blog: Blog }) => {
   return (
-    <Link href={`/blogs/${blog.title}`}>
+    <Link href={`/blogs/${encodeURIComponent(blog.title)}`}>
       <div className="hover:shadow-offset w-full max-w-[20.625rem] sm:max-w-[18.75rem] border border-black transition-shadow duration-500 shadow group">
         <div className="border-b border-black">
           <Image

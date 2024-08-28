@@ -16,6 +16,10 @@ const config: Config = {
     extend: {
       boxShadow: {
         offset: '-7px 7px 0 #000000'
+      },
+      screens: {
+        xxs: '20rem',
+        xs: '30rem'
       }
     }
   },

@@ -17,6 +17,7 @@ const Blog = ({ params }: { params: { title: string } }) => {
             <h1 className="text-2xl sm:text-3xl md:text-5xl font-semibold mb-6">
               {blog.title}
             </h1>
+
             <Image
               className="mx-auto border border-white rounded-full"
               src={blog.author_img}

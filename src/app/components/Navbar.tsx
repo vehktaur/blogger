@@ -10,13 +10,13 @@ const Navbar = () => {
           width={180}
           height={100}
           alt="app logo"
-          className="w-[130px] h-auto sm:w-auto"
+          className="~xxs/lg:~w-[7.25rem]/[8.125rem] h-auto sm:w-auto"
         />
       </Link>
-      <button className="flex items-center gap-2 ~px-3/6 ~py-1/3 font-medium border border-black shadow-offset hover:bg-gray-200 transition-colors duration-300 group">
+      <button className="flex items-center gap-2 ~px-2/6 ~py-1.5/3 font-medium border border-black shadow-offset hover:bg-gray-200 transition-colors duration-300 mb-2">
         Get Started
         <Image
-          className="group-hover:animate-bounce"
+          className="animate-bounce mt-1"
           src="/arrow.png"
           width={16}
           height={14}
