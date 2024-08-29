@@ -1,7 +1,6 @@
 'use client';
 
 import { blogData } from '@/lib/placeholder-data';
-import Navbar from '@/app/components/Navbar';
 import Image from 'next/image';
 
 const Blog = ({ params }: { params: { title: string } }) => {
@@ -10,8 +9,7 @@ const Blog = ({ params }: { params: { title: string } }) => {
 
   return blog ? (
     <>
-      <div className="bg-gray-200">
-        <Navbar />
+      <div className="bg-gray-200 pt-20">
         <div className="px-5 pt-16 pb-5 sm:~px-8/20 text-center">
           <div className="max-w-[48rem] mx-auto mb-28">
             <h1 className="text-2xl sm:text-3xl md:text-5xl font-semibold mb-6">

@@ -5,6 +5,7 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 
 import Footer from '@/app/components/Footer';
+import Navbar from './components/Navbar';
 
 const barlow = Barlow({
   subsets: ['latin'],
@@ -24,6 +25,8 @@ export default function RootLayout({
   return (
     <html className="scroll-smooth" lang="en">
       <body className={`min-h-screen grid ${barlow.className}`}>
+        <Navbar />
+
         <main>{children}</main>
 
         <Footer />

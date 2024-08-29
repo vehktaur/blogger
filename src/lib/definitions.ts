@@ -16,3 +16,7 @@ export interface Category {
   category: string;
   active: boolean;
 }
+
+export interface EmailInput {
+  email: string;
+}
