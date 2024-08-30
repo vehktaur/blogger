@@ -1,5 +1,4 @@
 import { ConnectDB } from '@/lib/config/db';
-import { NextApiRequest } from 'next';
 
 const LoadDB = async () => {
   await ConnectDB();
@@ -14,5 +13,5 @@ const GET = async (request: Request) => {
 const POST = async (request: Request) => {
   const formData = await request.formData();
   const image = formData.get('image');
-  const imageByteData = image?.arrayBuffer();
+//   const imageByteData = await image?.arrayBuffer();
 };
