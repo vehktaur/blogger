@@ -5,7 +5,7 @@ import Link from 'next/link';
 const BlogCard = ({ blog }: { blog: Blog }) => {
   return (
     <Link href={`/blogs/${encodeURIComponent(blog.title)}`}>
-      <div className="hover:shadow-offset w-full max-w-[20.625rem] sm:max-w-[18.75rem] border border-black transition-shadow duration-500 shadow group">
+      <div className="hover:shadow-offset w-full max-w-[20.625rem] sm:max-w-[18.75rem] border border-black transition-shadow duration-500 shadow group rounded overflow-hidden">
         <div className="border-b border-black">
           <Image
             className="w-full object-cover"
@@ -17,10 +17,12 @@ const BlogCard = ({ blog }: { blog: Blog }) => {
         </div>
 
         <div className="p-5 bg-white grid">
-          <div className="mb-3">
-            <span className="text-white bg-black ~text-xs/sm p-1">
-              {blog.category}
-            </span>
+          <div className="mb-3 flex items-center gap-2">
+            {blog.category.map((category) => (
+              <span className="text-white bg-black ~text-xs/sm p-1 rounded-[0.1rem]">
+                {category}
+              </span>
+            ))}
           </div>
 
           <h3

@@ -20,7 +20,7 @@ const BlogList = () => {
     setBlogs(
       category === 'All'
         ? blogData
-        : blogData.filter((blog) => blog.category === category)
+        : blogData.filter((blog) => blog.category.includes(category))
     );
 
     setCategories(

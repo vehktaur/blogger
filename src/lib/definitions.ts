@@ -7,7 +7,7 @@ export interface Blog {
   description: string;
   image: string | StaticImageData | StaticImport;
   date: number;
-  category: string;
+  category: string[];
   author: string;
   author_img: string | StaticImageData | StaticImport;
 }
