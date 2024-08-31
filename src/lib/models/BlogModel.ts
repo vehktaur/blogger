@@ -32,10 +32,10 @@ const blogSchema = new Schema({
     default: () => Date.now(),
     immutable: true
   },
-  content: String,
-  updatedAt: Date
+  updatedAt: Date,
+  content: String
 });
 
-const BlogModel = mongoose.models.Blog || model('Blog', blogSchema);
+const BlogModel = mongoose.models.blog || model('Blog', blogSchema);
 
 export default BlogModel;

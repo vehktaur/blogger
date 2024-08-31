@@ -15,7 +15,7 @@ const Navbar = () => {
 
   useGSAP(() => {
     gsap.to(navbar.current, {
-      backgroundColor: 'rgb(255 255 255 / 0.75)',
+      backgroundColor: 'rgb(255 255 255 / 0.45)',
       boxShadow:
         '0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)',
       backdropFilter: 'blur(5px)',
