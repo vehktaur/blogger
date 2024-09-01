@@ -5,8 +5,8 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 
 export const metadata: Metadata = {
-  title: 'Blogger',
-  description: 'Blog App from GreatStack'
+  title: 'Blogger - Admin',
+  description: 'Blog Admin Page'
 };
 
 const barlow = Barlow({
