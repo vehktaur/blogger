@@ -34,7 +34,7 @@ const Navbar = () => {
       <nav className="flex gap-4 justify-between items-center px-5 sm:px-10 pt-4 pb-3 max-w-7xl mx-auto">
         <Link href="/">
           <Image
-            src="/logo.png"
+            src="/icons/logo.png"
             width={180}
             height={100}
             alt="app logo"
@@ -45,7 +45,7 @@ const Navbar = () => {
           Get Started
           <Image
             className="animate-bounce mt-1"
-            src="/arrow.png"
+            src="/icons/arrow.png"
             width={16}
             height={14}
             alt="arrow image"

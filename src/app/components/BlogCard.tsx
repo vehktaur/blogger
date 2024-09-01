@@ -44,7 +44,7 @@ const BlogCard = ({ blog }: { blog: Blog }) => {
               Read more
               <Image
                 className="group-hover:translate-x-1 group-hover:scale-x-[1.35] duration-700 transition-transform"
-                src="/arrow.png"
+                src="/icons/arrow.png"
                 width={12}
                 height={9}
                 alt="arrow"

@@ -65,7 +65,7 @@ const Blog = ({ params }: { params: { title: string } }) => {
               <div className="flex items-center gap-1 mt-4">
                 <a href="#">
                   <Image
-                    src="/x_icon.png"
+                    src="/icons/x_icon.png"
                     width={50}
                     height={50}
                     alt="X Profile"
@@ -73,7 +73,7 @@ const Blog = ({ params }: { params: { title: string } }) => {
                 </a>
                 <a href="#">
                   <Image
-                    src="/facebook_icon.png"
+                    src="/icons/facebook_icon.png"
                     width={50}
                     height={50}
                     alt="Github Profile"
@@ -81,7 +81,7 @@ const Blog = ({ params }: { params: { title: string } }) => {
                 </a>
                 <a href="#">
                   <Image
-                    src="/googleplus_icon.png"
+                    src="/icons/googleplus_icon.png"
                     width={50}
                     height={50}
                     alt="LinkedIn Profile"
