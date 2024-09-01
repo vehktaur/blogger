@@ -1,4 +1,4 @@
 const Admin = () => {
-  return <div>Admin</div>;
+  return <div>Admin Section</div>;
 };
 export default Admin;
