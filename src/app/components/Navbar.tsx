@@ -31,7 +31,7 @@ const Navbar = () => {
 
   return (
     <div ref={navbar} className="fixed top-0 left-0 w-full z-10">
-      <nav className="flex gap-4 justify-between items-center px-5 sm:px-10 py-5 max-w-7xl mx-auto">
+      <nav className="flex gap-4 justify-between items-center px-5 sm:px-10 pt-4 pb-3 max-w-7xl mx-auto">
         <Link href="/">
           <Image
             src="/logo.png"

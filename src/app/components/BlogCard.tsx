@@ -40,10 +40,10 @@ const BlogCard = ({ blog }: { blog: Blog }) => {
           </p>
 
           <div className="mt-4">
-            <button className="flex gap-2 items-center ~text-sm/base font-bold">
-              Read more{' '}
+            <button className="flex gap-2 items-baseline ~text-sm/base font-bold">
+              Read more
               <Image
-                className="group-hover:animate-bounce"
+                className="group-hover:translate-x-1 group-hover:scale-x-[1.35] duration-700 transition-transform"
                 src="/arrow.png"
                 width={12}
                 height={9}
