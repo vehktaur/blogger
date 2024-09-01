@@ -1,7 +1,7 @@
 'use client';
 
 import BlogList from '@/app/components/BlogList';
-import HomeIntro from './components/HomeIntro';
+import HomeIntro from '../components/HomeIntro';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { EmailInput } from '@/lib/definitions';
 
