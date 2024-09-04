@@ -12,3 +12,13 @@ input:-webkit-autofill:active {
 .swiper-pagination-bullet {
   background-color: #333 !important;
 }
+
+.full-screen {
+  height: 100vh;
+  height: 100dvh;
+}
+
+.min-full-screen {
+  min-height: 100vh;
+  min-height: 100dvh;
+}
