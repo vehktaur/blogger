@@ -23,7 +23,7 @@ const AddBlog = () => {
             <div
               {...getRootProps({
                 className:
-                  "py-8 ~px-4/8 block max-w-sm border border-dashed rounded-lg border-[#999] flex flex-col items-center gap-2 cursor-pointer h-48 justify-center",
+                  "py-8 ~px-4/8 block max-w-[80%] sm:max-w-sm border border-dashed rounded-xl border-[#999] flex flex-col items-center gap-2 cursor-pointer h-48 justify-center",
               })}
             >
               <Image
