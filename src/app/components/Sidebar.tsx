@@ -26,7 +26,7 @@ const Sidebar = () => {
     },
   ];
   return (
-    <aside className="sticky left-0 top-0 h-screen w-16 border-r border-black bg-stone-50 sm:w-96">
+    <aside className="sticky left-0 top-0 h-[100svh] w-16 border-r border-black bg-stone-50 sm:w-96">
       <div className="flex h-full flex-col">
         <div className="h-[3.75rem] border-b border-black sm:py-3">
           <div className="h-full w-full content-center sm:px-8 md:px-12">

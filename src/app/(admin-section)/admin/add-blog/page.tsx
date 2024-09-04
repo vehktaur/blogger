@@ -11,6 +11,7 @@ const AddBlog = () => {
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
+    noKeyboard: true,
   });
 
   return (
@@ -18,7 +19,7 @@ const AddBlog = () => {
       <div className="mx-auto max-w-6xl">
         <form>
           <div>
-            <h3 className="mb-4 text-xl font-medium">Upload Image</h3>
+            <h3 className="mb-4 font-medium ~text-lg/xl">Upload Image</h3>
             <div
               {...getRootProps({
                 className:
