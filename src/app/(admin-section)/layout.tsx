@@ -4,6 +4,8 @@ import "../globals.css";
 import "swiper/css";
 import "swiper/css/pagination";
 import Sidebar from "@/app/components/Sidebar";
+import "react-toastify/dist/ReactToastify.css";
+import { Slide, ToastContainer } from "react-toastify";
 
 export const metadata: Metadata = {
   title: "Blogger - Admin",
@@ -23,15 +25,33 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`flex ${barlow.className}`}>
+        {/* Admin Sidebar */}
         <Sidebar />
-        <div className="grid min-full-screen w-full content-start">
-          <nav className="h-[3.75rem] border-b border-black bg-stone-50 px-5 content-center">
+
+        {/* Actual Admin Section */}
+        <div className="min-full-screen grid w-full content-start">
+          <nav className="sticky top-0 z-10 w-full h-[3.75rem] content-center border-b border-black bg-stone-50 px-5">
             <div className="mx-auto flex max-w-6xl items-center justify-between">
               <h3 className="font-medium ~text-base/lg">Admin Panel</h3>
             </div>
           </nav>
           <main>{children}</main>
         </div>
+
+        {/* Toast Container */}
+        <ToastContainer
+          position="top-right"
+          autoClose={3000}
+          hideProgressBar
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable={false}
+          pauseOnHover={false}
+          theme="light"
+          transition={Slide}
+        />
       </body>
     </html>
   );

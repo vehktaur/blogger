@@ -1,5 +1,5 @@
-import { StaticImport } from 'next/dist/shared/lib/get-img-props';
-import { StaticImageData } from 'next/image';
+import { StaticImport } from "next/dist/shared/lib/get-img-props";
+import { StaticImageData } from "next/image";
 
 export interface Blog {
   id: number;
@@ -19,4 +19,15 @@ export interface Category {
 
 export interface EmailInput {
   email: string;
+}
+
+export interface ImageFile {
+  image: File;
+  preview: string;
+}
+
+export interface BlogFormData {
+  title: string;
+  category: string[];
+  content: string;
 }

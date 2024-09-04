@@ -35,7 +35,7 @@ export default function Home() {
           >
             <div className="flex items-stretch shadow-offset">
               <input
-                className="w-full border border-black outline-none ~px-3/4 ~py-2.5/3"
+                className="input-base border-black"
                 type="email"
                 {...register("email", {
                   required: "The email field is required",

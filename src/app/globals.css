@@ -23,6 +23,16 @@ input:-webkit-autofill:active {
   min-height: 100dvh;
 }
 
+@layer components {
+  .input-base {
+    @apply block w-full border outline-none ~px-3/4 ~py-2.5/3;
+  }
+
+  .form-label {
+    @apply mb-4 font-medium ~text-lg/xl;
+  }
+}
+
 /* .border-img {
   background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' rx='16' ry='16' stroke='%23999999FF' stroke-width='3' stroke-dasharray='25' stroke-dashoffset='0' stroke-linecap='round'/%3e%3c/svg%3e");
 } */

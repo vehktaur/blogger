@@ -6,6 +6,7 @@ import "swiper/css/pagination";
 
 import Footer from "@/app/components/Footer";
 import Navbar from "@/app/components/Navbar";
+import { ToastContainer } from "react-toastify";
 
 export const metadata: Metadata = {
   title: "Blogger",
