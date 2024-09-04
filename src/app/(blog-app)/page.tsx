@@ -1,16 +1,16 @@
-'use client';
+"use client";
 
-import BlogList from '@/app/components/BlogList';
-import HomeIntro from '../components/HomeIntro';
-import { SubmitHandler, useForm } from 'react-hook-form';
-import { EmailInput } from '@/lib/definitions';
+import BlogList from "@/app/components/BlogList";
+import HomeIntro from "../components/HomeIntro";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { EmailInput } from "@/lib/definitions";
 
 export default function Home() {
   const {
     register,
     handleSubmit,
     reset,
-    formState: { errors }
+    formState: { errors },
   } = useForm<EmailInput>();
   const emailPattern =
     /^(([^<>()[\]\.,;:\s@"]+(\.[^<>()[\]\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -22,32 +22,32 @@ export default function Home() {
 
   return (
     <div className="~text-sm/lg ~pt-12/24">
-      <div className="max-w-7xl mx-auto">
-        <section className="text-center sm:px-8 ~pt-4/6">
+      <div className="mx-auto max-w-7xl">
+        <section className="text-center ~pt-4/6 sm:px-8">
           <HomeIntro />
         </section>
 
-        <section className="px-5  ~mb-8/16 ~mt-6/10">
+        <section className="px-5 ~mt-6/10 ~mb-8/16">
           <form
-            className=" min-w-[260px] w-4/5 max-w-[35rem] mx-auto"
+            className="mx-auto w-4/5 min-w-[260px] max-w-[35rem]"
             onSubmit={handleSubmit(onSubmit)}
             noValidate
           >
             <div className="flex items-stretch shadow-offset">
               <input
-                className="~px-3/4 ~py-2.5/3 border border-black w-full outline-none"
+                className="w-full border border-black outline-none ~px-3/4 ~py-2.5/3"
                 type="email"
-                {...register('email', {
-                  required: 'The email field is required',
+                {...register("email", {
+                  required: "The email field is required",
                   pattern: {
                     value: emailPattern,
-                    message: 'Please enter a valid email'
-                  }
+                    message: "Please enter a valid email",
+                  },
                 })}
                 placeholder="Enter your email"
               />
               <button
-                className="border border-black border-l-0 ~px-3/6 hover:bg-gray-200 transition-colors duration-300"
+                className="border border-l-0 border-black transition-colors duration-300 ~px-3/6 hover:bg-gray-200"
                 type="submit"
               >
                 Subscribe
@@ -61,7 +61,7 @@ export default function Home() {
           </form>
         </section>
 
-        <section className="~mb-12/20 px-5 ">
+        <section className="px-5 ~mb-12/20">
           <BlogList />
         </section>
       </div>

@@ -1,9 +1,9 @@
-import Image from 'next/image';
+import Image from "next/image";
 
 const Footer = () => {
   return (
-    <footer className="px-5 bg-black text-white self-end">
-      <div className="max-w-7xl mx-auto ~py-8/12 flex flex-col sm:flex-row justify-around items-center gap-6">
+    <footer className="self-end bg-black px-5 text-white">
+      <div className="mx-auto flex max-w-7xl flex-col items-center justify-around gap-6 ~py-8/12 sm:flex-row">
         <Image
           src="/icons/logo_light.png"
           width={120}
@@ -12,7 +12,7 @@ const Footer = () => {
           className="h-auto"
         />
 
-        <small className="sm:text-sm text-gray-200 text-center">
+        <small className="text-center text-gray-200 sm:text-sm">
           All rights reserved. Copyright @vehktaur / GreatStack
         </small>
 

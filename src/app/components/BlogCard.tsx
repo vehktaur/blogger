@@ -1,11 +1,12 @@
-import { Blog } from '@/lib/definitions';
-import Image from 'next/image';
-import Link from 'next/link';
+import { Blog } from "@/lib/definitions";
+import { ChevronDoubleRightIcon } from "@heroicons/react/20/solid";
+import Image from "next/image";
+import Link from "next/link";
 
 const BlogCard = ({ blog }: { blog: Blog }) => {
   return (
     <Link href={`/blogs/${encodeURIComponent(blog.title)}`}>
-      <div className="hover:shadow-offset w-full max-w-[20.625rem] sm:max-w-[18.75rem] border border-black transition-shadow duration-500 shadow group rounded overflow-hidden">
+      <div className="group w-full max-w-[20.625rem] overflow-hidden rounded border border-black shadow transition-shadow duration-500 hover:shadow-offset sm:max-w-[18.75rem]">
         <div className="border-b border-black">
           <Image
             className="w-full object-cover"
@@ -16,12 +17,12 @@ const BlogCard = ({ blog }: { blog: Blog }) => {
           />
         </div>
 
-        <div className="p-5 bg-white grid">
+        <div className="grid bg-white p-5">
           <div className="mb-3 flex items-center gap-2">
             {blog.category.map((category) => (
               <span
                 key={`${category}_${blog.id}`}
-                className="text-white bg-black ~text-xs/sm p-1 rounded-[0.1rem]"
+                className="rounded-[0.1rem] bg-black p-1 text-white ~text-xs/sm"
               >
                 {category}
               </span>
@@ -29,26 +30,20 @@ const BlogCard = ({ blog }: { blog: Blog }) => {
           </div>
 
           <h3
-            className="font-semibold line-clamp-2 mb-2 text-gray-900 tracking-tight"
+            className="mb-2 line-clamp-2 font-semibold tracking-tight text-gray-900"
             title={blog.title}
           >
             {blog.title}
           </h3>
 
-          <p className="text-sm text-gray-700 tracking-tight line-clamp-3">
+          <p className="line-clamp-3 text-sm tracking-tight text-gray-700">
             {blog.description}
           </p>
 
           <div className="mt-4">
-            <button className="flex gap-2 items-baseline ~text-sm/base font-bold">
+            <button className="flex items-center gap-1.5 font-bold ~text-sm/base">
               Read more
-              <Image
-                className="group-hover:translate-x-1 group-hover:scale-x-[1.35] duration-700 transition-transform"
-                src="/icons/arrow.png"
-                width={12}
-                height={9}
-                alt="arrow"
-              />
+              <ChevronDoubleRightIcon className="w-4 transition-transform duration-700 group-hover:translate-x-1 group-hover:scale-x-[1.35] mt-[0.025rem]" />
             </button>
           </div>
         </div>

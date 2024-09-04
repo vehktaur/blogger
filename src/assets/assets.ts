@@ -14,7 +14,7 @@ import blog_pic_13 from './blog_pic_13.png';
 import blog_pic_14 from './blog_pic_14.png';
 import blog_pic_15 from './blog_pic_15.png';
 import blog_pic_16 from './blog_pic_16.png';
-import profile_icon from './profile_icon.png';
+import profile_img from './profile.webp';
 
 export const assets = {
   blog_pic_1,
@@ -33,5 +33,5 @@ export const assets = {
   blog_pic_14,
   blog_pic_15,
   blog_pic_16,
-  profile_icon
+  profile_img
 };

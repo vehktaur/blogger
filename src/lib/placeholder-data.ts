@@ -9,8 +9,8 @@ export const blogData: Blog[] = [
     image: assets.blog_pic_1,
     date: Date.now(),
     category: ['Lifestyle'],
-    author: 'Alex Bennett',
-    author_img: assets.profile_icon
+    author: 'Kurapika',
+    author_img: assets.profile_img
   },
   {
     id: 2,
@@ -18,9 +18,9 @@ export const blogData: Blog[] = [
     description: `Creating an effective startup roadmap is crucial for turning your innovative ideas into a successful business. This blog explores the essential steps for crafting a clear and actionable startup plan, including market research, defining your value proposition, setting milestones, and identifying potential challenges. Learn how to leverage resources, build a strong team, and secure funding to ensure your startup’s growth and sustainability. Whether you're a budding entrepreneur or an experienced business owner, this guide offers valuable insights to help you navigate the startup landscape.`,
     image: assets.blog_pic_2,
     date: Date.now(),
-    category: ['Startup','Lifestyle'],
-    author: 'Alex Bennett',
-    author_img: assets.profile_icon
+    category: ['Startup', 'Lifestyle'],
+    author: 'Kurapika',
+    author_img: assets.profile_img
   },
   {
     id: 3,
@@ -29,8 +29,8 @@ export const blogData: Blog[] = [
     image: assets.blog_pic_3,
     date: Date.now(),
     category: ['Technology'],
-    author: 'Alex Bennett',
-    author_img: assets.profile_icon
+    author: 'Kurapika',
+    author_img: assets.profile_img
   },
   {
     id: 4,
@@ -39,8 +39,8 @@ export const blogData: Blog[] = [
     image: assets.blog_pic_4,
     date: Date.now(),
     category: ['Technology'],
-    author: 'Alex Bennett',
-    author_img: assets.profile_icon
+    author: 'Kurapika',
+    author_img: assets.profile_img
   },
   {
     id: 5,
@@ -49,8 +49,8 @@ export const blogData: Blog[] = [
     image: assets.blog_pic_5,
     date: Date.now(),
     category: ['Lifestyle'],
-    author: 'Alex Bennett',
-    author_img: assets.profile_icon
+    author: 'Kurapika',
+    author_img: assets.profile_img
   },
   {
     id: 6,
@@ -59,8 +59,8 @@ export const blogData: Blog[] = [
     image: assets.blog_pic_6,
     date: Date.now(),
     category: ['Startup'],
-    author: 'Alex Bennett',
-    author_img: assets.profile_icon
+    author: 'Kurapika',
+    author_img: assets.profile_img
   },
   {
     id: 7,
@@ -69,8 +69,8 @@ export const blogData: Blog[] = [
     image: assets.blog_pic_7,
     date: Date.now(),
     category: ['Technology'],
-    author: 'Alex Bennett',
-    author_img: assets.profile_icon
+    author: 'Kurapika',
+    author_img: assets.profile_img
   },
   {
     id: 8,
@@ -79,8 +79,8 @@ export const blogData: Blog[] = [
     image: assets.blog_pic_8,
     date: Date.now(),
     category: ['Lifestyle'],
-    author: 'Alex Bennett',
-    author_img: assets.profile_icon
+    author: 'Kurapika',
+    author_img: assets.profile_img
   },
   {
     id: 9,
@@ -89,8 +89,8 @@ export const blogData: Blog[] = [
     image: assets.blog_pic_9,
     date: Date.now(),
     category: ['Startup'],
-    author: 'Alex Bennett',
-    author_img: assets.profile_icon
+    author: 'Kurapika',
+    author_img: assets.profile_img
   },
   {
     id: 10,
@@ -99,8 +99,8 @@ export const blogData: Blog[] = [
     image: assets.blog_pic_10,
     date: Date.now(),
     category: ['Lifestyle'],
-    author: 'Alex Bennett',
-    author_img: assets.profile_icon
+    author: 'Kurapika',
+    author_img: assets.profile_img
   },
   {
     id: 11,
@@ -109,8 +109,8 @@ export const blogData: Blog[] = [
     image: assets.blog_pic_11,
     date: Date.now(),
     category: ['Startup'],
-    author: 'Alex Bennett',
-    author_img: assets.profile_icon
+    author: 'Kurapika',
+    author_img: assets.profile_img
   },
   {
     id: 12,
@@ -119,8 +119,8 @@ export const blogData: Blog[] = [
     image: assets.blog_pic_12,
     date: Date.now(),
     category: ['Technology'],
-    author: 'Alex Bennett',
-    author_img: assets.profile_icon
+    author: 'Kurapika',
+    author_img: assets.profile_img
   },
   {
     id: 13,
@@ -129,8 +129,8 @@ export const blogData: Blog[] = [
     image: assets.blog_pic_13,
     date: Date.now(),
     category: ['Startup'],
-    author: 'Alex Bennett',
-    author_img: assets.profile_icon
+    author: 'Kurapika',
+    author_img: assets.profile_img
   },
   {
     id: 14,
@@ -139,8 +139,8 @@ export const blogData: Blog[] = [
     image: assets.blog_pic_14,
     date: Date.now(),
     category: ['Lifestyle'],
-    author: 'Alex Bennett',
-    author_img: assets.profile_icon
+    author: 'Kurapika',
+    author_img: assets.profile_img
   },
   {
     id: 15,
@@ -149,8 +149,8 @@ export const blogData: Blog[] = [
     image: assets.blog_pic_15,
     date: Date.now(),
     category: ['Technology'],
-    author: 'Alex Bennett',
-    author_img: assets.profile_icon
+    author: 'Kurapika',
+    author_img: assets.profile_img
   },
   {
     id: 16,
@@ -159,7 +159,7 @@ export const blogData: Blog[] = [
     image: assets.blog_pic_16,
     date: Date.now(),
     category: ['Startup'],
-    author: 'Alex Bennett',
-    author_img: assets.profile_icon
+    author: 'Kurapika',
+    author_img: assets.profile_img
   }
 ];

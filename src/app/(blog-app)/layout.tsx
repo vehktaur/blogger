@@ -1,30 +1,30 @@
-import type { Metadata } from 'next';
-import { Barlow } from 'next/font/google';
-import '../globals.css';
-import 'swiper/css';
-import 'swiper/css/pagination';
+import type { Metadata } from "next";
+import { Barlow } from "next/font/google";
+import "../globals.css";
+import "swiper/css";
+import "swiper/css/pagination";
 
-import Footer from '@/app/components/Footer';
-import Navbar from '@/app/components/Navbar';
+import Footer from "@/app/components/Footer";
+import Navbar from "@/app/components/Navbar";
 
 export const metadata: Metadata = {
-  title: 'Blogger',
-  description: 'Blog App from GreatStack'
+  title: "Blogger",
+  description: "Blog App from GreatStack",
 };
 
 const barlow = Barlow({
-  subsets: ['latin'],
-  weight: ['400', '500', '600', '700']
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
 });
 
 export default function RootLayout({
-  children
+  children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
     <html className="scroll-smooth" lang="en">
-      <body className={`min-h-screen grid ${barlow.className}`}>
+      <body className={`grid min-h-screen ${barlow.className}`}>
         <Navbar />
 
         <main>{children}</main>
