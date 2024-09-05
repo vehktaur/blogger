@@ -295,18 +295,18 @@ const AddBlog = () => {
           <div className="mt-10 flex items-center gap-4">
             <button
               type="submit"
-              className="group relative z-[1] inline-block overflow-hidden rounded-3xl border border-black px-6 py-2 font-medium transition-all duration-500 ~text-sm/base hover:text-white"
+              className="group relative z-[1] inline-block overflow-hidden rounded-3xl border border-black px-6 py-2 font-medium transition-all duration-300 ~text-sm/base hover:text-white"
             >
-              <span className="absolute -left-[1px] -top-[1px] z-[-1] block h-[calc(100%+2px)] w-0 rounded-3xl bg-black transition-all duration-500 group-hover:w-[calc(100%+2px)]" />
+              <span className="absolute -left-[1px] -top-[1px] z-[-1] block h-[calc(100%+2px)] w-0 rounded-3xl bg-black transition-all duration-300 group-hover:w-[calc(100%+2px)]" />
               CREATE
             </button>
 
             <button
               onClick={() => resetForm()}
               type="button"
-              className="group relative z-[1] inline-block overflow-hidden rounded-3xl border border-red-500 px-6 py-2 font-medium text-red-500 transition-all duration-500 ~text-sm/base hover:text-white"
+              className="group relative z-[1] inline-block overflow-hidden rounded-3xl border border-red-500 px-6 py-2 font-medium text-red-500 transition-all duration-300 ~text-sm/base hover:text-white"
             >
-              <span className="absolute -left-[1px] -top-[1px] z-[-1] block h-[calc(100%+2px)] w-0 rounded-3xl bg-red-500 transition-all duration-500 group-hover:w-[calc(100%+2px)]" />
+              <span className="absolute -left-[1px] -top-[1px] z-[-1] block h-[calc(100%+2px)] w-0 rounded-3xl bg-red-500 transition-all duration-300 group-hover:w-[calc(100%+2px)]" />
               CLEAR
             </button>
           </div>
