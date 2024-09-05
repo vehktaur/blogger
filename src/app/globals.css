@@ -9,18 +9,22 @@ input:-webkit-autofill:active {
   -webkit-box-shadow: 0 0 0 30px #f5f5f5db inset !important;
 }
 
-.swiper-pagination-bullet {
-  background-color: #333 !important;
+@layer utilities {
+  body {
+    @apply scrollbar scrollbar-w-[0.85rem] scrollbar-track-[#f1f1f1] scrollbar-thumb-[#555];
+  }
 }
 
-.full-screen {
-  height: 100vh;
-  height: 100dvh;
-}
+@layer utilities {
+  .full-screen {
+    height: 100vh;
+    height: 100dvh;
+  }
 
-.min-full-screen {
-  min-height: 100vh;
-  min-height: 100dvh;
+  .min-full-screen {
+    min-height: 100vh;
+    min-height: 100dvh;
+  }
 }
 
 @layer components {
@@ -31,6 +35,14 @@ input:-webkit-autofill:active {
   .form-label {
     @apply mb-4 font-medium ~text-lg/xl;
   }
+
+  .error {
+    @apply text-sm text-red-700;
+  }
+}
+
+.swiper-pagination-bullet {
+  background-color: #333 !important;
 }
 
 /* .border-img {

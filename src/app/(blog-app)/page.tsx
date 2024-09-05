@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import BlogList from "@/app/components/BlogList";
-import HomeIntro from "../components/HomeIntro";
-import { SubmitHandler, useForm } from "react-hook-form";
-import { EmailInput } from "@/lib/definitions";
+import BlogList from '@/app/components/BlogList';
+import HomeIntro from '../components/HomeIntro';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { EmailInput } from '@/lib/definitions';
 
 export default function Home() {
   const {
@@ -37,11 +37,11 @@ export default function Home() {
               <input
                 className="input-base border-black"
                 type="email"
-                {...register("email", {
-                  required: "The email field is required",
+                {...register('email', {
+                  required: 'The email field is required',
                   pattern: {
                     value: emailPattern,
-                    message: "Please enter a valid email",
+                    message: 'Please enter a valid email',
                   },
                 })}
                 placeholder="Enter your email"
@@ -54,7 +54,7 @@ export default function Home() {
               </button>
             </div>
             {errors.email?.message && (
-              <p className="mt-3 text-sm text-red-700">
+              <p className="mt-3 error">
                 {errors.email?.message}
               </p>
             )}

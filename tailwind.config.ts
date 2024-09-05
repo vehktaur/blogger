@@ -6,23 +6,29 @@ const config: Config = {
     files: [
       './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
       './src/components/**/*.{js,ts,jsx,tsx,mdx}',
-      './src/app/**/*.{js,ts,jsx,tsx,mdx}'
+      './src/app/**/*.{js,ts,jsx,tsx,mdx}',
     ],
-    extract
+    extract,
   },
   theme: {
     screens,
     fontSize,
     extend: {
       boxShadow: {
-        offset: '-7px 7px 0 #000000'
+        offset: '-7px 7px 0 #000000',
       },
       screens: {
         xxs: '20rem',
-        xs: '30rem'
-      }
-    }
+        xs: '30rem',
+      },
+    },
   },
-  plugins: [fluid]
+  plugins: [
+    fluid,
+    require('tailwind-scrollbar')({
+      nocompatible: true,
+      preferredStrategy: 'pseudoelements',
+    }),
+  ],
 };
 export default config;

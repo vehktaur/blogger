@@ -1,28 +1,28 @@
-import { assets } from "@/assets/assets";
+import { assets } from '@/assets/assets';
 import {
   PlusCircleIcon,
   ListBulletIcon,
   EnvelopeIcon,
-} from "@heroicons/react/24/outline";
-import Image from "next/image";
-import Link from "next/link";
+} from '@heroicons/react/24/outline';
+import Image from 'next/image';
+import NavLink from './NavLink';
 
 const Sidebar = () => {
-  const options = [
+  const navNavLinks = [
     {
-      option: "Add Blog",
+      name: 'Add Blog',
       image: <PlusCircleIcon className="size-7" />,
-      path: "/admin/add-blog",
+      path: '/admin/add-blog',
     },
     {
-      option: "Blogs List",
+      name: 'Blogs List',
       image: <ListBulletIcon className="size-7" />,
-      path: "/admin/blogs",
+      path: '/admin/blogs',
     },
     {
-      option: "Subscriptions",
+      name: 'Subscriptions',
       image: <EnvelopeIcon className="size-7" />,
-      path: "/admin/subscriptions",
+      path: '/admin/subscriptions',
     },
   ];
   return (
@@ -30,7 +30,7 @@ const Sidebar = () => {
       <div className="flex h-full flex-col">
         <div className="h-[3.75rem] border-b border-black sm:py-3">
           <div className="h-full w-full content-center sm:px-8 md:px-12">
-            <Link className="mx-auto block w-full sm:w-auto" href="/">
+            <NavLink className="mx-auto block w-full sm:w-auto" href="/">
               <Image
                 src="/icons/logo.png"
                 width={180}
@@ -47,22 +47,23 @@ const Sidebar = () => {
                   className="size-full object-contain sm:hidden"
                 />
               </div>
-            </Link>
+            </NavLink>
           </div>
         </div>
 
-        <div className="space-y-6 py-12">
-          {options.map(({ option, image, path }) => (
-            <Link
-              className="block px-1 transition-all duration-500 hover:bg-stone-200 sm:px-8 md:px-12"
-              key={option}
+        <div className="space-y-3 py-12">
+          {navNavLinks.map(({ name, image, path }) => (
+            <NavLink
+              activeClassName="bg-stone-200"
+              className="block px-1 py-1.5 transition-all duration-500 hover:bg-stone-200 sm:px-8 md:px-12"
+              key={name}
               href={path}
             >
               <div className="flex items-center justify-center gap-2 py-2 font-medium sm:justify-start">
                 {image}
-                <span className="hidden sm:block">{option}</span>
+                <span className="hidden sm:block">{name}</span>
               </div>
-            </Link>
+            </NavLink>
           ))}
         </div>
 
