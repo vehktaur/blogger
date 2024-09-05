@@ -104,7 +104,7 @@ const AddBlog = () => {
     };
   }, []);
   return (
-    <section className="px-5 pb-10 ~pt-10/12">
+    <section className="px-5 pb-10 ~pt-5/8">
       <div className="mx-auto max-w-6xl">
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="w-[85%] max-w-md space-y-8">
@@ -222,7 +222,7 @@ const AddBlog = () => {
               <div className="flex flex-wrap rounded-3xl border px-2 py-6 ~gap-x-1/2 ~gap-y-2/4">
                 {categories.map((category, index) => (
                   <label
-                    className="mx-auto flex cursor-pointer items-center gap-2 rounded-full border px-4 py-2 font-medium transition-all duration-500 ~text-[0.8rem]/[0.9rem] hover:bg-[#999] hover:fill-white hover:text-white has-[:checked]:bg-[#333] has-[:checked]:text-white"
+                    className="mx-auto flex cursor-pointer items-center gap-2 rounded-full border px-4 py-2 font-medium transition-all duration-300 ~text-[0.8rem]/[0.9rem] hover:scale-110 has-[:checked]:bg-[#333] has-[:checked]:hover:bg-[#333] has-[:checked]:text-white has-[:checked]:scale-105"
                     key={index}
                   >
                     <input
