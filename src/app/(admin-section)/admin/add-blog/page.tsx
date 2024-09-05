@@ -104,7 +104,7 @@ const AddBlog = () => {
     };
   }, []);
   return (
-    <section className="px-5 pb-10 pt-12">
+    <section className="px-5 pb-10 ~pt-10/12">
       <div className="mx-auto max-w-6xl">
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="w-[85%] max-w-md space-y-8">

@@ -51,7 +51,7 @@ const Sidebar = () => {
           </div>
         </div>
 
-        <div className="space-y-3 py-12">
+        <div className="space-y-3 ~py-10/12">
           {navNavLinks.map(({ name, image, path }) => (
             <NavLink
               activeClassName="bg-stone-200"
