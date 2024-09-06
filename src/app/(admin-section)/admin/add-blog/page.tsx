@@ -114,23 +114,23 @@ const AddBlog = () => {
                 {...getRootProps({
                   className: clsx(
                     !image?.image && 'border cursor-pointer',
-                    '~px-4/8 block border-dashed rounded-xl flex flex-col items-center ~gap-2/4 ~h-48/60 justify-center relative',
+                    '~px-4/8 block border-dashed rounded-xl flex flex-col items-center ~gap-3/4 ~h-48/60 justify-center relative',
                     isDragActive ? 'border-[#000]' : 'border-[#aaa]',
                   ),
                 })}
               >
-                <ImageCircleIcon className="~size-[2.2rem]/[2.7rem]" />
-                <p className="h- h- text-center ~text-sm/base">
+                <ImageCircleIcon className="~size-[1.8rem]/[2.5rem]" />
+                <p className="h- h- text-center ~text-[0.8rem]/base">
                   {isDragActive
                     ? 'Drop the image here...'
                     : 'Drag & drop image here, or click to select image'}
                 </p>
 
-                <small className="tracking-wide text-gray-500">
+                <small className="tracking-wide text-gray-500 ~text-xs/sm">
                   Image size (100KB &le; size &le; 2MB)
                 </small>
 
-                {!image?.image && (
+                {image?.image && (
                   <p className="error">An image is required to proceed</p>
                 )}
 
@@ -222,7 +222,7 @@ const AddBlog = () => {
               <div className="flex flex-wrap rounded-3xl border px-2 py-6 ~gap-x-1/2 ~gap-y-2/4">
                 {categories.map((category, index) => (
                   <label
-                    className="mx-auto flex cursor-pointer items-center gap-2 rounded-full border px-4 py-2 font-medium transition-all duration-300 ~text-[0.8rem]/[0.9rem] hover:scale-110 has-[:checked]:bg-[#333] has-[:checked]:hover:bg-[#333] has-[:checked]:text-white has-[:checked]:scale-105"
+                    className="mx-auto flex cursor-pointer items-center gap-2 rounded-full border px-4 py-2 font-medium transition-all duration-300 ~text-[0.8rem]/[0.9rem] hover:scale-110 has-[:checked]:bg-[#333] has-[:checked]:text-white has-[:checked]:scale-105"
                     key={index}
                   >
                     <input
