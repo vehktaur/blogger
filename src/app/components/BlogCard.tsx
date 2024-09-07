@@ -19,7 +19,7 @@ const BlogCard = ({ blog }: { blog: Blog }) => {
 
         <div className="grid bg-white p-5">
           <div className="mb-3 flex items-center gap-2">
-            {blog.category.map((category) => (
+            {blog.categories.map((category) => (
               <span
                 key={`${category}_${blog.id}`}
                 className="rounded-[0.1rem] bg-black p-1 text-white ~text-xs/sm"
