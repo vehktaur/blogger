@@ -48,7 +48,7 @@ export async function POST(request: NextRequest) {
   const blogData = {
     title: formData.get('title'),
     description: formData.get('description'),
-    categories: formData.getAll('categories[]'),
+    categories: 'test',
     author: formData.get('author'),
     authorImg: formData.get('authorImg'),
     image: imageUrl,

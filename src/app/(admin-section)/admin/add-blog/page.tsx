@@ -234,7 +234,7 @@ const AddBlog = () => {
               <div className="flex flex-wrap rounded-3xl border px-2 py-6 ~gap-x-1/2 ~gap-y-2/4">
                 {categories.map((category, index) => (
                   <label
-                    className="mx-auto flex cursor-pointer items-center gap-2 rounded-full border px-4 py-2 font-medium transition-all duration-300 ~text-[0.8rem]/[0.9rem] has-[:checked]:scale-105 has-[:checked]:bg-[#333] has-[:checked]:text-white hover:scale-110"
+                    className="mx-auto flex cursor-pointer items-center gap-2 rounded-full border ~px-2.5/4 py-2 font-medium transition-all duration-300 ~text-[0.8rem]/[0.9rem] has-[:checked]:bg-[#333] has-[:checked]:text-white hover:scale-110"
                     key={index}
                   >
                     <input
