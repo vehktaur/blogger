@@ -3,21 +3,18 @@ import BlogModel from '@/lib/models/BlogModel';
 import { writeFile } from 'fs/promises';
 import { NextRequest, NextResponse } from 'next/server';
 
-//Connect to MongoDB
-const LoadDB = async () => {
-  await ConnectDB();
-};
-
-LoadDB();
-
 //Get Blogs from the Database
 export const GET = async (request: NextRequest) => {
+  //Connect to MongoDB
+  await ConnectDB();
   console.log('Get blog data');
   return NextResponse.json({ success: true });
 };
 
 //Save Blogs to the Database
 export async function POST(request: NextRequest) {
+  //Connect to MongoDB
+  await ConnectDB();
   const formData = await request.formData();
   const image: File | null = formData.get('image') as unknown as File;
 
