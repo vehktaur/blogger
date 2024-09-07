@@ -19,7 +19,7 @@ import {
   OthersIcon,
   TechIcon,
 } from '@/assets/svgs';
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 
 const AddBlog = () => {
   const [image, setImage] = useState<ImageFile | null>(null);
@@ -100,19 +100,26 @@ const AddBlog = () => {
       formData.append('author', 'Kurapika');
       formData.append('authorImg', 'cant see me yet');
 
-      const response = await axios.post('/api/blog', formData);
+      let response;
 
-      if (response.data.success) {
+      try {
+        response = await axios.post('/api/blog', formData);
+      } catch (error) {
+        toast.error('Error - could not post')
+        console.log(error);
+      }
+
+      if (response?.data.success) {
         resetForm();
         toast.success(response.data.msg);
       } else {
-        toast.error(response.data.msg);
+        toast.error(response?.data.msg);
         console.log(
-          `The data sent was: ${JSON.stringify(response.data.blogData)}`,
+          `The data sent was: ${JSON.stringify(response?.data.blogData)}`,
         );
-        console.log(response.data.error);
       }
     } catch (error) {
+      console.log(error);
       toast.error('Error');
     }
   };
@@ -234,7 +241,7 @@ const AddBlog = () => {
               <div className="flex flex-wrap rounded-3xl border px-2 py-6 ~gap-x-1/2 ~gap-y-2/4">
                 {categories.map((category, index) => (
                   <label
-                    className="mx-auto flex cursor-pointer items-center gap-2 rounded-full border ~px-2.5/4 py-2 font-medium transition-all duration-300 ~text-[0.8rem]/[0.9rem] has-[:checked]:bg-[#333] has-[:checked]:text-white hover:scale-110"
+                    className="mx-auto flex cursor-pointer items-center gap-2 rounded-full border py-2 font-medium transition-all duration-300 ~text-[0.8rem]/[0.9rem] ~px-2.5/4 has-[:checked]:bg-[#333] has-[:checked]:text-white hover:scale-110"
                     key={index}
                   >
                     <input

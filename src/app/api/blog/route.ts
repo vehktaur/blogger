@@ -52,6 +52,9 @@ export async function POST(request: NextRequest) {
     content: formData.get('content'),
   };
   try {
+    // const connection = ConnectDB();
+    // await Promise.all([connection]);
+
     await BlogModel.create(blogData);
   } catch (error) {
     return NextResponse.json({
