@@ -9,7 +9,7 @@ const Footer = () => {
           width={120}
           height={100}
           alt="app logo"
-          className="h-auto"
+          className="h-auto w-auto"
         />
 
         <small className="text-center text-gray-200 sm:text-sm">

@@ -25,7 +25,16 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ success: false });
   }
 
-  const imageBytes = await image.arrayBuffer();
+  let imageBytes: ArrayBuffer;
+  try {
+    imageBytes = await image.arrayBuffer();
+  } catch (error) {
+    return NextResponse.json({
+      success: false,
+      msg: 'Failed to process image',
+    });
+  }
+
   const imageBuffer = Buffer.from(imageBytes);
 
   const timestamp = Date.now();
@@ -39,17 +48,24 @@ export async function POST(request: NextRequest) {
   const blogData = {
     title: formData.get('title'),
     description: formData.get('description'),
-    category: formData.get('category'),
+    categories: formData.getAll('categories[]'),
     author: formData.get('author'),
     authorImg: formData.get('authorImg'),
     image: imageUrl,
-    content: formData.get('content')
+    content: formData.get('content'),
   };
-
-  const blog = await BlogModel.create(blogData);
+  try {
+    await BlogModel.create(blogData);
+  } catch (error) {
+    return NextResponse.json({
+      success: false,
+      msg: 'Blog creation failed',
+      blogData,
+    });
+  }
 
   return NextResponse.json({
     success: true,
-    msg: `Blog added - ${blog.title}`
+    msg: `Blog added successfully`,
   });
 }

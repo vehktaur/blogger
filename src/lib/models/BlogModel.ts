@@ -11,7 +11,7 @@ const blogSchema = new Schema({
     type: String,
     required: true,
   },
-  category: {
+  categories: {
     type: [String],
     required: true,
   },
@@ -33,9 +33,12 @@ const blogSchema = new Schema({
     immutable: true,
   },
   updatedAt: Date,
-  content: String,
+  content: {
+    type: String,
+    required: true,
+  },
 });
 
-const BlogModel = mongoose.models.blog || model('Blog', blogSchema);
+const BlogModel = mongoose.models.Blog || model('Blog', blogSchema);
 
 export default BlogModel;

@@ -7,7 +7,7 @@ export interface Blog {
   description: string;
   image: string | StaticImageData | StaticImport;
   date: number;
-  category: string[];
+  categories: string[];
   author: string;
   author_img: string | StaticImageData | StaticImport;
 }
@@ -20,15 +20,19 @@ export interface Category {
 export interface EmailInput {
   email: string;
 }
+export const emailPattern =
+  /^(([^<>()[\]\.,;:\s@"]+(\.[^<>()[\]\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
 export interface ImageFile {
   image?: File;
   preview: string;
+  isEmpty?: boolean;
 }
 
 export interface BlogFormData {
+  image: File | undefined | null;
   title: string;
-  category: string[];
+  categories: string[];
   content: string;
   description: string;
 }

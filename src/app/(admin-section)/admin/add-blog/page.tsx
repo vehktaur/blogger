@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import { SetStateAction, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import clsx from 'clsx';
 import { BlogFormData, ImageFile } from '@/lib/definitions';
@@ -14,6 +14,7 @@ import {
   EntertainmentIcon,
   FinanceIcon,
   ImageCircleIcon,
+  ImageToggleIcon,
   LifestyleIcon,
   OthersIcon,
   TechIcon,
@@ -35,74 +36,96 @@ const AddBlog = () => {
     register,
     handleSubmit,
     reset,
-    formState: { errors },
+    formState: { errors, isSubmitting, submitCount },
   } = useForm<BlogFormData>();
 
-  const { getRootProps, getInputProps, isDragActive, open } = useDropzone({
-    onDrop: (acceptedFiles, rejectedFiles) => {
-      const file = acceptedFiles[0];
-      const errors = rejectedFiles[0]?.errors;
-      if (file) {
-        setImage({
-          image: file,
-          preview: URL.createObjectURL(file),
-        });
-      } else if (errors) {
-        errors.map((error) => {
-          toast.error(
-            error.message
-              .replace('104857.6 bytes', '100KB')
-              .replace('2097152 bytes', '2MB')
-              .replace('/*', ''),
-          );
-        });
-      }
-    },
-    accept: {
-      'image/*': [],
-    },
-    noClick: image ? true : false,
-    minSize: 1024 * 1024 * 0.1,
-    maxSize: 1024 * 1024 * 2,
-    noKeyboard: true,
-    noDragEventsBubbling: true,
-  });
+  const { getRootProps, getInputProps, rootRef, isDragActive, open } =
+    useDropzone({
+      onDrop: (acceptedFiles, rejectedFiles) => {
+        const file = acceptedFiles[0];
+        const errors = rejectedFiles[0]?.errors;
+        if (file) {
+          setImage({
+            image: file,
+            preview: URL.createObjectURL(file),
+          });
+        } else if (errors) {
+          errors.map((error) => {
+            toast.error(
+              error.message
+                .replace('104857.6 bytes', '100KB')
+                .replace('2097152 bytes', '2MB')
+                .replace('/*', ''),
+            );
+          });
+        }
+      },
+      accept: {
+        'image/*': [],
+      },
+      noClick: image ? true : false,
+      minSize: 1024 * 1024 * 0.1,
+      maxSize: 1024 * 1024 * 2,
+      noKeyboard: true,
+      noDragEventsBubbling: true,
+    });
 
+  // Custom function to reset form
   const resetForm = () => {
     reset();
     setImage(null);
   };
 
   const onSubmit: SubmitHandler<BlogFormData> = async (data) => {
-    console.log({ ...data, image: image?.image });
-    resetForm();
+    if (!image) {
+      rootRef.current?.focus();
+      return;
+    }
 
+    data = { ...data, image: image?.image };
+    console.log(data);
     try {
       const formData = new FormData();
 
-      formData.append('image', image!.image!);
       Object.entries(data).forEach(([key, value]) => {
-        formData.append(key, value);
+        if (Array.isArray(value)) {
+          value.forEach((category: string) =>
+            formData.append(`${key}[]`, category),
+          );
+        } else {
+          formData.append(key, value);
+        }
       });
+
       formData.append('author', 'Kurapika');
       formData.append('authorImg', 'cant see me yet');
 
       const response = await axios.post('/api/blog', formData);
+
       if (response.data.success) {
+        resetForm();
         toast.success(response.data.msg);
       } else {
-        toast.error('Error');
+        toast.error(response.data.msg);
+        console.log(
+          `The data sent was: ${JSON.stringify(response.data.blogData)}`,
+        );
+        console.log(response.data.error);
       }
     } catch (error) {
-      console.log(error);
+      toast.error('Error');
     }
   };
 
+  //revoke image urls after component unmount to prevent data leak
   useEffect(() => {
     return () => {
       if (image) URL.revokeObjectURL(image.preview);
     };
   }, []);
+
+  //reset form if form submits successfully
+
   return (
     <section className="px-5 pb-10 ~pt-5/8">
       <div className="mx-auto max-w-6xl">
@@ -117,6 +140,7 @@ const AddBlog = () => {
                     '~px-4/8 block border-dashed rounded-xl flex flex-col items-center ~gap-3/4 ~h-48/60 justify-center relative',
                     isDragActive ? 'border-[#000]' : 'border-[#aaa]',
                   ),
+                  tabIndex: 0,
                 })}
               >
                 <ImageCircleIcon className="~size-[1.8rem]/[2.5rem]" />
@@ -130,7 +154,7 @@ const AddBlog = () => {
                   Image size (100KB &le; size &le; 2MB)
                 </small>
 
-                {image?.image && (
+                {submitCount > 0 && !image && (
                   <p className="error">An image is required to proceed</p>
                 )}
 
@@ -167,19 +191,7 @@ const AddBlog = () => {
                         }}
                         className="absolute -right-10 top-1/2 size-7 rounded-full bg-[#f5f5f5] p-[0.15rem]"
                       >
-                        <svg
-                          className="size-full"
-                          fill="none"
-                          height="20"
-                          viewBox="0 0 20 20"
-                          width="20"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M14.8536 2.14645C14.6583 1.95118 14.3417 1.95118 14.1464 2.14645C13.9512 2.34171 13.9512 2.65829 14.1464 2.85355L15.2929 4H4C2.89543 4 2 4.89543 2 6V12.5C2 12.7761 2.22386 13 2.5 13C2.77614 13 3 12.7761 3 12.5V6C3 5.44772 3.44772 5 4 5H15.2929L14.1464 6.14645C13.9512 6.34171 13.9512 6.65829 14.1464 6.85355C14.3417 7.04882 14.6583 7.04882 14.8536 6.85355L16.8536 4.85355C17.0488 4.65829 17.0488 4.34171 16.8536 4.14645L14.8536 2.14645ZM16 15C16.5523 15 17 14.5523 17 14V7.5C17 7.22386 17.2239 7 17.5 7C17.7761 7 18 7.22386 18 7.5V14C18 15.1046 17.1046 16 16 16H4.70711L5.85355 17.1464C6.04882 17.3417 6.04882 17.6583 5.85355 17.8536C5.65829 18.0488 5.34171 18.0488 5.14645 17.8536L3.14645 15.8536C2.95118 15.6583 2.95118 15.3417 3.14645 15.1464L5.14645 13.1464C5.34171 12.9512 5.65829 12.9512 5.85355 13.1464C6.04882 13.3417 6.04882 13.6583 5.85355 13.8536L4.70711 15H16ZM13 10C13 11.6569 11.6569 13 10 13C8.34315 13 7 11.6569 7 10C7 8.34315 8.34315 7 10 7C11.6569 7 13 8.34315 13 10ZM12 10C12 8.89543 11.1046 8 10 8C8.89543 8 8 8.89543 8 10C8 11.1046 8.89543 12 10 12C11.1046 12 12 11.1046 12 10Z"
-                            fill="#212121"
-                          />
-                        </svg>
+                        <ImageToggleIcon svgClassName="size-full" />
                       </motion.button>
                       <Image
                         src={image.preview}
@@ -222,7 +234,7 @@ const AddBlog = () => {
               <div className="flex flex-wrap rounded-3xl border px-2 py-6 ~gap-x-1/2 ~gap-y-2/4">
                 {categories.map((category, index) => (
                   <label
-                    className="mx-auto flex cursor-pointer items-center gap-2 rounded-full border px-4 py-2 font-medium transition-all duration-300 ~text-[0.8rem]/[0.9rem] hover:scale-110 has-[:checked]:bg-[#333] has-[:checked]:text-white has-[:checked]:scale-105"
+                    className="mx-auto flex cursor-pointer items-center gap-2 rounded-full border px-4 py-2 font-medium transition-all duration-300 ~text-[0.8rem]/[0.9rem] has-[:checked]:scale-105 has-[:checked]:bg-[#333] has-[:checked]:text-white hover:scale-110"
                     key={index}
                   >
                     <input
@@ -230,7 +242,7 @@ const AddBlog = () => {
                       hidden
                       type="checkbox"
                       value={category.name}
-                      {...register('category', {
+                      {...register('categories', {
                         required: {
                           value: true,
                           message: 'Choose a category',
@@ -245,8 +257,8 @@ const AddBlog = () => {
                   </label>
                 ))}
               </div>
-              {errors?.category?.message && (
-                <p className="error mt-2 ps-1">{errors.category.message}</p>
+              {errors?.categories?.message && (
+                <p className="error mt-2 ps-1">{errors.categories.message}</p>
               )}
             </div>
 
@@ -276,7 +288,7 @@ const AddBlog = () => {
                 Content
               </label>
               <textarea
-                className="input-base rounded-sm ~text-sm/base"
+                className="input-base rounded-sm ~text-sm/base scrollbar-thin scrollbar-thumb-[#777]"
                 placeholder="Compose your blog post..."
                 id="content"
                 rows={8}
@@ -294,14 +306,26 @@ const AddBlog = () => {
           </div>
           <div className="mt-10 flex items-center gap-4">
             <button
+              disabled={isSubmitting}
               type="submit"
-              className="group relative z-[1] inline-block overflow-hidden rounded-3xl border border-black px-6 py-2 font-medium transition-all duration-300 ~text-sm/base hover:text-white"
+              className={clsx(
+                isSubmitting && 'text-white',
+                'group relative z-[1] inline-block overflow-hidden rounded-3xl border border-black px-6 py-2 font-medium transition-all duration-300 ~text-sm/base hover:text-white',
+              )}
             >
-              <span className="absolute -left-[1px] -top-[1px] z-[-1] block h-[calc(100%+2px)] w-0 rounded-3xl bg-black transition-all duration-300 group-hover:w-[calc(100%+2px)]" />
-              CREATE
+              <span
+                className={clsx(
+                  isSubmitting
+                    ? 'w-[calc(100%+2px)]'
+                    : 'group-hover:w-[calc(100%+2px)]',
+                  'absolute -left-[1px] -top-[1px] z-[-1] block h-[calc(100%+2px)] w-0 rounded-3xl bg-black transition-all duration-300',
+                )}
+              />
+              {isSubmitting ? 'CREATING...' : 'CREATE'}
             </button>
 
             <button
+              disabled={isSubmitting}
               onClick={() => resetForm()}
               type="button"
               className="group relative z-[1] inline-block overflow-hidden rounded-3xl border border-red-500 px-6 py-2 font-medium text-red-500 transition-all duration-300 ~text-sm/base hover:text-white"

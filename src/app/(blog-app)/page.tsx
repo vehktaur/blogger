@@ -3,22 +3,27 @@
 import BlogList from '@/app/components/BlogList';
 import HomeIntro from '../components/HomeIntro';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { EmailInput } from '@/lib/definitions';
+import { EmailInput, emailPattern } from '@/lib/definitions';
+import { useEffect } from 'react';
 
 export default function Home() {
   const {
     register,
     handleSubmit,
     reset,
-    formState: { errors },
+    formState: { errors, isSubmitSuccessful },
   } = useForm<EmailInput>();
-  const emailPattern =
-    /^(([^<>()[\]\.,;:\s@"]+(\.[^<>()[\]\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
 
   const onSubmit: SubmitHandler<EmailInput> = (data) => {
     console.log(data);
-    reset();
   };
+
+  useEffect(() => {
+    if (isSubmitSuccessful) {
+      reset();
+    }
+  }, [isSubmitSuccessful]);
 
   return (
     <div className="~text-sm/lg ~pt-12/24">
@@ -54,9 +59,7 @@ export default function Home() {
               </button>
             </div>
             {errors.email?.message && (
-              <p className="mt-3 error">
-                {errors.email?.message}
-              </p>
+              <p className="error mt-3">{errors.email?.message}</p>
             )}
           </form>
         </section>
