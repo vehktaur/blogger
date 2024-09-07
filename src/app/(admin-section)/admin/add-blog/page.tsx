@@ -89,9 +89,9 @@ const AddBlog = () => {
 
       Object.entries(data).forEach(([key, value]) => {
         if (Array.isArray(value)) {
-          value.forEach((category: string) =>
-            formData.append(`${key}[]`, category),
-          );
+          value.forEach((category: string) => {
+            formData.append(`${key}[]`, category);
+          });
         } else {
           formData.append(key, value);
         }
