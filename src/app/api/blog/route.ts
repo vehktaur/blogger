@@ -14,7 +14,16 @@ export const GET = async (request: NextRequest) => {
 //Save Blogs to the Database
 export async function POST(request: NextRequest) {
   //Connect to MongoDB
-  await ConnectDB();
+  try {
+    await ConnectDB();
+  } catch (error) {
+    return NextResponse.json({
+      success: false,
+      msg: 'Failed to connect to DB',
+      error,
+    });
+  }
+
   const formData = await request.formData();
   const image: File | null = formData.get('image') as unknown as File;
 
