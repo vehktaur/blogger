@@ -42,6 +42,7 @@ export async function POST(request: NextRequest) {
 
   await writeFile(imagePath, imageBuffer);
 
+  //Create blog and save to DB
   const blogData = {
     title: formData.get('title'),
     description: formData.get('description'),
@@ -52,9 +53,6 @@ export async function POST(request: NextRequest) {
     content: formData.get('content'),
   };
   try {
-    // const connection = ConnectDB();
-    // await Promise.all([connection]);
-
     await BlogModel.create(blogData);
   } catch (error) {
     return NextResponse.json({
