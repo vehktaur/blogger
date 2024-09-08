@@ -14,7 +14,6 @@ export default function Home() {
     formState: { errors, isSubmitSuccessful },
   } = useForm<EmailInput>();
 
-
   const onSubmit: SubmitHandler<EmailInput> = (data) => {
     console.log(data);
   };
