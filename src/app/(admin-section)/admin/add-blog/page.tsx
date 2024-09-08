@@ -105,7 +105,7 @@ const AddBlog = () => {
       try {
         response = await axios.post('/api/blog', formData);
       } catch (error) {
-        toast.error('Error - could not post');
+        toast.error('Error - Could not post');
         console.log(error);
       }
 
@@ -117,7 +117,6 @@ const AddBlog = () => {
         console.log(
           `The data sent was: ${JSON.stringify(response?.data.blogData)}`,
         );
-        console.log(response?.data.msg);
       }
     } catch (error) {
       console.log(error);
