@@ -49,7 +49,15 @@ export async function POST(request: NextRequest) {
   const imageUrl = `${timestamp}_${image.name}`;
   const imagePath = `./public/blog-images/${imageUrl}`;
 
-  //await writeFile(imagePath, imageBuffer);
+  try {
+    await writeFile(imagePath, imageBuffer);
+  } catch (error) {
+    return NextResponse.json({
+      success: false,
+      msg: 'Failed to write file',
+      error,
+    });
+  }
 
   //Create blog and save to DB
   const blogData = {
