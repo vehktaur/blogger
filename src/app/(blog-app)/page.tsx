@@ -26,13 +26,13 @@ export default function Home() {
   }, [isSubmitSuccessful]);
 
   return (
-    <div className="~text-sm/lg ~pt-12/24">
+    <div className="~text-sm/lg ~pt-12/20">
       <div className="mx-auto max-w-7xl">
         <section className="text-center ~pt-4/6 sm:px-8">
           <HomeIntro />
         </section>
 
-        <section className="px-5 ~mt-6/10 ~mb-8/16">
+        <section className="px-5 ~mt-3/6 ~mb-8/16">
           <form
             className="mx-auto w-4/5 min-w-[260px] max-w-[35rem]"
             onSubmit={handleSubmit(onSubmit)}
