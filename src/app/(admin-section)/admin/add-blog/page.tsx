@@ -19,7 +19,7 @@ import {
   OthersIcon,
   TechIcon,
 } from '@/assets/svgs';
-import axios, { AxiosResponse } from 'axios';
+import axios from 'axios';
 
 const AddBlog = () => {
   const [image, setImage] = useState<ImageFile | null>(null);
