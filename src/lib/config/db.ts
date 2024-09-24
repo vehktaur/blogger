@@ -6,4 +6,3 @@ export const ConnectDB = async () => {
   await mongoose.connect(apiUrl!);
   console.log('DB connected successful');
 };
-
