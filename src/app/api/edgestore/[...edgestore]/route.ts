@@ -1,0 +1,21 @@
+import { initEdgeStore } from '@edgestore/server';
+import { createEdgeStoreNextHandler } from '@edgestore/server/adapters/next/app';
+
+//Initiate the edgeStore builder
+const es = initEdgeStore.create();
+
+//create the edgeStore router and configure the edgeStore image bucket
+const edgeStoreRouter = es.router({
+  blogPostImages: es.imageBucket(),
+});
+
+//create the api handler
+const handler = createEdgeStoreNextHandler({
+  router: edgeStoreRouter,
+});
+
+//export the api handler for GET and POST requests
+export { handler as GET, handler as POST };
+
+//export the type of the router for type safety
+export type EdgeStoreRouter = typeof edgeStoreRouter;

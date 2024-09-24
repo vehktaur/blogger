@@ -10,7 +10,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { XCircleIcon } from '@heroicons/react/16/solid';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import {
-  CuisineIcon,
+  CulinaryIcon,
   EntertainmentIcon,
   FinanceIcon,
   ImageCircleIcon,
@@ -20,6 +20,7 @@ import {
   TechIcon,
 } from '@/assets/svgs';
 import axios from 'axios';
+import { useEdgeStore } from '@/lib/edgestore';
 
 const AddBlog = () => {
   const [image, setImage] = useState<ImageFile | null>(null);
@@ -28,10 +29,13 @@ const AddBlog = () => {
     { name: 'Lifestyle', icon: LifestyleIcon },
     { name: 'Finance', icon: FinanceIcon },
     { name: 'Entertainment', icon: EntertainmentIcon },
-    { name: 'Cuisine', icon: CuisineIcon },
+    { name: 'Culinary', icon: CulinaryIcon },
     { name: 'Others', icon: OthersIcon },
+    //Add more categories
   ];
+  const { edgestore } = useEdgeStore();
 
+  //Declare useForm for RHF Form Control
   const {
     register,
     handleSubmit,
@@ -39,6 +43,7 @@ const AddBlog = () => {
     formState: { errors, isSubmitting, submitCount },
   } = useForm<BlogFormData>();
 
+  //Define React Drop Zone methods and properties
   const { getRootProps, getInputProps, rootRef, isDragActive, open } =
     useDropzone({
       onDrop: (acceptedFiles, rejectedFiles) => {
@@ -76,17 +81,26 @@ const AddBlog = () => {
     setImage(null);
   };
 
+  //onSubmit function to create post
   const onSubmit: SubmitHandler<BlogFormData> = async (data) => {
+    //ensure an image was uploaded
     if (!image) {
       rootRef.current?.focus();
       return;
     }
 
-    data = { ...data, image: image?.image };
+    //upload the data to edgeStore
+    const imageUploadResponse = await edgestore.blogPostImages.upload({
+      file: image.image!,
+    });
+
+    //add the image to the form data from RHF
+    data = { ...data, image: imageUploadResponse.url };
     console.log(data);
+
+    //send the form data to the backend (DB)
     try {
       const formData = new FormData();
-
       Object.entries(data).forEach(([key, value]) => {
         if (Array.isArray(value)) {
           value.forEach((category: string) => {
@@ -96,12 +110,10 @@ const AddBlog = () => {
           formData.append(key, value);
         }
       });
-
       formData.append('author', 'Kurapika');
       formData.append('authorImg', 'cant see me yet');
 
       let response;
-
       try {
         response = await axios.post('/api/blog', formData);
       } catch (error) {
@@ -115,7 +127,7 @@ const AddBlog = () => {
       } else {
         toast.error(response?.data.msg);
         console.log(
-          `The data sent was: ${JSON.stringify(response?.data.blogData)}`,
+          `The data sent was: ${JSON.stringify(response?.data?.blogData)}`,
         );
       }
     } catch (error) {
@@ -205,7 +217,7 @@ const AddBlog = () => {
                         className="size-full rounded-xl object-cover object-center"
                         width={100}
                         height={100}
-                        alt="Blog post image"
+                        alt={image.image.name}
                         onLoad={() => URL.revokeObjectURL(image.preview)}
                       />
                     </motion.div>
@@ -254,6 +266,14 @@ const AddBlog = () => {
                           value: true,
                           message: 'Choose a category',
                         },
+                        validate: {
+                          moreThanThree: (value) => {
+                            return (
+                              value.length <= 3 ||
+                              'Categories should not exceed three'
+                            );
+                          },
+                        },
                       })}
                     />
                     <category.icon
@@ -274,7 +294,7 @@ const AddBlog = () => {
                 Description
               </label>
               <textarea
-                className="input-base rounded-sm ~text-sm/base"
+                className="input-base rounded-sm ~text-sm/base scrollbar-thin scrollbar-thumb-[#777]"
                 placeholder="Give us a sneak peek..."
                 id="description"
                 rows={3}

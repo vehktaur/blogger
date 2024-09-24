@@ -6,6 +6,7 @@ import 'swiper/css/pagination';
 import Sidebar from '@/app/components/Sidebar';
 import 'react-toastify/dist/ReactToastify.css';
 import { Slide, ToastContainer } from 'react-toastify';
+import { EdgeStoreProvider } from '@/lib/edgestore';
 
 export const metadata: Metadata = {
   title: 'Blogger - Admin',
@@ -35,7 +36,9 @@ export default function RootLayout({
               <h3 className="font-medium ~text-base/lg">Admin Panel</h3>
             </div>
           </nav>
-          <main>{children}</main>
+          <main>
+            <EdgeStoreProvider>{children}</EdgeStoreProvider>
+          </main>
         </div>
 
         {/* Toast Container */}

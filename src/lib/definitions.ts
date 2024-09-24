@@ -26,11 +26,10 @@ export const emailPattern =
 export interface ImageFile {
   image?: File;
   preview: string;
-  isEmpty?: boolean;
 }
 
 export interface BlogFormData {
-  image: File | undefined | null;
+  image: string;
   title: string;
   categories: string[];
   content: string;

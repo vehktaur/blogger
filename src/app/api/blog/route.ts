@@ -24,8 +24,11 @@ export async function POST(request: NextRequest) {
     });
   }
 
+  //Retrieve the formData from the request
   const formData = await request.formData();
-  const image: File | null = formData.get('image') as unknown as File;
+
+  /*
+   const image: File | null = formData.get('image') as unknown as File;
 
   if (!image) {
     return NextResponse.json({ success: false });
@@ -59,6 +62,8 @@ export async function POST(request: NextRequest) {
     });
   }
 
+   */
+
   //Create blog and save to DB
   const blogData = {
     title: formData.get('title'),
@@ -66,7 +71,7 @@ export async function POST(request: NextRequest) {
     categories: formData.getAll('categories[]'),
     author: formData.get('author'),
     authorImg: formData.get('authorImg'),
-    image: imageUrl,
+    image: formData.get('image'),
     content: formData.get('content'),
   };
   try {

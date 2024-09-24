@@ -135,7 +135,7 @@ export const FinanceIcon = ({ className, svgClassName }: svgInterface) => {
   );
 };
 
-export const CuisineIcon = ({ className, svgClassName }: svgInterface) => {
+export const CulinaryIcon = ({ className, svgClassName }: svgInterface) => {
   return (
     <span className={`${className}`}>
       <svg
