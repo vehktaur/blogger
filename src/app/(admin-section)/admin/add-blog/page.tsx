@@ -4,9 +4,9 @@ import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import clsx from 'clsx';
-import { BlogFormData, ImageFile } from '@/lib/definitions';
+import { BlogFormData, ImageFile, maxSize, minSize } from '@/lib/definitions';
 import { toast } from 'react-toastify';
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, motion, progress } from 'framer-motion';
 import { XCircleIcon } from '@heroicons/react/16/solid';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import {
@@ -23,7 +23,10 @@ import axios from 'axios';
 import { useEdgeStore } from '@/lib/edgestore';
 
 const AddBlog = () => {
-  const [image, setImage] = useState<ImageFile | null>(null);
+  //Define data and state
+  const [image, setImage] = useState<ImageFile | null>(null); // to save blog image file
+  const { edgestore } = useEdgeStore(); // hook for image upload to edge store
+  const [uploadProgress, setUploadProgress] = useState(0); //to show image upload progress
   const categories = [
     { name: 'Tech', icon: TechIcon },
     { name: 'Lifestyle', icon: LifestyleIcon },
@@ -32,8 +35,7 @@ const AddBlog = () => {
     { name: 'Culinary', icon: CulinaryIcon },
     { name: 'Others', icon: OthersIcon },
     //Add more categories
-  ];
-  const { edgestore } = useEdgeStore();
+  ]; //different categories for a blog post
 
   //Declare useForm for RHF Form Control
   const {
@@ -46,13 +48,26 @@ const AddBlog = () => {
   //Define React Drop Zone methods and properties
   const { getRootProps, getInputProps, rootRef, isDragActive, open } =
     useDropzone({
-      onDrop: (acceptedFiles, rejectedFiles) => {
+      onDrop: async (acceptedFiles, rejectedFiles) => {
         const file = acceptedFiles[0];
         const errors = rejectedFiles[0]?.errors;
         if (file) {
+          //upload the image to edgeStore
+          const uploadedImg = await edgestore.blogPostImages.upload({
+            file,
+            onProgressChange: (progress) => {
+              setUploadProgress(progress);
+            },
+            options: {
+              temporary: true,
+            },
+          });
           setImage({
             image: file,
             preview: URL.createObjectURL(file),
+            url: uploadedImg.url,
+            thumbnailUrl: uploadedImg.thumbnailUrl || uploadedImg.url,
+            name: file.name,
           });
         } else if (errors) {
           errors.map((error) => {
@@ -69,8 +84,8 @@ const AddBlog = () => {
         'image/*': [],
       },
       noClick: image ? true : false,
-      minSize: 1024 * 1024 * 0.1,
-      maxSize: 1024 * 1024 * 2,
+      minSize: minSize,
+      maxSize: maxSize,
       noKeyboard: true,
       noDragEventsBubbling: true,
     });
@@ -79,6 +94,18 @@ const AddBlog = () => {
   const resetForm = () => {
     reset();
     setImage(null);
+    setUploadProgress(0);
+  };
+
+  //Remove Selected Image
+  const removeImage = async () => {
+    const url = image?.url;
+    setUploadProgress(0);
+    setImage(null);
+    if (url)
+      await edgestore.blogPostImages.delete({
+        url,
+      });
   };
 
   //onSubmit function to create post
@@ -89,13 +116,15 @@ const AddBlog = () => {
       return;
     }
 
-    //upload the data to edgeStore
-    const imageUploadResponse = await edgestore.blogPostImages.upload({
-      file: image.image!,
-    });
-
     //add the image to the form data from RHF
-    data = { ...data, image: imageUploadResponse.url };
+    data = {
+      ...data,
+      image: {
+        url: image.url,
+        thumbnailUrl: image.thumbnailUrl || image.url,
+        name: image.name,
+      },
+    };
     console.log(data);
 
     //send the form data to the backend (DB)
@@ -103,31 +132,51 @@ const AddBlog = () => {
       const formData = new FormData();
       Object.entries(data).forEach(([key, value]) => {
         if (Array.isArray(value)) {
+          // If the value is an array, append each item in the array
           value.forEach((category: string) => {
             formData.append(`${key}[]`, category);
           });
+        } else if (typeof value === 'object' && value !== null) {
+          // If the value is an object (but not null), stringify and append
+          formData.append(key, JSON.stringify(value));
         } else {
           formData.append(key, value);
         }
       });
-      formData.append('author', 'Kurapika');
-      formData.append('authorImg', 'cant see me yet');
 
-      let response;
+      formData.append(
+        'author',
+        JSON.stringify({ name: 'Kurapika', img: "can't see me yet" }),
+      );
+
+      let responseData;
       try {
-        response = await axios.post('/api/blog', formData);
+        const res = await fetch('/api/blogs', {
+          method: 'POST',
+          body: formData,
+        });
+
+        // Manually handle HTTP errors
+        if (!res.ok) {
+          throw new Error(`HTTP error! status: ${res.status}`);
+        }
+
+        responseData = await res.json();
       } catch (error) {
         toast.error('Error - Could not post');
         console.log(error);
       }
 
-      if (response?.data.success) {
+      if (responseData?.success) {
         resetForm();
-        toast.success(response.data.msg);
+        toast.success(responseData?.msg);
+        await edgestore.blogPostImages.confirmUpload({
+          url: image.url,
+        });
       } else {
-        toast.error(response?.data.msg);
+        toast.error(responseData?.msg);
         console.log(
-          `The data sent was: ${JSON.stringify(response?.data?.blogData)}`,
+          `The data sent was: ${JSON.stringify(responseData?.data?.blogData)}`,
         );
       }
     } catch (error) {
@@ -142,8 +191,6 @@ const AddBlog = () => {
       if (image) URL.revokeObjectURL(image.preview);
     };
   }, []);
-
-  //reset form if form submits successfully
 
   return (
     <section className="px-5 pb-10 ~pt-5/8">
@@ -173,11 +220,24 @@ const AddBlog = () => {
                   Image size (100KB &le; size &le; 2MB)
                 </small>
 
+                {uploadProgress > 0 && (
+                  <div className="flex w-full items-center gap-2 text-sm">
+                    Uploading:
+                    <span className="relative flex w-3/4 items-center justify-center overflow-hidden rounded-full border border-[#7777] text-xs">
+                      {Math.round(uploadProgress)}%
+                      <span
+                        className="absolute left-0 top-0 z-[-1] inline-block h-full bg-[#ccc] transition-all duration-300"
+                        style={{ width: `${uploadProgress}%` }}
+                      ></span>
+                    </span>
+                  </div>
+                )}
+
                 {submitCount > 0 && !image && (
                   <p className="error">An image is required to proceed</p>
                 )}
-
                 <input {...getInputProps()} />
+
                 <AnimatePresence>
                   {image?.image && (
                     <motion.div
@@ -191,7 +251,7 @@ const AddBlog = () => {
                         whileHover={{ scale: 1.075 }}
                         whileTap={{ scale: 0.95 }}
                         type="button"
-                        onClick={() => setImage(null)}
+                        onClick={async () => await removeImage()}
                         className="absolute -right-2 -top-2 rounded-full text-red-600"
                       >
                         <XCircleIcon className="rounded-full bg-white ~size-6/7" />
@@ -206,7 +266,6 @@ const AddBlog = () => {
                         type="button"
                         onClick={() => {
                           open();
-                          console.log('clicked');
                         }}
                         className="absolute -right-10 top-1/2 size-7 rounded-full bg-[#f5f5f5] p-[0.15rem]"
                       >
@@ -253,7 +312,7 @@ const AddBlog = () => {
               <div className="flex flex-wrap rounded-3xl border px-2 py-6 ~gap-x-1/2 ~gap-y-2/4">
                 {categories.map((category, index) => (
                   <label
-                    className="mx-auto flex cursor-pointer items-center gap-2 rounded-full border py-2 font-medium transition-all duration-300 ~text-[0.8rem]/[0.9rem] ~px-2.5/4 has-[:checked]:bg-[#333] has-[:checked]:text-white hover:scale-110"
+                    className="mx-auto flex cursor-pointer items-center gap-2 rounded-full border py-2 font-medium transition-all duration-300 ~text-[0.8rem]/[0.9rem] ~px-2.5/4 has-[:checked]:bg-stone-800 has-[:checked]:text-white hover:scale-110"
                     key={index}
                   >
                     <input

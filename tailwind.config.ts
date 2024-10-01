@@ -17,6 +17,14 @@ const config: Config = {
       boxShadow: {
         offset: '-7px 7px 0 #000000',
       },
+      colors: {
+        grey: {
+          500: '#E7E7E7',
+        },
+      },
+      gridTemplateColumns: {
+        table: '15rem 20rem 15rem 6rem',
+      },
       screens: {
         xxs: '20rem',
         xs: '30rem',

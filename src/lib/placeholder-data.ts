@@ -9,8 +9,10 @@ export const blogData: Blog[] = [
     image: assets.blog_pic_1,
     date: Date.now(),
     categories: ['Lifestyle'],
-    author: 'Kurapika',
-    author_img: assets.profile_img
+    author: {
+      name: 'Kurapika',
+      img: assets.profile_img,
+    },
   },
   {
     id: 2,
@@ -19,8 +21,10 @@ export const blogData: Blog[] = [
     image: assets.blog_pic_2,
     date: Date.now(),
     categories: ['Startup', 'Lifestyle'],
-    author: 'Kurapika',
-    author_img: assets.profile_img
+    author: {
+      name: 'Kurapika',
+      img: assets.profile_img,
+    },
   },
   {
     id: 3,
@@ -29,8 +33,10 @@ export const blogData: Blog[] = [
     image: assets.blog_pic_3,
     date: Date.now(),
     categories: ['Technology'],
-    author: 'Kurapika',
-    author_img: assets.profile_img
+    author: {
+      name: 'Kurapika',
+      img: assets.profile_img,
+    },
   },
   {
     id: 4,
@@ -39,8 +45,10 @@ export const blogData: Blog[] = [
     image: assets.blog_pic_4,
     date: Date.now(),
     categories: ['Technology'],
-    author: 'Kurapika',
-    author_img: assets.profile_img
+    author: {
+      name: 'Kurapika',
+      img: assets.profile_img,
+    },
   },
   {
     id: 5,
@@ -49,8 +57,10 @@ export const blogData: Blog[] = [
     image: assets.blog_pic_5,
     date: Date.now(),
     categories: ['Lifestyle'],
-    author: 'Kurapika',
-    author_img: assets.profile_img
+    author: {
+      name: 'Kurapika',
+      img: assets.profile_img,
+    },
   },
   {
     id: 6,
@@ -59,8 +69,10 @@ export const blogData: Blog[] = [
     image: assets.blog_pic_6,
     date: Date.now(),
     categories: ['Startup'],
-    author: 'Kurapika',
-    author_img: assets.profile_img
+    author: {
+      name: 'Kurapika',
+      img: assets.profile_img,
+    },
   },
   {
     id: 7,
@@ -69,8 +81,10 @@ export const blogData: Blog[] = [
     image: assets.blog_pic_7,
     date: Date.now(),
     categories: ['Technology'],
-    author: 'Kurapika',
-    author_img: assets.profile_img
+    author: {
+      name: 'Kurapika',
+      img: assets.profile_img,
+    },
   },
   {
     id: 8,
@@ -79,8 +93,10 @@ export const blogData: Blog[] = [
     image: assets.blog_pic_8,
     date: Date.now(),
     categories: ['Lifestyle'],
-    author: 'Kurapika',
-    author_img: assets.profile_img
+    author: {
+      name: 'Kurapika',
+      img: assets.profile_img,
+    },
   },
   {
     id: 9,
@@ -89,8 +105,10 @@ export const blogData: Blog[] = [
     image: assets.blog_pic_9,
     date: Date.now(),
     categories: ['Startup'],
-    author: 'Kurapika',
-    author_img: assets.profile_img
+    author: {
+      name: 'Kurapika',
+      img: assets.profile_img,
+    },
   },
   {
     id: 10,
@@ -99,8 +117,10 @@ export const blogData: Blog[] = [
     image: assets.blog_pic_10,
     date: Date.now(),
     categories: ['Lifestyle'],
-    author: 'Kurapika',
-    author_img: assets.profile_img
+    author: {
+      name: 'Kurapika',
+      img: assets.profile_img,
+    },
   },
   {
     id: 11,
@@ -109,8 +129,10 @@ export const blogData: Blog[] = [
     image: assets.blog_pic_11,
     date: Date.now(),
     categories: ['Startup'],
-    author: 'Kurapika',
-    author_img: assets.profile_img
+    author: {
+      name: 'Kurapika',
+      img: assets.profile_img,
+    },
   },
   {
     id: 12,
@@ -119,8 +141,10 @@ export const blogData: Blog[] = [
     image: assets.blog_pic_12,
     date: Date.now(),
     categories: ['Technology'],
-    author: 'Kurapika',
-    author_img: assets.profile_img
+    author: {
+      name: 'Kurapika',
+      img: assets.profile_img,
+    },
   },
   {
     id: 13,
@@ -129,8 +153,10 @@ export const blogData: Blog[] = [
     image: assets.blog_pic_13,
     date: Date.now(),
     categories: ['Startup'],
-    author: 'Kurapika',
-    author_img: assets.profile_img
+    author: {
+      name: 'Kurapika',
+      img: assets.profile_img,
+    },
   },
   {
     id: 14,
@@ -139,8 +165,10 @@ export const blogData: Blog[] = [
     image: assets.blog_pic_14,
     date: Date.now(),
     categories: ['Lifestyle'],
-    author: 'Kurapika',
-    author_img: assets.profile_img
+    author: {
+      name: 'Kurapika',
+      img: assets.profile_img,
+    },
   },
   {
     id: 15,
@@ -149,8 +177,10 @@ export const blogData: Blog[] = [
     image: assets.blog_pic_15,
     date: Date.now(),
     categories: ['Technology'],
-    author: 'Kurapika',
-    author_img: assets.profile_img
+    author: {
+      name: 'Kurapika',
+      img: assets.profile_img,
+    },
   },
   {
     id: 16,
@@ -159,7 +189,9 @@ export const blogData: Blog[] = [
     image: assets.blog_pic_16,
     date: Date.now(),
     categories: ['Startup'],
-    author: 'Kurapika',
-    author_img: assets.profile_img
-  }
+    author: {
+      name: 'Kurapika',
+      img: assets.profile_img,
+    },
+  },
 ];

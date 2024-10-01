@@ -8,8 +8,7 @@ export interface Blog {
   image: string | StaticImageData | StaticImport;
   date: number;
   categories: string[];
-  author: string;
-  author_img: string | StaticImageData | StaticImport;
+  author: { name: string; img: string | StaticImageData | StaticImport };
 }
 
 export interface Category {
@@ -26,10 +25,20 @@ export const emailPattern =
 export interface ImageFile {
   image?: File;
   preview: string;
+  url: string;
+  thumbnailUrl?: string;
+  name?: string;
 }
 
+export const minSize = 1024 * 1024 * 0.1; // 100KB
+export const maxSize = 1024 * 1024 * 2; // 2MB
+
 export interface BlogFormData {
-  image: string;
+  image: {
+    url: string;
+    thumbnailUrl?: string;
+    name?: string;
+  };
   title: string;
   categories: string[];
   content: string;

@@ -1,14 +1,35 @@
 import { ConnectDB } from '@/lib/config/db';
 import BlogModel from '@/lib/models/BlogModel';
-import { writeFile } from 'fs/promises';
 import { NextRequest, NextResponse } from 'next/server';
 
 //Get Blogs from the Database
 export const GET = async (request: NextRequest) => {
   //Connect to MongoDB
-  await ConnectDB();
-  console.log('Get blog data');
-  return NextResponse.json({ success: true });
+  try {
+    await ConnectDB();
+  } catch (error) {
+    return NextResponse.json({
+      success: false,
+      msg: 'Failed to connect to DB',
+      error,
+    });
+  }
+
+  //const { searchParams } = request.nextUrl;
+
+  try {
+    const blogs = await BlogModel.find({ 'author.name': 'Kurapika' });
+    return NextResponse.json({
+      success: true,
+      blogs,
+    });
+  } catch (error) {
+    return NextResponse.json({
+      success: false,
+      msg: 'Could not retrieve blog posts',
+      error,
+    });
+  }
 };
 
 //Save Blogs to the Database
@@ -26,6 +47,8 @@ export async function POST(request: NextRequest) {
 
   //Retrieve the formData from the request
   const formData = await request.formData();
+  const authorData = formData.get('author') as string;
+  const imageData = formData.get('image') as string;
 
   /*
    const image: File | null = formData.get('image') as unknown as File;
@@ -64,28 +87,53 @@ export async function POST(request: NextRequest) {
 
    */
 
-  //Create blog and save to DB
+  // Parse formData (author and image)
+  let author, image;
+
+  try {
+    author = JSON.parse(authorData);
+  } catch (error) {
+    return NextResponse.json({
+      success: false,
+      msg: 'Failed to parse author data',
+      error,
+    });
+  }
+
+  try {
+    image = JSON.parse(imageData);
+  } catch (error) {
+    return NextResponse.json({
+      success: false,
+      msg: 'Failed to parse blog image',
+      error,
+    });
+  }
+
+  // Prepare blog data
   const blogData = {
     title: formData.get('title'),
     description: formData.get('description'),
     categories: formData.getAll('categories[]'),
-    author: formData.get('author'),
-    authorImg: formData.get('authorImg'),
-    image: formData.get('image'),
+    author: author,
+    image: image,
     content: formData.get('content'),
   };
+
+  // Save blog to the DB
   try {
     await BlogModel.create(blogData);
+    return NextResponse.json({
+      success: true,
+      msg: `Blog added successfully`,
+      blogData,
+    });
   } catch (error) {
     return NextResponse.json({
       success: false,
       msg: 'Blog creation failed',
+      error,
       blogData,
     });
   }
-
-  return NextResponse.json({
-    success: true,
-    msg: `Blog added successfully`,
-  });
 }

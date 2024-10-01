@@ -18,11 +18,11 @@ const Blog = ({ params }: { params: { title: string } }) => {
 
             <Image
               className="mx-auto ~w-16/20 rounded-full border border-white [image-rendering:high-quality]"
-              src={blog.author_img}
-              alt={`${blog.author}`}
+              src={blog.author.img}
+              alt={`${blog.author.name}`}
             />
             <p className="mt-1 pb-2 font-medium italic text-[#333] ~text-sm/base">
-              {blog.author}
+              {blog.author.name}
             </p>
           </div>
         </div>

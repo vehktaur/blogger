@@ -1,3 +1,4 @@
+import { maxSize } from '@/lib/definitions';
 import { initEdgeStore } from '@edgestore/server';
 import { createEdgeStoreNextHandler } from '@edgestore/server/adapters/next/app';
 
@@ -6,7 +7,14 @@ const es = initEdgeStore.create();
 
 //create the edgeStore router and configure the edgeStore image bucket
 const edgeStoreRouter = es.router({
-  blogPostImages: es.imageBucket(),
+  blogPostImages: es
+    .imageBucket({
+      maxSize: maxSize,
+    })
+    .beforeDelete(({ ctx, fileInfo }) => {
+      console.log(`Deleted: ${fileInfo} \n With ctx: ${ctx}`);
+      return true;
+    }),
 });
 
 //create the api handler

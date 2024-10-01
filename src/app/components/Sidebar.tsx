@@ -68,8 +68,8 @@ const Sidebar = () => {
         </div>
 
         <div className="mt-auto px-1">
-          <hr className="mx-auto block h-[1px] max-w-[90%] bg-[#333] sm:h-[1.5px] lg:h-[2px]" />
-          <div className="flex items-center gap-4 px-1 py-6 sm:px-5">
+          <hr className="mx-auto block h-[1px] max-w-[90%] bg-stone-600 sm:h-[1.5px] lg:h-[2px]" />
+          <div className="flex items-center gap-4 px-1 py-3 sm:px-5">
             <div className="mx-auto flex-shrink-0 overflow-hidden rounded-full ~w-10/12 sm:mx-0">
               <Image
                 className="object-cover"

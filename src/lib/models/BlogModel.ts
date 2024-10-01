@@ -16,16 +16,21 @@ const blogSchema = new Schema({
     required: true,
   },
   author: {
-    type: String,
-    required: true,
-  },
-  authorImg: {
-    type: String,
-    required: true,
+    name: {
+      type: String,
+      required: true,
+    },
+    img: {
+      type: String,
+    },
   },
   image: {
-    type: String,
-    required: true,
+    url: {
+      type: String,
+      required: true,
+    },
+    thumbnailUrl: String,
+    name: String,
   },
   createdAt: {
     type: Date,
