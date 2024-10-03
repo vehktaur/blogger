@@ -6,7 +6,8 @@ import Image from 'next/image';
 const Blogs = async () => {
   const getAllBlogs = async () => {
     try {
-      const res = await fetch('http://localhost:3000/api/blogs', {
+      const apiUrl = process.env.API_URL || 'http://localhost:3000';
+      const res = await fetch(`${apiUrl}/api/blogs`, {
         next: { revalidate: 0 },
       });
       if (!res.ok) {
