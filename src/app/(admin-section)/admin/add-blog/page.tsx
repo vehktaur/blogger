@@ -73,7 +73,7 @@ const AddBlog = () => {
           errors.map((error) => {
             toast.error(
               error.message
-                .replace('104857.6 bytes', '100KB')
+                .replace('52428.8 bytes', '50KB')
                 .replace('2097152 bytes', '2MB')
                 .replace('/*', ''),
             );

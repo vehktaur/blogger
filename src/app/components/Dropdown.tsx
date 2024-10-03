@@ -7,6 +7,7 @@ import {
 } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
 import { motion } from 'framer-motion';
+import { useRouter } from 'next/router';
 import { RefObject, useEffect, useRef, useState } from 'react';
 import { toast } from 'react-toastify';
 
@@ -17,6 +18,9 @@ const Dropdown = ({ id, url }: { id: string; url: string }) => {
   const [isDisbaled, setIsDisabled] = useState(false);
   const [showConfirmation, setShowConfirmation] = useState(false);
   const dropdownRef: RefObject<HTMLDivElement> = useRef<HTMLDivElement>(null);
+
+  //Get router to refresh page
+  const router = useRouter();
 
   //Handle Toggle Effects
   const handleClick = (): void => {
@@ -41,6 +45,7 @@ const Dropdown = ({ id, url }: { id: string; url: string }) => {
       if (data.success) {
         console.log('Blog deleted successfully');
         toast.success('Blog Deleted');
+        router.replace(router.asPath); //refresh page
       } else {
         console.log('Failed to delete blog:', data.msg);
         toast.error('Could not delete');
@@ -85,6 +90,7 @@ const Dropdown = ({ id, url }: { id: string; url: string }) => {
     // Attach event listener when dropdown is open
     if (isOpen) {
       window.addEventListener('click', handleOutsideClick);
+    } else {
     }
 
     // Clean up event listener when dropdown is closed
@@ -96,13 +102,20 @@ const Dropdown = ({ id, url }: { id: string; url: string }) => {
   return (
     <div className="relative" ref={dropdownRef}>
       {showConfirmation && (
-        <div className="bg fixed inset-0 z-50 grid place-items-center bg-[#00000046]">
+        <div
+          title=""
+          className="bg fixed inset-0 z-50 grid place-items-center bg-[#00000046]"
+        >
           <motion.div
             initial={{ opacity: 0, scale: 0.5 }}
             animate={{ opacity: 1, scale: 1 }}
             className="max-w-[20rem] rounded-3xl bg-white px-6 py-8 text-center text-sm shadow-md ring-1 ring-stone-100"
           >
-            <p>Are you sure you want to <span className='text-red-700 font-medium'>delete</span> this blog?</p>
+            <p>
+              Are you sure you want to{' '}
+              <span className="font-medium text-red-700">delete</span> this
+              blog?
+            </p>
             <p className="mt-2">
               <strong className="font-medium">
                 This action cannot be undone
@@ -131,7 +144,11 @@ const Dropdown = ({ id, url }: { id: string; url: string }) => {
         </div>
       )}
 
-      <button onClick={handleClick} className="grid place-items-center">
+      <button
+        title="options"
+        onClick={handleClick}
+        className="grid place-items-center"
+      >
         <EllipsisHorizontalIcon className="w-5 text-stone-950" />
       </button>
       {isOpen && (

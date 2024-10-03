@@ -26,7 +26,7 @@ const Sidebar = () => {
     },
   ];
   return (
-    <aside className="full-screen sticky left-0 top-0 w-16 border-r border-black bg-stone-50 sm:~w-40/96">
+    <aside className="full-screen sticky left-0 top-0 w-16 border-r border-black bg-stone-50 sm:~w-40/80">
       <div className="flex h-full flex-col">
         <div className="h-[3.75rem] border-b border-black sm:py-3">
           <div className="h-full w-full content-center sm:px-8 md:px-12">
@@ -61,7 +61,7 @@ const Sidebar = () => {
             >
               <div className="flex items-center justify-center gap-2 py-2 font-medium sm:justify-start">
                 {image}
-                <span className="hidden sm:block">{name}</span>
+                <span className="hidden sm:block ~text-sm/base">{name}</span>
               </div>
             </NavLink>
           ))}
@@ -69,7 +69,7 @@ const Sidebar = () => {
 
         <div className="mt-auto px-1">
           <hr className="mx-auto block h-[1px] max-w-[90%] bg-stone-600 sm:h-[1.5px] lg:h-[2px]" />
-          <div className="flex items-center ~gap-1/4 px-1 py-3 sm:~px-2/5">
+          <div className="flex items-center px-1 py-3 ~gap-1/4 sm:~px-2/5">
             <div className="mx-auto flex-shrink-0 overflow-hidden rounded-full ~w-10/12 sm:mx-0">
               <Image
                 className="object-cover"
@@ -79,7 +79,7 @@ const Sidebar = () => {
             </div>
             <div className="hidden sm:grid">
               <span className="font-medium ~text-sm/base">Kurapika</span>
-              <span className="~text-xs/sm text-[#666]">
+              <span className="text-[#666] ~text-xs/sm">
                 victorakhihiero@gmail.com
               </span>
             </div>

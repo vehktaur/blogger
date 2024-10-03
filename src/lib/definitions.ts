@@ -30,7 +30,7 @@ export interface ImageFile {
   name?: string;
 }
 
-export const minSize = 1024 * 1024 * 0.1; // 100KB
+export const minSize = 1024 * 1024 * 0.05; // 50KB
 export const maxSize = 1024 * 1024 * 2; // 2MB
 
 export interface BlogFormData {

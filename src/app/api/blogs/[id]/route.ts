@@ -53,11 +53,10 @@ export const DELETE = async (
   try {
     const id = params.id;
     const { url } = await request.json();
-    const res = await backendClient.blogPostImages.deleteFile({
+    await backendClient.blogPostImages.deleteFile({
       url,
     });
     await BlogModel.deleteOne({ _id: id });
-    console.log(res);
     return NextResponse.json({
       success: true,
       msg: 'Blog Deleted',

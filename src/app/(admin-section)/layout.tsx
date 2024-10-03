@@ -30,7 +30,7 @@ export default function RootLayout({
         <Sidebar />
 
         {/* Actual Admin Section */}
-        <div className="min-full-screen grid w-full content-start">
+        <div className="min-full-screen grid flex-1 content-start">
           <nav className="sticky top-0 z-10 h-[3.75rem] w-full border-b border-black bg-stone-50 px-5">
             <div className="mx-auto flex h-full max-w-6xl items-center justify-between">
               <h3 className="font-medium ~text-base/lg">Admin Panel</h3>
