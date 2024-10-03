@@ -6,7 +6,7 @@ import { useDropzone } from 'react-dropzone';
 import clsx from 'clsx';
 import { BlogFormData, ImageFile, maxSize, minSize } from '@/lib/definitions';
 import { toast } from 'react-toastify';
-import { AnimatePresence, motion, progress } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import { XCircleIcon } from '@heroicons/react/16/solid';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import {

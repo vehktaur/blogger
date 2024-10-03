@@ -25,18 +25,18 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`flex outline outline-black ${barlow.className}`}>
+      <body className={`flex ${barlow.className}`}>
         {/* Admin Sidebar */}
         <Sidebar />
 
         {/* Actual Admin Section */}
-        <div className="min-full-screen w-full">
-          <nav className="sticky top-0 z-10 h-[3.75rem] w-full content-center border-b border-black bg-stone-50 px-5">
-            <div className="mx-auto flex max-w-6xl items-center justify-between">
+        <div className="min-full-screen grid w-full content-start">
+          <nav className="sticky top-0 z-10 h-[3.75rem] w-full border-b border-black bg-stone-50 px-5">
+            <div className="mx-auto flex h-full max-w-6xl items-center justify-between">
               <h3 className="font-medium ~text-base/lg">Admin Panel</h3>
             </div>
           </nav>
-          <main className="min-h-[90%]">
+          <main className="overflow-x-auto">
             <EdgeStoreProvider>{children}</EdgeStoreProvider>
           </main>
         </div>

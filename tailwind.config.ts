@@ -23,7 +23,7 @@ const config: Config = {
         },
       },
       gridTemplateColumns: {
-        table: '15rem 20rem 15rem 6rem',
+        table: '15rem 20rem 15rem 3rem',
       },
       screens: {
         xxs: '20rem',

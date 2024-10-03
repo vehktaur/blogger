@@ -6,7 +6,7 @@ import { createEdgeStoreNextHandler } from '@edgestore/server/adapters/next/app'
 const es = initEdgeStore.create();
 
 //create the edgeStore router and configure the edgeStore image bucket
-const edgeStoreRouter = es.router({
+export const edgeStoreRouter = es.router({
   blogPostImages: es
     .imageBucket({
       maxSize: maxSize,
