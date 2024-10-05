@@ -19,7 +19,6 @@ import {
   OthersIcon,
   TechIcon,
 } from '@/assets/svgs';
-import axios from 'axios';
 import { useEdgeStore } from '@/lib/edgestore';
 
 const AddBlog = () => {
@@ -216,8 +215,8 @@ const AddBlog = () => {
                     : 'Drag & drop image here, or click to select image'}
                 </p>
 
-                <small className="tracking-wide text-gray-500 ~text-xs/sm">
-                  Image size (100KB &le; size &le; 2MB)
+                <small className="text-center tracking-wide text-gray-500 ~text-xs/[0.8rem]">
+                  Image size (50KB &le; size &le; 2MB)
                 </small>
 
                 {uploadProgress > 0 && (

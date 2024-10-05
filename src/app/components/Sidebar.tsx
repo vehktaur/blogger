@@ -19,11 +19,6 @@ const Sidebar = () => {
       image: <ListBulletIcon className="size-7" />,
       path: '/admin/blogs',
     },
-    {
-      name: 'Subscriptions',
-      image: <EnvelopeIcon className="size-7" />,
-      path: '/admin/subscriptions',
-    },
   ];
   return (
     <aside className="full-screen sticky left-0 top-0 w-16 border-r border-black bg-stone-50 sm:~w-40/80">
@@ -61,7 +56,7 @@ const Sidebar = () => {
             >
               <div className="flex items-center justify-center gap-2 py-2 font-medium sm:justify-start">
                 {image}
-                <span className="hidden sm:block ~text-sm/base">{name}</span>
+                <span className="hidden ~text-sm/base sm:block">{name}</span>
               </div>
             </NavLink>
           ))}

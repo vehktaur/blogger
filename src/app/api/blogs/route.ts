@@ -1,9 +1,9 @@
 import { ConnectDB } from '@/lib/config/db';
 import BlogModel from '@/lib/models/BlogModel';
-import { NextRequest, NextResponse } from 'next/server';
+import { type NextRequest, NextResponse } from 'next/server';
 
 //Get Blogs from the Database
-export const GET = async (request: NextRequest) => {
+export const GET = async () => {
   //Connect to MongoDB
   try {
     await ConnectDB();

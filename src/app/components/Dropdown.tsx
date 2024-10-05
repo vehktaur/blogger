@@ -7,7 +7,7 @@ import {
 } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
 import { motion } from 'framer-motion';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import { RefObject, useEffect, useRef, useState } from 'react';
 import { toast } from 'react-toastify';
 
@@ -45,7 +45,7 @@ const Dropdown = ({ id, url }: { id: string; url: string }) => {
       if (data.success) {
         console.log('Blog deleted successfully');
         toast.success('Blog Deleted');
-        router.replace(router.asPath); //refresh page
+        router.refresh();
       } else {
         console.log('Failed to delete blog:', data.msg);
         toast.error('Could not delete');

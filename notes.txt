@@ -1,0 +1,5 @@
+Reroute to homepage after blog creation
+
+Add option to hide blog post from homepage
+
+Remove Delete option after 24hrs
