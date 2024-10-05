@@ -3,7 +3,7 @@ import { MagnifyingGlassIcon } from '@heroicons/react/16/solid';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
-const SortSearch = () => {
+const SearchInput = () => {
   const [search, setSearch] = useState('');
 
   const router = useRouter();
@@ -32,13 +32,7 @@ const SortSearch = () => {
           placeholder="Search..."
         />
       </div>
-
-      <div className="flex-shrink-0">
-        <button className="rounded-lg border border-grey-500 bg-white py-[0.35rem] text-sm ~px-2/3">
-          Sort by:
-        </button>
-      </div>
     </div>
   );
 };
-export default SortSearch;
+export default SearchInput;

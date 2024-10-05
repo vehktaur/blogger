@@ -31,7 +31,7 @@ const BlogsTable = async ({ title }: { title: string }) => {
             className="grid w-full grid-cols-table items-center border-b border-stone-600 px-5 py-3"
           >
             <div className="flex items-center gap-2">
-              <span className="overflow-hidden rounded-full ~size-8/10">
+              <span className="overflow-hidden rounded-full border border-stone-500 ~size-8/10">
                 <Image
                   className="size-full object-cover"
                   src={assets.profile_img}
@@ -41,7 +41,7 @@ const BlogsTable = async ({ title }: { title: string }) => {
               <span className="font-medium">{blog.author.name}</span>
             </div>
             <div className="flex items-center gap-2 pe-4">
-              <span className="flex-shrink-0 cursor-pointer overflow-hidden rounded-full transition-all duration-500 ~size-8/10 hover:z-10 hover:scale-[3]">
+              <span className="flex-shrink-0 cursor-pointer overflow-hidden rounded-full border border-stone-500 transition-all duration-500 ~size-8/10 hover:z-10 hover:scale-[3]">
                 <Image
                   className="size-full object-cover object-center"
                   src={blog.image.url}

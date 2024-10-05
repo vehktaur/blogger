@@ -1,5 +1,5 @@
 import BlogsTable from '@/app/components/BlogsTable';
-import SortSearch from '@/app/components/SortSearch';
+import SearchInput from '@/app/components/SearchInput';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -18,7 +18,7 @@ const Blogs = ({
     <div className="h-full px-5 pb-4 ~pt-5/8">
       <div className="mx-auto min-h-full max-w-6xl">
         <header>
-          <SortSearch />
+          <SearchInput />
           <h1 className="font-medium ~text-lg/xl ~mt-4/6">All Blogs</h1>
         </header>
 
