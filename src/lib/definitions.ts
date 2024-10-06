@@ -43,4 +43,5 @@ export interface BlogFormData {
   categories: string[];
   content: string;
   description: string;
+  _id?: string;
 }

@@ -7,6 +7,12 @@ const nextConfig = {
         hostname: 'files.edgestore.dev',
       
       },
+      {
+        protocol: 'https',
+        hostname: 'unsplash.com',
+        port: '',
+        pathname: '/photos/**',
+      },
     ],
   },
 };

@@ -45,11 +45,6 @@ export async function POST(request: NextRequest) {
     });
   }
 
-  //Retrieve the formData from the request
-  const formData = await request.formData();
-  const authorData = formData.get('author') as string;
-  const imageData = formData.get('image') as string;
-
   /*
    const image: File | null = formData.get('image') as unknown as File;
 
@@ -87,38 +82,8 @@ export async function POST(request: NextRequest) {
 
    */
 
-  // Parse formData (author and image)
-  let author, image;
-
-  try {
-    author = JSON.parse(authorData);
-  } catch (error) {
-    return NextResponse.json({
-      success: false,
-      msg: 'Failed to parse author data',
-      error,
-    });
-  }
-
-  try {
-    image = JSON.parse(imageData);
-  } catch (error) {
-    return NextResponse.json({
-      success: false,
-      msg: 'Failed to parse blog image',
-      error,
-    });
-  }
-
   // Prepare blog data
-  const blogData = {
-    title: formData.get('title'),
-    description: formData.get('description'),
-    categories: formData.getAll('categories[]'),
-    author: author,
-    image: image,
-    content: formData.get('content'),
-  };
+  const blogData = await request.json();
 
   // Save blog to the DB
   try {

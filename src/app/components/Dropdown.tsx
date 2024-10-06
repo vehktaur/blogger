@@ -7,6 +7,7 @@ import {
 } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
 import { motion } from 'framer-motion';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { RefObject, useEffect, useRef, useState } from 'react';
 import { toast } from 'react-toastify';
@@ -158,9 +159,12 @@ const Dropdown = ({ id, url }: { id: string; url: string }) => {
             spaceDown ? 'top-full mt-2' : 'bottom-full mb-2',
           )}
         >
-          <button className="flex w-full items-center gap-1.5 py-2 text-left text-sm transition-transform duration-500 will-change-transform hover:scale-[103%] hover:font-medium">
+          <Link
+            href={`/admin/edit-blog/${id}`}
+            className="flex w-full items-center gap-1.5 py-2 text-left text-sm transition-transform duration-500 will-change-transform hover:scale-[103%] hover:font-medium"
+          >
             <PencilSquareIcon className="w-4" /> Edit blog
-          </button>
+          </Link>
           <button
             onClick={() => {
               setShowConfirmation(true);

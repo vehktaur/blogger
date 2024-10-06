@@ -20,12 +20,22 @@ import {
   TechIcon,
 } from '@/assets/svgs';
 import { useEdgeStore } from '@/lib/edgestore';
+import { useRouter } from 'next/navigation';
 
-const AddBlog = () => {
+const Test = ({ blog }: { blog: BlogFormData }) => {
+  const router = useRouter();
+  if (!blog) {
+    router.push('/admin/blogs');
+    return;
+  }
   //Define data and state
-  const [image, setImage] = useState<ImageFile | null>(null); // to save blog image file
+  const [image, setImage] = useState<ImageFile | null>({
+    preview: blog.image.url,
+    url: blog.image.url,
+    name: blog.image.name,
+  }); // to save blog image file
   const { edgestore } = useEdgeStore(); // hook for image upload to edge store
-  const [uploadProgress, setUploadProgress] = useState(0); //to show image upload progress
+  const [uploadProgress, setUploadProgress] = useState(100); //to show image upload progress
   const categories = [
     { name: 'Tech', icon: TechIcon },
     { name: 'Lifestyle', icon: LifestyleIcon },
@@ -42,7 +52,19 @@ const AddBlog = () => {
     handleSubmit,
     reset,
     formState: { errors, isSubmitting, submitCount },
-  } = useForm<BlogFormData>();
+  } = useForm<BlogFormData>({
+    defaultValues: {
+      image: {
+        url: blog.image.url,
+        thumbnailUrl: blog.image.thumbnailUrl,
+        name: blog.image.name,
+      },
+      title: blog.title,
+      categories: blog.categories,
+      content: blog.content,
+      description: blog.description,
+    },
+  });
 
   //Define React Drop Zone methods and properties
   const { getRootProps, getInputProps, rootRef, isDragActive, open } =
@@ -98,13 +120,13 @@ const AddBlog = () => {
 
   //Remove Selected Image
   const removeImage = async () => {
-    const url = image?.url;
+    // const url = image?.url;
     setUploadProgress(0);
     setImage(null);
-    if (url)
-      await edgestore.blogPostImages.delete({
-        url,
-      });
+    // if (url)
+    //   await edgestore.blogPostImages.delete({
+    //     url,
+    //   });
   };
 
   //onSubmit function to create post
@@ -126,19 +148,15 @@ const AddBlog = () => {
     };
     console.log(data);
 
-    //send the form data to the backend (DB)
     try {
       let responseData;
       try {
-        const res = await fetch('/api/blogs', {
-          method: 'POST',
+        const res = await fetch(`/api/blogs/${blog._id}`, {
+          method: 'PATCH',
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({
-            ...data,
-            author: { name: 'Kurapika', img: "can't see me yet" }, // Add author info
-          }),
+          body: JSON.stringify({ ...data }),
         });
 
         // Manually handle HTTP errors
@@ -148,16 +166,19 @@ const AddBlog = () => {
 
         responseData = await res.json();
       } catch (error) {
-        toast.error('Error - Could not post');
+        toast.error('Error - Could not patch');
         console.log(error);
       }
 
       if (responseData?.success) {
         resetForm();
         toast.success(responseData?.msg);
+
         await edgestore.blogPostImages.confirmUpload({
           url: image.url,
         });
+        router.push('/admin/blogs');
+        router.refresh();
       } else {
         toast.error(responseData?.msg);
         console.log(
@@ -166,7 +187,7 @@ const AddBlog = () => {
       }
     } catch (error) {
       console.log(error);
-      toast.error('Error');
+      toast.error(`${error}`);
     }
   };
 
@@ -183,7 +204,7 @@ const AddBlog = () => {
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="w-[85%] max-w-md space-y-8">
             <div>
-              <h3 className="form-label">Upload Image</h3>
+              <h3 className="form-label">Edit Image</h3>
               <div
                 {...getRootProps({
                   className: clsx(
@@ -229,7 +250,7 @@ const AddBlog = () => {
                       initial={{ opacity: 0, scale: 0.8 }}
                       animate={{ opacity: 1, scale: 1 }}
                       exit={{ opacity: 0, scale: 0 }}
-                      className="absolute inset-0 rounded-xl bg-white"
+                      className="absolute -inset-[1px] rounded-xl bg-white"
                     >
                       {/* Remove Image */}
                       <motion.button
@@ -256,12 +277,10 @@ const AddBlog = () => {
                       >
                         <ImageToggleIcon svgClassName="size-full" />
                       </motion.button>
-                      <Image
+                      <img
                         src={image.preview}
                         className="size-full rounded-xl object-cover object-center"
-                        width={100}
-                        height={100}
-                        alt={image.image?.name || 'Uploaded Image'}
+                        alt={image.image?.name || ''}
                         onLoad={() => URL.revokeObjectURL(image.preview)}
                       />
                     </motion.div>
@@ -392,7 +411,7 @@ const AddBlog = () => {
                   'absolute -left-[1px] -top-[1px] z-[-1] block h-[calc(100%+2px)] w-0 rounded-3xl bg-black transition-all duration-300',
                 )}
               />
-              {isSubmitting ? 'CREATING...' : 'CREATE'}
+              {isSubmitting ? 'EDIT...' : 'EDIT'}
             </button>
 
             <button
@@ -410,4 +429,4 @@ const AddBlog = () => {
     </section>
   );
 };
-export default AddBlog;
+export default Test;
