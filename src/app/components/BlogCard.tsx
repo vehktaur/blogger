@@ -12,8 +12,8 @@ const BlogCard = ({ blog }: { blog: Blog }) => {
             className="w-full object-cover"
             src={blog.image.url}
             alt={blog.title}
-            width={400}
-            height={400}
+            width={960}
+            height={480}
           />
         </div>
 
