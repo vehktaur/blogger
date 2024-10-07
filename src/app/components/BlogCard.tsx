@@ -2,6 +2,7 @@ import { Blog } from '@/lib/definitions';
 import { ChevronDoubleRightIcon } from '@heroicons/react/20/solid';
 import Image from 'next/image';
 import Link from 'next/link';
+import DynamicImage from './DynamicImage';
 
 const BlogCard = ({ blog }: { blog: Blog }) => {
   const url = `${blog.title}__${blog._id}`;
@@ -9,7 +10,7 @@ const BlogCard = ({ blog }: { blog: Blog }) => {
     <Link className="grid" href={`/blog/${encodeURIComponent(url)}`}>
       <div className="group flex h-full w-full max-w-[20.625rem] flex-col overflow-hidden rounded border border-black shadow transition-shadow duration-500 hover:shadow-offset sm:max-w-[18.75rem]">
         <div className="border-b border-black">
-          <Image
+          <DynamicImage
             className="w-full object-cover"
             src={blog.image.url}
             alt={blog.title}

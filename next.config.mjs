@@ -1,4 +1,5 @@
-import createMDX from '@next/mdx'
+import createMDX from '@next/mdx';
+import withPlaiceholder from '@plaiceholder/next';
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -7,7 +8,6 @@ const nextConfig = {
       {
         protocol: 'https',
         hostname: 'files.edgestore.dev',
-      
       },
       {
         protocol: 'https',
@@ -21,6 +21,6 @@ const nextConfig = {
 
 const withMDX = createMDX({
   // Add markdown plugins here, as desired
-})
+});
 
-export default withMDX(nextConfig);
+export default withPlaiceholder(withMDX(nextConfig));

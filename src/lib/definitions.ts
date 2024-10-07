@@ -6,14 +6,14 @@ export interface Blog {
   title: string;
   description: string;
   image: {
-    url: string | StaticImageData | StaticImport;
-    thumbnailUrl: string | StaticImageData | StaticImport;
+    url: string;
+    thumbnailUrl: string;
     name: string;
   };
   createdAt: number | string;
   updatedAt?: number | string;
   categories: string[];
-  author: { name: string; img: string | StaticImageData | StaticImport };
+  author: { name: string; img: string };
 }
 
 export interface Category {

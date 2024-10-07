@@ -152,7 +152,7 @@ const EditBlogPage = ({ blog }: { blog: BlogFormData }) => {
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ ...data }),
+          body: JSON.stringify({ ...data, updatedAt: Date.now() }),
         });
 
         // Manually handle HTTP errors

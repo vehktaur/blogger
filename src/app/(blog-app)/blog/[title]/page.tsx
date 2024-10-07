@@ -1,3 +1,4 @@
+import DynamicImage from '@/app/components/DynamicImage';
 import { assets } from '@/assets/assets';
 import { getBlog } from '@/lib/data';
 import { MDXRemote } from 'next-mdx-remote/rsc';
@@ -33,7 +34,7 @@ const Blog = async ({ params }: { params: { title: string } }) => {
       </div>
       <div className="px-5 sm:~px-8/20">
         <div className="mx-auto max-w-[50rem]">
-          <Image
+          <DynamicImage
             className="mx-auto -mt-[6.25rem] mb-10 w-full border-4 border-white"
             src={blog.image.url}
             alt={blog.image.name}

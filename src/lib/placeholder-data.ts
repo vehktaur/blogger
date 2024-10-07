@@ -1,7 +1,6 @@
-import { Blog } from '@/lib/definitions';
 import { assets } from '@/assets/assets';
 
-export const blogData: Blog[] = [
+export const blogData = [
   {
     _id: 1,
     title: `A Detailed Step-by-Step Guide to Manage Your Lifestyle`,
