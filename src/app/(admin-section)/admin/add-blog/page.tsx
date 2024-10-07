@@ -370,6 +370,19 @@ const AddBlog = () => {
                   },
                 })}
               />
+              <small className="mt-2 block ps-1 ~text-xs/sm text-gray-500">
+                Write your <strong className='font-semibold'>content in Markdown</strong> format. Need
+                help? Learn more about{' '}
+                <a
+                  href="https://www.markdownguide.org/cheat-sheet/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-semibold underline underline-offset-2"
+                >
+                  Markdown
+                </a>
+                .
+              </small>
               {errors?.content?.message && (
                 <p className="error mt-2 ps-1">{errors.content.message}</p>
               )}

@@ -42,18 +42,6 @@ const EditBlogPage = ({ blog }: { blog: BlogFormData }) => {
   ]; //different categories for a blog post
   const router = useRouter();
 
-  //revoke image urls after component unmount to prevent data leak
-  useEffect(() => {
-    return () => {
-      if (image) URL.revokeObjectURL(image.preview);
-    };
-  }, []);
-
-  if (!blog) {
-    router.push('/admin/blogs');
-    return;
-  }
-
   //Declare useForm for RHF Form Control
   const {
     register,
@@ -63,14 +51,14 @@ const EditBlogPage = ({ blog }: { blog: BlogFormData }) => {
   } = useForm<BlogFormData>({
     defaultValues: {
       image: {
-        url: blog.image.url,
-        thumbnailUrl: blog.image.thumbnailUrl,
-        name: blog.image.name,
+        url: blog?.image.url,
+        thumbnailUrl: blog?.image.thumbnailUrl,
+        name: blog?.image.name,
       },
-      title: blog.title,
-      categories: blog.categories,
-      content: blog.content,
-      description: blog.description,
+      title: blog?.title,
+      categories: blog?.categories,
+      content: blog?.content,
+      description: blog?.description,
     },
   });
 
@@ -131,7 +119,7 @@ const EditBlogPage = ({ blog }: { blog: BlogFormData }) => {
     const url = image?.url;
     setUploadProgress(0);
     setImage(null);
-    if (url && url !== blog.image.url)
+    if (url && url !== blog?.image.url)
       await edgestore.blogPostImages.delete({
         url,
       });
@@ -159,7 +147,7 @@ const EditBlogPage = ({ blog }: { blog: BlogFormData }) => {
     try {
       let responseData;
       try {
-        const res = await fetch(`/api/blogs/${blog._id}`, {
+        const res = await fetch(`/api/blogs/${blog?._id}`, {
           method: 'PATCH',
           headers: {
             'Content-Type': 'application/json',
@@ -198,6 +186,18 @@ const EditBlogPage = ({ blog }: { blog: BlogFormData }) => {
       toast.error(`${error}`);
     }
   };
+
+  //revoke image urls after component unmount to prevent data leak
+  useEffect(() => {
+    return () => {
+      if (image) URL.revokeObjectURL(image.preview);
+    };
+  }, []);
+
+  if (!blog) {
+    router.push('/admin/blogs');
+    return;
+  }
 
   return (
     <section className="px-5 pb-10 ~pt-5/8">

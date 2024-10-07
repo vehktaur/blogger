@@ -11,6 +11,7 @@ input:-webkit-autofill:active {
 
 input[type='search']::-webkit-search-cancel-button {
   -webkit-appearance: none;
+  cursor: pointer;
   height: 1em;
   width: 1em;
   border-radius: 50%;
@@ -49,7 +50,7 @@ input[type='search']:focus::-webkit-search-cancel-button {
   }
 
   .input-base {
-    @apply block w-full border outline-none ~px-3/4 ~py-2.5/3;
+    @apply block w-full border outline-none transition-all duration-500 ~px-3/4 ~py-2.5/3 focus:border-stone-500;
   }
 
   .form-label {
