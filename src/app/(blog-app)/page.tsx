@@ -1,11 +1,8 @@
 import BlogList from '@/app/components/BlogList';
 import HomeIntro from '../components/HomeIntro';
 import HomeSearch from '../components/HomeSearch';
-import { getAllBlogs } from '@/lib/data';
 
 const Home = async () => {
-  const blogs = await getAllBlogs();
-
   return (
     <div className="~text-sm/lg ~pt-12/20">
       <div className="mx-auto max-w-7xl">
@@ -18,7 +15,7 @@ const Home = async () => {
         </section>
 
         <section className="px-5 ~mb-12/20">
-          <BlogList allBlogs={blogs} />
+          <BlogList />
         </section>
       </div>
     </div>
