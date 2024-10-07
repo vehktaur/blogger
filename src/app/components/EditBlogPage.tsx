@@ -25,9 +25,9 @@ import { useRouter } from 'next/navigation';
 const EditBlogPage = ({ blog }: { blog: BlogFormData }) => {
   //Define data and state
   const [image, setImage] = useState<ImageFile | null>({
-    preview: blog.image.url,
-    url: blog.image.url,
-    name: blog.image.name,
+    preview: blog?.image.url,
+    url: blog?.image.url,
+    name: blog?.image.name,
   }); // to save blog image file
   const { edgestore } = useEdgeStore(); // hook for image upload to edge store
   const [uploadProgress, setUploadProgress] = useState(100); //to show image upload progress
@@ -40,8 +40,19 @@ const EditBlogPage = ({ blog }: { blog: BlogFormData }) => {
     { name: 'Others', icon: OthersIcon },
     //Add more categories
   ]; //different categories for a blog post
-
   const router = useRouter();
+
+  //revoke image urls after component unmount to prevent data leak
+  useEffect(() => {
+    return () => {
+      if (image) URL.revokeObjectURL(image.preview);
+    };
+  }, []);
+
+  if (!blog) {
+    router.push('/admin/blogs');
+    return;
+  }
 
   //Declare useForm for RHF Form Control
   const {
@@ -187,18 +198,6 @@ const EditBlogPage = ({ blog }: { blog: BlogFormData }) => {
       toast.error(`${error}`);
     }
   };
-
-  //revoke image urls after component unmount to prevent data leak
-  useEffect(() => {
-    return () => {
-      if (image) URL.revokeObjectURL(image.preview);
-    };
-  }, []);
-
-  if (!blog) {
-    router.push('/admin/blogs');
-    return;
-  }
 
   return (
     <section className="px-5 pb-10 ~pt-5/8">
