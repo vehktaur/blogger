@@ -22,12 +22,12 @@ import {
 import { useEdgeStore } from '@/lib/edgestore';
 import { useRouter } from 'next/navigation';
 
-const Test = ({ blog }: { blog: BlogFormData }) => {
+const EditBlogPage = ({ blog }: { blog: BlogFormData }) => {
   const router = useRouter();
-  if (!blog) {
-    router.push('/admin/blogs');
-    return;
-  }
+  //   if (!blog) {
+  //     router.push('/admin/blogs');
+  //     return;
+  //   }
   //Define data and state
   const [image, setImage] = useState<ImageFile | null>({
     preview: blog.image.url,
@@ -120,13 +120,13 @@ const Test = ({ blog }: { blog: BlogFormData }) => {
 
   //Remove Selected Image
   const removeImage = async () => {
-    // const url = image?.url;
+    const url = image?.url;
     setUploadProgress(0);
     setImage(null);
-    // if (url)
-    //   await edgestore.blogPostImages.delete({
-    //     url,
-    //   });
+    if (url && url !== blog.image.url)
+      await edgestore.blogPostImages.delete({
+        url,
+      });
   };
 
   //onSubmit function to create post
@@ -429,4 +429,4 @@ const Test = ({ blog }: { blog: BlogFormData }) => {
     </section>
   );
 };
-export default Test;
+export default EditBlogPage;

@@ -90,11 +90,11 @@ export const PATCH = async (
     const id = params.id;
     const blog = await BlogModel.findById(id);
     const { url } = blog.image;
-    await backendClient.blogPostImages.deleteFile({ url });
     const updatedData = await request.json();
-
     Object.assign(blog, updatedData);
 
+    if (url && url !== updatedData.image.url)
+      await backendClient.blogPostImages.deleteFile({ url });
     await blog.save();
     return NextResponse.json({
       success: true,
