@@ -81,7 +81,7 @@ const HomeSearch = () => {
         )}
       </form>
 
-      <div className="flex items-center justify-center ~mt-8/12 ~gap-1/2">
+      <div className="flex items-center overflow-x-auto px-5 ~mt-8/12 ~gap-1/2 scrollbar-none xs:justify-center">
         {categories.map(({ category, active }) => (
           <button
             key={category}

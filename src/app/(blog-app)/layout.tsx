@@ -28,7 +28,7 @@ export default function RootLayout({
       <body className={`grid min-h-screen ${barlow.className}`}>
         <Navbar />
 
-        <main>{children}</main>
+        <main className="overflow-x-auto">{children}</main>
 
         <Footer />
       </body>

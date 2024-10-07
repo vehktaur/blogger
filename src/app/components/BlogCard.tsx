@@ -5,7 +5,7 @@ import Link from 'next/link';
 
 const BlogCard = ({ blog }: { blog: Blog }) => {
   return (
-    <Link href={`/blog/${blog._id}`}>
+    <Link className="grid" href={`/blog/${blog._id}`}>
       <div className="group w-full max-w-[20.625rem] overflow-hidden rounded border border-black shadow transition-shadow duration-500 hover:shadow-offset sm:max-w-[18.75rem]">
         <div className="border-b border-black">
           <Image
@@ -17,7 +17,7 @@ const BlogCard = ({ blog }: { blog: Blog }) => {
           />
         </div>
 
-        <div className="grid bg-white p-5">
+        <div className="flex h-full flex-col bg-white p-5">
           <div className="mb-3 flex items-center gap-2">
             {blog.categories.map((category) => (
               <span

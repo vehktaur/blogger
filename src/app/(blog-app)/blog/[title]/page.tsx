@@ -37,11 +37,11 @@ const Blog = async ({ params }: { params: { title: string } }) => {
             className="mx-auto -mt-[6.25rem] mb-10 w-full border-4 border-white"
             src={blog.image.url}
             alt={blog.image.name}
-            width={600}
-            height={100}
+            width={1280}
+            height={720}
           />
 
-          <div className="prose ~mb-4/6 grid w-full">
+          <div className="prose grid ~mb-4/6">
             <MDXRemote source={blog.content} />
           </div>
 
