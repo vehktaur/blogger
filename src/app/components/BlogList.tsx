@@ -51,7 +51,7 @@ const BlogList = ({ allBlogs }: { allBlogs: BlogData[] }) => {
         </div>
 
         <div className="mt-8 grid items-stretch justify-items-center ~gap-x-5/8 ~gap-y-7/10 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-          {blogs.map((blog) => (
+          {blogs?.map((blog) => (
             <BlogCard key={blog._id} blog={blog} />
           ))}
         </div>
