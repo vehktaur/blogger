@@ -1,13 +1,13 @@
 import { assets } from '@/assets/assets';
 import { getBlog } from '@/lib/data';
-import { blogData } from '@/lib/placeholder-data';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import Image from 'next/image';
 
 const Blog = async ({ params }: { params: { title: string } }) => {
-  const id = decodeURIComponent(params.title);
+  const url = decodeURIComponent(params.title);
+  const id = url.split('__').pop();
 
-  const blog = await getBlog(id);
+  const blog = await getBlog(id!);
 
   // const blog = blogData.find((blog) => blog.title === blogTitle);
 
@@ -41,7 +41,7 @@ const Blog = async ({ params }: { params: { title: string } }) => {
             height={720}
           />
 
-          <div className="prose prose-h1:~text-2xl/3xl prose-h1:sm:text-4xl ~mb-4/6">
+          <div className="prose ~mb-4/6 prose-h1:~text-2xl/3xl prose-h1:sm:text-4xl">
             <MDXRemote source={blog.content} />
           </div>
 
