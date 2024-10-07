@@ -1,16 +1,16 @@
-import { Blog } from "@/lib/definitions";
-import { ChevronDoubleRightIcon } from "@heroicons/react/20/solid";
-import Image from "next/image";
-import Link from "next/link";
+import { Blog } from '@/lib/definitions';
+import { ChevronDoubleRightIcon } from '@heroicons/react/20/solid';
+import Image from 'next/image';
+import Link from 'next/link';
 
 const BlogCard = ({ blog }: { blog: Blog }) => {
   return (
-    <Link href={`/blog/${encodeURIComponent(blog.title)}`}>
+    <Link href={`/blog/${blog._id}`}>
       <div className="group w-full max-w-[20.625rem] overflow-hidden rounded border border-black shadow transition-shadow duration-500 hover:shadow-offset sm:max-w-[18.75rem]">
         <div className="border-b border-black">
           <Image
             className="w-full object-cover"
-            src={blog.image}
+            src={blog.image.url}
             alt={blog.title}
             width={400}
             height={400}
@@ -21,7 +21,7 @@ const BlogCard = ({ blog }: { blog: Blog }) => {
           <div className="mb-3 flex items-center gap-2">
             {blog.categories.map((category) => (
               <span
-                key={`${category}_${blog.id}`}
+                key={`${category}_${blog._id}`}
                 className="rounded-[0.1rem] bg-black p-1 text-white ~text-xs/sm"
               >
                 {category}
@@ -43,7 +43,7 @@ const BlogCard = ({ blog }: { blog: Blog }) => {
           <div className="mt-4">
             <button className="flex items-center gap-1.5 font-bold ~text-sm/base">
               Read more
-              <ChevronDoubleRightIcon className="w-4 transition-transform duration-700 group-hover:translate-x-1 group-hover:scale-x-[1.35] mt-[0.025rem]" />
+              <ChevronDoubleRightIcon className="mt-[0.025rem] w-4 transition-transform duration-700 group-hover:translate-x-1 group-hover:scale-x-[1.35]" />
             </button>
           </div>
         </div>

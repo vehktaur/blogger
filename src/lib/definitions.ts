@@ -2,11 +2,16 @@ import { StaticImport } from 'next/dist/shared/lib/get-img-props';
 import { StaticImageData } from 'next/image';
 
 export interface Blog {
-  id: number;
+  _id: number;
   title: string;
   description: string;
-  image: string | StaticImageData | StaticImport;
-  date: number;
+  image: {
+    url: string | StaticImageData | StaticImport;
+    thumbnailUrl: string | StaticImageData | StaticImport;
+    name: string;
+  };
+  createdAt: number | string;
+  updatedAt?: number | string;
   categories: string[];
   author: { name: string; img: string | StaticImageData | StaticImport };
 }

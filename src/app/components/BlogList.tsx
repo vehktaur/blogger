@@ -1,24 +1,24 @@
-"use client";
+'use client';
 
-import { blogData } from "@/lib/placeholder-data";
-import BlogCard from "./BlogCard";
-import { useState } from "react";
-import { Blog as BlogData, Category } from "@/lib/definitions";
-import clsx from "clsx";
+import { blogData } from '@/lib/placeholder-data';
+import BlogCard from './BlogCard';
+import { useState } from 'react';
+import { Blog as BlogData, Category } from '@/lib/definitions';
+import clsx from 'clsx';
 
-const BlogList = () => {
+const BlogList = ({ allBlogs }: { allBlogs: BlogData[] }) => {
   const [categories, setCategories] = useState<Category[]>([
-    { category: "All", active: true },
-    { category: "Technology", active: false },
-    { category: "Startup", active: false },
-    { category: "Lifestyle", active: false },
+    { category: 'All', active: true },
+    { category: 'Technology', active: false },
+    { category: 'Startup', active: false },
+    { category: 'Lifestyle', active: false },
   ]);
 
-  const [blogs, setBlogs] = useState<BlogData[]>(blogData);
+  const [blogs, setBlogs] = useState<BlogData[]>(allBlogs);
 
   const filterBlogs = (category: string) => {
     setBlogs(
-      category === "All"
+      category === 'All'
         ? blogData
         : blogData.filter((blog) => blog.categories.includes(category)),
     );
@@ -31,6 +31,7 @@ const BlogList = () => {
       ),
     );
   };
+
   return (
     <section className="px-5 py-4 sm:px-10">
       <div className="max-w-7xl pt-5">
@@ -40,8 +41,8 @@ const BlogList = () => {
               key={category}
               onClick={() => filterBlogs(category)}
               className={clsx(
-                "rounded-sm py-1 transition-colors duration-300 ~px-2/3 hover:bg-[#444] hover:text-white",
-                { "bg-black text-white hover:!bg-black": active },
+                'rounded-sm py-1 transition-colors duration-300 ~px-2/3 hover:bg-[#444] hover:text-white',
+                { 'bg-black text-white hover:!bg-black': active },
               )}
             >
               {category}
@@ -51,7 +52,7 @@ const BlogList = () => {
 
         <div className="mt-8 grid items-stretch justify-items-center ~gap-x-5/8 ~gap-y-7/10 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
           {blogs.map((blog) => (
-            <BlogCard key={blog.id} blog={blog} />
+            <BlogCard key={blog._id} blog={blog} />
           ))}
         </div>
       </div>
