@@ -24,10 +24,10 @@ import { useRouter } from 'next/navigation';
 
 const EditBlogPage = ({ blog }: { blog: BlogFormData }) => {
   const router = useRouter();
-  //   if (!blog) {
-  //     router.push('/admin/blogs');
-  //     return;
-  //   }
+    if (!blog) {
+      router.push('/admin/blogs');
+      return;
+    }
   //Define data and state
   const [image, setImage] = useState<ImageFile | null>({
     preview: blog.image.url,
