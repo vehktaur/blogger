@@ -4,7 +4,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { Category, Query } from '@/lib/definitions';
 import { useEffect, useState } from 'react';
 import clsx from 'clsx';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 const HomeSearch = () => {
   const [categories, setCategories] = useState<Category[]>([
@@ -15,6 +15,9 @@ const HomeSearch = () => {
     { category: 'Culinary', active: false },
     { category: 'Others', active: false },
   ]);
+
+  const searchParams = useSearchParams();
+  const activeCategory = searchParams.get('category');
 
   const {
     register,
@@ -88,7 +91,11 @@ const HomeSearch = () => {
             onClick={() => filterBlogs(category)}
             className={clsx(
               'rounded-sm py-1 transition-colors duration-300 ~px-2/3 hover:bg-[#444] hover:text-white',
-              { 'bg-black text-white hover:!bg-black': active },
+              {
+                'bg-black text-white hover:!bg-black':
+                  category.toLowerCase() === activeCategory ||
+                  (category === 'All' && !activeCategory),
+              },
             )}
           >
             {category}

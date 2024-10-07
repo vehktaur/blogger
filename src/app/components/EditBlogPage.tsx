@@ -278,9 +278,11 @@ const EditBlogPage = ({ blog }: { blog: BlogFormData }) => {
                       >
                         <ImageToggleIcon svgClassName="size-full" />
                       </motion.button>
-                      <img
+                      <Image
                         src={image.preview}
                         className="size-full rounded-xl object-cover object-center"
+                        width={1280}
+                        height={720}
                         alt={image.image?.name || ''}
                         onLoad={() => URL.revokeObjectURL(image.preview)}
                       />

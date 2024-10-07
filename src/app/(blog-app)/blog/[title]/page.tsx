@@ -16,7 +16,7 @@ const Blog = async ({ params }: { params: { title: string } }) => {
       <div className="bg-gray-200 pt-20">
         <div className="px-5 pb-5 text-center ~pt-8/16 sm:~px-8/20">
           <div className="mx-auto max-w-[48rem] ~mb-36/40">
-            <h1 className="mb-6 text-2xl font-semibold sm:text-3xl md:text-5xl">
+            <h1 className="mb-6 text-2xl font-bold sm:text-3xl md:text-5xl">
               {blog.title}
             </h1>
 
@@ -41,7 +41,7 @@ const Blog = async ({ params }: { params: { title: string } }) => {
             height={720}
           />
 
-          <div className="prose grid ~mb-4/6">
+          <div className="prose prose-h1:~text-2xl/3xl prose-h1:sm:text-4xl ~mb-4/6">
             <MDXRemote source={blog.content} />
           </div>
 

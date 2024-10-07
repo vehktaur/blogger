@@ -45,8 +45,8 @@ const BlogsTable = async ({ title }: { title: string }) => {
                 <Image
                   className="size-full object-cover object-center"
                   src={blog.image.url}
-                  width={500}
-                  height={500}
+                  width={840}
+                  height={480}
                   alt="user name"
                 />
               </span>

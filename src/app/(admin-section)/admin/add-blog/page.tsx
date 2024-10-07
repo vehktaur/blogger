@@ -259,8 +259,8 @@ const AddBlog = () => {
                       <Image
                         src={image.preview}
                         className="size-full rounded-xl object-cover object-center"
-                        width={100}
-                        height={100}
+                        width={1280}
+                        height={720}
                         alt={image.image?.name || 'Uploaded Image'}
                         onLoad={() => URL.revokeObjectURL(image.preview)}
                       />
