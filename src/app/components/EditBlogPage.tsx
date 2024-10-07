@@ -23,11 +23,6 @@ import { useEdgeStore } from '@/lib/edgestore';
 import { useRouter } from 'next/navigation';
 
 const EditBlogPage = ({ blog }: { blog: BlogFormData }) => {
-  const router = useRouter();
-    if (!blog) {
-      router.push('/admin/blogs');
-      return;
-    }
   //Define data and state
   const [image, setImage] = useState<ImageFile | null>({
     preview: blog.image.url,
@@ -45,6 +40,8 @@ const EditBlogPage = ({ blog }: { blog: BlogFormData }) => {
     { name: 'Others', icon: OthersIcon },
     //Add more categories
   ]; //different categories for a blog post
+
+  const router = useRouter();
 
   //Declare useForm for RHF Form Control
   const {
@@ -197,6 +194,11 @@ const EditBlogPage = ({ blog }: { blog: BlogFormData }) => {
       if (image) URL.revokeObjectURL(image.preview);
     };
   }, []);
+
+  if (!blog) {
+    router.push('/admin/blogs');
+    return;
+  }
 
   return (
     <section className="px-5 pb-10 ~pt-5/8">
