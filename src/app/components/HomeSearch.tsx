@@ -1,16 +1,19 @@
 'use client';
 
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { Category, EmailInput, emailPattern } from '@/lib/definitions';
+import { Category, Query } from '@/lib/definitions';
 import { useEffect, useState } from 'react';
 import clsx from 'clsx';
+import { useRouter } from 'next/navigation';
 
 const HomeSearch = () => {
   const [categories, setCategories] = useState<Category[]>([
     { category: 'All', active: true },
-    { category: 'Technology', active: false },
-    { category: 'Startup', active: false },
-    { category: 'Lifestyle', active: false },
+    { category: 'Tech', active: false },
+    { category: 'Finance', active: false },
+    { category: 'Entertainment', active: false },
+    { category: 'Culinary', active: false },
+    { category: 'Others', active: false },
   ]);
 
   const {
@@ -18,9 +21,9 @@ const HomeSearch = () => {
     handleSubmit,
     reset,
     formState: { errors, isSubmitSuccessful },
-  } = useForm<EmailInput>();
+  } = useForm<Query>();
 
-  const onSubmit: SubmitHandler<EmailInput> = (data) => {
+  const onSubmit: SubmitHandler<Query> = (data) => {
     console.log(data);
   };
 
@@ -40,6 +43,18 @@ const HomeSearch = () => {
     }
   }, [isSubmitSuccessful]);
 
+  const router = useRouter();
+  useEffect(() => {
+    const activeCategory = categories
+      .find((category) => category.active)
+      ?.category.toLowerCase();
+    if (activeCategory === 'all') {
+      router.push('/');
+    } else {
+      router.push(`/?category=${activeCategory}`);
+    }
+  }, [categories]);
+
   return (
     <div>
       <form
@@ -51,13 +66,7 @@ const HomeSearch = () => {
           <input
             className="input-base border-black"
             type="email"
-            {...register('email', {
-              required: 'The email field is required',
-              pattern: {
-                value: emailPattern,
-                message: 'Please enter a valid email',
-              },
-            })}
+            {...register('query')}
             placeholder="Enter your email"
           />
           <button
@@ -67,12 +76,12 @@ const HomeSearch = () => {
             Subscribe
           </button>
         </div>
-        {errors.email?.message && (
-          <p className="error mt-3">{errors.email?.message}</p>
+        {errors.query?.message && (
+          <p className="error mt-3">{errors.query?.message}</p>
         )}
       </form>
 
-      <div className="flex items-center justify-center ~gap-1/2">
+      <div className="flex items-center justify-center ~mt-8/12 ~gap-1/2">
         {categories.map(({ category, active }) => (
           <button
             key={category}
