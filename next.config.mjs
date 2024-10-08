@@ -23,4 +23,6 @@ const withMDX = createMDX({
   // Add markdown plugins here, as desired
 });
 
-export default withPlaiceholder(withMDX(nextConfig));
+const withMDXConfig = withMDX(nextConfig);
+
+export default withPlaiceholder(withMDXConfig);

@@ -356,23 +356,27 @@ const AddBlog = () => {
 
             <div className="grid">
               <label className="form-label" htmlFor="content">
-                Content
+                <button>Content</button> <button>Preview</button>
               </label>
-              <textarea
-                className="input-base rounded-sm ~text-sm/base scrollbar-thin scrollbar-thumb-[#777]"
-                placeholder="Compose your blog post..."
-                id="content"
-                rows={8}
-                {...register('content', {
-                  required: {
-                    value: true,
-                    message: 'Content cannot be empty',
-                  },
-                })}
-              />
-              <small className="mt-2 block ps-1 ~text-xs/sm text-gray-500">
-                Write your <strong className='font-semibold'>content in Markdown</strong> format. Need
-                help? Learn more about{' '}
+              <div>
+                <textarea
+                  className="input-base rounded-sm ~text-sm/base scrollbar-thin scrollbar-thumb-[#777]"
+                  placeholder="Compose your blog post..."
+                  id="content"
+                  rows={8}
+                  {...register('content', {
+                    required: {
+                      value: true,
+                      message: 'Content cannot be empty',
+                    },
+                  })}
+                />
+              </div>
+
+              <small className="mt-2 block ps-1 text-gray-500 ~text-xs/sm">
+                Write your{' '}
+                <strong className="font-semibold">content in Markdown</strong>{' '}
+                format. Need help? Learn more about{' '}
                 <a
                   href="https://www.markdownguide.org/cheat-sheet/"
                   target="_blank"
