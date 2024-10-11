@@ -41,8 +41,11 @@ const AddBlog = () => {
     register,
     handleSubmit,
     reset,
+    watch,
     formState: { errors, isSubmitting, submitCount },
   } = useForm<BlogFormData>();
+
+  const content = watch('content');
 
   //Define React Drop Zone methods and properties
   const { getRootProps, getInputProps, rootRef, isDragActive, open } =
@@ -355,10 +358,13 @@ const AddBlog = () => {
             </div>
 
             <div className="grid">
-              <label className="form-label" htmlFor="content">
-                <button>Content</button> <button>Preview</button>
+              <label className="form-label flex ~gap-2/3" htmlFor="content">
+                <button className="rounded-sm border-b-2 border-[#333] px-1">
+                  Content
+                </button>{' '}
+                <button className="font-normal text-[#666]">Preview</button>
               </label>
-              <div>
+              <div className="flex gap-4">
                 <textarea
                   className="input-base rounded-sm ~text-sm/base scrollbar-thin scrollbar-thumb-[#777]"
                   placeholder="Compose your blog post..."
@@ -371,6 +377,7 @@ const AddBlog = () => {
                     },
                   })}
                 />
+                <div className="max-h-full w-full border">{content}</div>
               </div>
 
               <small className="mt-2 block ps-1 text-gray-500 ~text-xs/sm">

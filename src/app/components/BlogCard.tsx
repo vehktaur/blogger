@@ -14,8 +14,8 @@ const BlogCard = ({ blog }: { blog: Blog }) => {
             className="w-full object-cover"
             src={blog.image.url}
             alt={blog.title}
-            width={960}
-            height={480}
+            width={1280}
+            height={720}
           />
         </div>
 
@@ -42,7 +42,7 @@ const BlogCard = ({ blog }: { blog: Blog }) => {
             {blog.description}
           </p>
         </div>
-        <div className="mt-auto px-5 mb-5">
+        <div className="mb-5 mt-auto px-5">
           <button className="flex items-center gap-1.5 font-bold ~text-sm/base">
             Read more
             <ChevronDoubleRightIcon className="mt-[0.025rem] w-4 transition-transform duration-700 group-hover:translate-x-1 group-hover:scale-x-[1.35]" />
