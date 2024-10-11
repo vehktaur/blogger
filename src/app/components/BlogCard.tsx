@@ -1,6 +1,5 @@
 import { Blog } from '@/lib/definitions';
 import { ChevronDoubleRightIcon } from '@heroicons/react/20/solid';
-import Image from 'next/image';
 import Link from 'next/link';
 import DynamicImage from './DynamicImage';
 

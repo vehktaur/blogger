@@ -8,9 +8,8 @@ export const getBlurData = async (url: string) => {
 
     const { base64 } = await getPlaiceholder(buffer, { size: 10 });
 
-    return { base64 };
+    return base64;
   } catch (error) {
     console.log(error);
-    return { base64: '' };
   }
 };
