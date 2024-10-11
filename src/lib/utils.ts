@@ -6,7 +6,7 @@ export const getBlurData = async (url: string) => {
     const imageBuffer = await image.arrayBuffer();
     const buffer = Buffer.from(imageBuffer);
 
-    const { base64 } = await getPlaiceholder(buffer, { size: 10 });
+    const { base64 } = await getPlaiceholder(buffer);
 
     return base64;
   } catch (error) {
