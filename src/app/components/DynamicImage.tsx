@@ -6,6 +6,6 @@ const DynamicImage = async (props: ImageProps) => {
 
   console.log(`blur data = ${base64}`);
 
-  return <Image {...props} />;
+  return <Image placeholder='blur' blurDataURL={base64} {...props} />;
 };
 export default DynamicImage;
