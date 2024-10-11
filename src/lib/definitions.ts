@@ -1,6 +1,3 @@
-import { StaticImport } from 'next/dist/shared/lib/get-img-props';
-import { StaticImageData } from 'next/image';
-
 export interface Blog {
   _id: number;
   title: string;
