@@ -11,21 +11,23 @@ const BlogList = async ({ category }: { category: string }) => {
   const filteredBlogs =
     category === ''
       ? blogs
-      : blogs.filter((blog) =>
+      : blogs?.filter((blog) =>
           blog.categories.includes(capitalizeString(category)),
         );
 
   return (
-    <section className="px-5 py-4 sm:px-10">
-      <div className="max-w-7xl pt-5">
-        {filteredBlogs && filteredBlogs.length > 0 ? (
-          <div className="grid items-stretch justify-items-center ~gap-x-5/8 ~gap-y-7/10 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+    <section className='px-5 py-4 sm:px-10'>
+      <div className='max-w-7xl pt-5'>
+        {!filteredBlogs ? (
+          <p className='text-center font-medium'>Could Not Load Blogs</p>
+        ) : filteredBlogs.length === 0 ? (
+          <p className='text-center font-medium'>No Blogs In This Category</p>
+        ) : (
+          <div className='grid items-stretch justify-items-center ~gap-x-5/8 ~gap-y-7/10 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4'>
             {filteredBlogs.map((blog) => (
               <BlogCard key={blog._id} blog={blog} />
             ))}
           </div>
-        ) : (
-          <p className="text-center font-medium">No Blogs Found</p>
         )}
       </div>
     </section>
