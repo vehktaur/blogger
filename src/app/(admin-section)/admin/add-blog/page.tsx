@@ -181,12 +181,12 @@ const AddBlog = () => {
   }, []);
 
   return (
-    <section className="px-5 pb-10 ~pt-5/8">
-      <div className="mx-auto max-w-6xl">
+    <section className='px-5 pb-10 ~pt-5/8'>
+      <div className='mx-auto max-w-6xl'>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div className="w-[85%] max-w-md space-y-8">
+          <div className='w-[85%] max-w-md space-y-8'>
             <div>
-              <h3 className="form-label">Upload Image</h3>
+              <h3 className='form-label'>Upload Image</h3>
               <div
                 {...getRootProps({
                   className: clsx(
@@ -197,24 +197,24 @@ const AddBlog = () => {
                   tabIndex: 0,
                 })}
               >
-                <ImageCircleIcon className="~size-[1.8rem]/[2.5rem]" />
-                <p className="h- h- text-center ~text-[0.8rem]/base">
+                <ImageCircleIcon className='~size-[1.8rem]/[2.5rem]' />
+                <p className='h- h- text-center ~text-[0.8rem]/base'>
                   {isDragActive
                     ? 'Drop the image here...'
                     : 'Drag & drop image here, or click to select image'}
                 </p>
 
-                <small className="text-center tracking-wide text-gray-500 ~text-xs/[0.8rem]">
+                <small className='text-center tracking-wide text-gray-500 ~text-xs/[0.8rem]'>
                   Image size (50KB &le; size &le; 2MB)
                 </small>
 
                 {uploadProgress > 0 && (
-                  <div className="flex w-full items-center gap-2 text-sm">
+                  <div className='flex w-full items-center gap-2 text-sm'>
                     Uploading:
-                    <span className="relative flex w-3/4 items-center justify-center overflow-hidden rounded-full border border-[#7777] text-xs">
+                    <span className='relative flex w-3/4 items-center justify-center overflow-hidden rounded-full border border-[#7777] text-xs'>
                       {Math.round(uploadProgress)}%
                       <span
-                        className="absolute left-0 top-0 z-[-1] inline-block h-full bg-[#ccc] transition-all duration-300"
+                        className='absolute left-0 top-0 z-[-1] inline-block h-full bg-[#ccc] transition-all duration-300'
                         style={{ width: `${uploadProgress}%` }}
                       ></span>
                     </span>
@@ -222,7 +222,7 @@ const AddBlog = () => {
                 )}
 
                 {submitCount > 0 && !image && (
-                  <p className="error">An image is required to proceed</p>
+                  <p className='error'>An image is required to proceed</p>
                 )}
                 <input {...getInputProps()} />
 
@@ -232,17 +232,17 @@ const AddBlog = () => {
                       initial={{ opacity: 0, scale: 0.8 }}
                       animate={{ opacity: 1, scale: 1 }}
                       exit={{ opacity: 0, scale: 0 }}
-                      className="absolute inset-0 rounded-xl bg-white"
+                      className='absolute inset-0 rounded-xl bg-white'
                     >
                       {/* Remove Image */}
                       <motion.button
                         whileHover={{ scale: 1.075 }}
                         whileTap={{ scale: 0.95 }}
-                        type="button"
+                        type='button'
                         onClick={async () => await removeImage()}
-                        className="absolute -right-2 -top-2 rounded-full text-red-600"
+                        className='absolute -right-2 -top-2 rounded-full text-red-600'
                       >
-                        <XCircleIcon className="rounded-full bg-white ~size-6/7" />
+                        <XCircleIcon className='rounded-full bg-white ~size-6/7' />
                       </motion.button>
 
                       {/* Change Image */}
@@ -251,17 +251,17 @@ const AddBlog = () => {
                         animate={{ x: 0, y: '-50%', opacity: 1 }}
                         whileHover={{ scale: 1.1 }}
                         whileTap={{ scale: 0.95 }}
-                        type="button"
+                        type='button'
                         onClick={() => {
                           open();
                         }}
-                        className="absolute -right-10 top-1/2 size-7 rounded-full bg-[#f5f5f5] p-[0.15rem]"
+                        className='absolute -right-10 top-1/2 size-7 rounded-full bg-[#f5f5f5] p-[0.15rem]'
                       >
-                        <ImageToggleIcon svgClassName="size-full" />
+                        <ImageToggleIcon svgClassName='size-full' />
                       </motion.button>
                       <Image
                         src={image.preview}
-                        className="size-full rounded-xl object-cover object-center"
+                        className='size-full rounded-xl object-cover object-center'
                         width={1280}
                         height={720}
                         alt={image.image?.name || 'Uploaded Image'}
@@ -273,15 +273,15 @@ const AddBlog = () => {
               </div>
             </div>
 
-            <div className="grid">
-              <label className="form-label" htmlFor="title">
+            <div className='grid'>
+              <label className='form-label' htmlFor='title'>
                 Title
               </label>
               <input
-                className="input-base rounded-sm ~text-sm/base"
-                placeholder="Enter your captivating title here..."
-                id="title"
-                type="text"
+                className='input-base rounded-sm ~text-sm/base'
+                placeholder='Enter your captivating title here...'
+                id='title'
+                type='text'
                 {...register('title', {
                   required: {
                     value: true,
@@ -290,23 +290,23 @@ const AddBlog = () => {
                 })}
               />
               {errors?.title?.message && (
-                <p className="error mt-2 ps-1">{errors.title.message}</p>
+                <p className='error mt-2 ps-1'>{errors.title.message}</p>
               )}
             </div>
 
-            <div className="grid">
-              <h3 className="form-label">Category</h3>
+            <div className='grid'>
+              <h3 className='form-label'>Category</h3>
 
-              <div className="flex flex-wrap rounded-3xl border px-2 py-6 ~gap-x-1/2 ~gap-y-2/4">
+              <div className='flex flex-wrap rounded-3xl border px-2 py-6 ~gap-x-1/2 ~gap-y-2/4'>
                 {categories.map((category, index) => (
                   <label
-                    className="mx-auto flex cursor-pointer items-center gap-2 rounded-full border py-2 font-medium transition-all duration-300 ~text-[0.8rem]/[0.9rem] ~px-2.5/4 has-[:checked]:bg-stone-800 has-[:checked]:text-white hover:scale-110"
+                    className='mx-auto flex cursor-pointer items-center gap-2 rounded-full border py-2 font-medium transition-all duration-300 ~text-[0.8rem]/[0.9rem] ~px-2.5/4 has-[:checked]:bg-stone-800 has-[:checked]:text-white hover:scale-110'
                     key={index}
                   >
                     <input
-                      className="peer"
+                      className='peer'
                       hidden
-                      type="checkbox"
+                      type='checkbox'
                       value={category.name}
                       {...register('categories', {
                         required: {
@@ -324,26 +324,26 @@ const AddBlog = () => {
                       })}
                     />
                     <category.icon
-                      className="size-4 peer-checked:fill-white"
-                      svgClassName="size-full"
+                      className='size-4 peer-checked:fill-white'
+                      svgClassName='size-full'
                     />
                     <span> {category.name}</span>
                   </label>
                 ))}
               </div>
               {errors?.categories?.message && (
-                <p className="error mt-2 ps-1">{errors.categories.message}</p>
+                <p className='error mt-2 ps-1'>{errors.categories.message}</p>
               )}
             </div>
 
-            <div className="grid">
-              <label className="form-label" htmlFor="description">
+            <div className='grid'>
+              <label className='form-label' htmlFor='description'>
                 Description
               </label>
               <textarea
-                className="input-base rounded-sm ~text-sm/base scrollbar-thin scrollbar-thumb-[#777]"
-                placeholder="Give us a sneak peek..."
-                id="description"
+                className='input-base rounded-sm ~text-sm/base scrollbar-thin scrollbar-thumb-[#777]'
+                placeholder='Give us a sneak peek...'
+                id='description'
                 rows={3}
                 {...register('description', {
                   required: {
@@ -353,22 +353,22 @@ const AddBlog = () => {
                 })}
               />
               {errors?.description?.message && (
-                <p className="error mt-2 ps-1">{errors.description.message}</p>
+                <p className='error mt-2 ps-1'>{errors.description.message}</p>
               )}
             </div>
 
-            <div className="grid">
-              <label className="form-label flex ~gap-2/3" htmlFor="content">
-                <button className="rounded-sm border-b-2 border-[#333] px-1">
+            <div className='grid'>
+              <label className='form-label flex ~gap-2/3' htmlFor='content'>
+                <button className='rounded-sm border-b-2 border-[#333] px-1'>
                   Content
                 </button>{' '}
-                <button className="font-normal text-[#666]">Preview</button>
+                <button className='font-normal text-[#666]'>Preview</button>
               </label>
-              <div className="flex gap-4">
+              <div className='flex gap-4'>
                 <textarea
-                  className="input-base rounded-sm ~text-sm/base scrollbar-thin scrollbar-thumb-[#777]"
-                  placeholder="Compose your blog post..."
-                  id="content"
+                  className='input-base rounded-sm ~text-sm/base scrollbar-thin scrollbar-thumb-[#777]'
+                  placeholder='Compose your blog post...'
+                  id='content'
                   rows={8}
                   {...register('content', {
                     required: {
@@ -377,32 +377,32 @@ const AddBlog = () => {
                     },
                   })}
                 />
-                <div className="max-h-full w-full border">{content}</div>
+                {/* <div className="max-h-full w-full border">{content}</div> */}
               </div>
 
-              <small className="mt-2 block ps-1 text-gray-500 ~text-xs/sm">
+              <small className='mt-2 block ps-1 text-gray-500 ~text-xs/sm'>
                 Write your{' '}
-                <strong className="font-semibold">content in Markdown</strong>{' '}
+                <strong className='font-semibold'>content in Markdown</strong>{' '}
                 format. Need help? Learn more about{' '}
                 <a
-                  href="https://www.markdownguide.org/cheat-sheet/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="font-semibold underline underline-offset-2"
+                  href='https://www.markdownguide.org/cheat-sheet/'
+                  target='_blank'
+                  rel='noopener noreferrer'
+                  className='font-semibold underline underline-offset-2'
                 >
                   Markdown
                 </a>
                 .
               </small>
               {errors?.content?.message && (
-                <p className="error mt-2 ps-1">{errors.content.message}</p>
+                <p className='error mt-2 ps-1'>{errors.content.message}</p>
               )}
             </div>
           </div>
-          <div className="mt-10 flex items-center gap-4">
+          <div className='mt-10 flex items-center gap-4'>
             <button
               disabled={isSubmitting}
-              type="submit"
+              type='submit'
               className={clsx(
                 isSubmitting && 'text-white',
                 'group relative z-[1] inline-block overflow-hidden rounded-3xl border border-black px-6 py-2 font-medium transition-all duration-300 ~text-sm/base hover:text-white',
@@ -422,10 +422,10 @@ const AddBlog = () => {
             <button
               disabled={isSubmitting}
               onClick={() => resetForm()}
-              type="button"
-              className="group relative z-[1] inline-block overflow-hidden rounded-3xl border border-red-500 px-6 py-2 font-medium text-red-500 transition-all duration-300 ~text-sm/base hover:text-white"
+              type='button'
+              className='group relative z-[1] inline-block overflow-hidden rounded-3xl border border-red-500 px-6 py-2 font-medium text-red-500 transition-all duration-300 ~text-sm/base hover:text-white'
             >
-              <span className="absolute -left-[1px] -top-[1px] z-[-1] block h-[calc(100%+2px)] w-0 rounded-3xl bg-red-500 transition-all duration-300 group-hover:w-[calc(100%+2px)]" />
+              <span className='absolute -left-[1px] -top-[1px] z-[-1] block h-[calc(100%+2px)] w-0 rounded-3xl bg-red-500 transition-all duration-300 group-hover:w-[calc(100%+2px)]' />
               CLEAR
             </button>
           </div>

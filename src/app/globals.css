@@ -26,7 +26,7 @@ input[type='search']:focus::-webkit-search-cancel-button {
   pointer-events: all;
 }
 
-@layer utilities {
+@layer base {
   body {
     @apply scrollbar scrollbar-track-[#f1f1f1] scrollbar-thumb-[#555] scrollbar-w-[0.85rem];
   }
@@ -66,6 +66,3 @@ input[type='search']:focus::-webkit-search-cancel-button {
   background-color: #333 !important;
 }
 
-/* .border-img {
-  background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' rx='16' ry='16' stroke='%23999999FF' stroke-width='3' stroke-dasharray='25' stroke-dashoffset='0' stroke-linecap='round'/%3e%3c/svg%3e");
-} */
