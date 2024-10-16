@@ -364,7 +364,7 @@ const AddBlog = () => {
                 </button>{' '}
                 <button className='font-normal text-[#666]'>Preview</button>
               </label>
-              <div className='flex gap-4'>
+              <div className='block'>
                 <textarea
                   className='input-base rounded-sm ~text-sm/base scrollbar-thin scrollbar-thumb-[#777]'
                   placeholder='Compose your blog post...'
