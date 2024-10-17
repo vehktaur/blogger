@@ -8,7 +8,7 @@ import { BlogFormData, ImageFile, maxSize, minSize } from '@/lib/definitions';
 import { toast } from 'react-toastify';
 import { AnimatePresence, motion } from 'framer-motion';
 import { XCircleIcon } from '@heroicons/react/16/solid';
-import { useForm, SubmitHandler } from 'react-hook-form';
+import { SubmitHandler, useFormContext } from 'react-hook-form';
 import {
   CulinaryIcon,
   EntertainmentIcon,
@@ -22,15 +22,21 @@ import {
 import { useEdgeStore } from '@/lib/edgestore';
 import { useRouter } from 'next/navigation';
 
-const EditBlogPage = ({ blog }: { blog: BlogFormData }) => {
-  //Define data and state
-  const [image, setImage] = useState<ImageFile | null>({
-    preview: blog?.image.url,
-    url: blog?.image.url,
-    name: blog?.image.name,
-  }); // to save blog image file
+const BlogForm = ({
+  defaultImage,
+  edit,
+  id,
+}: {
+  defaultImage: ImageFile | null;
+  edit?: boolean;
+  id?: string;
+}) => {
+  //Set Default values for Image and RHFData
+
+  //Define custom data and state
+  const [image, setImage] = useState<ImageFile | null>(defaultImage); // state to save blog image file
   const { edgestore } = useEdgeStore(); // hook for image upload to edge store
-  const [uploadProgress, setUploadProgress] = useState(100); //to show image upload progress
+  const [uploadProgress, setUploadProgress] = useState(edit ? 100 : 0); //to show image upload progress
   const categories = [
     { name: 'Tech', icon: TechIcon },
     { name: 'Lifestyle', icon: LifestyleIcon },
@@ -40,7 +46,8 @@ const EditBlogPage = ({ blog }: { blog: BlogFormData }) => {
     { name: 'Others', icon: OthersIcon },
     //Add more categories
   ]; //different categories for a blog post
-  const router = useRouter();
+
+  const router = useRouter(); //router to redirect to blogs table after edit
 
   //Declare useForm for RHF Form Control
   const {
@@ -48,19 +55,7 @@ const EditBlogPage = ({ blog }: { blog: BlogFormData }) => {
     handleSubmit,
     reset,
     formState: { errors, isSubmitting, submitCount },
-  } = useForm<BlogFormData>({
-    defaultValues: {
-      image: {
-        url: blog?.image.url,
-        thumbnailUrl: blog?.image.thumbnailUrl,
-        name: blog?.image.name,
-      },
-      title: blog?.title,
-      categories: blog?.categories,
-      content: blog?.content,
-      description: blog?.description,
-    },
-  });
+  } = useFormContext<BlogFormData>();
 
   //Define React Drop Zone methods and properties
   const { getRootProps, getInputProps, rootRef, isDragActive, open } =
@@ -110,8 +105,8 @@ const EditBlogPage = ({ blog }: { blog: BlogFormData }) => {
   // Custom function to reset form
   const resetForm = () => {
     reset();
-    setImage(null);
-    setUploadProgress(0);
+    setImage(defaultImage);
+    setUploadProgress(edit ? 100 : 0);
   };
 
   //Remove Selected Image
@@ -119,10 +114,20 @@ const EditBlogPage = ({ blog }: { blog: BlogFormData }) => {
     const url = image?.url;
     setUploadProgress(0);
     setImage(null);
-    if (url && url !== blog?.image.url)
-      await edgestore.blogPostImages.delete({
-        url,
-      });
+
+    if (defaultImage) {
+      if (url && url !== defaultImage.url) {
+        await edgestore.blogPostImages.delete({
+          url,
+        });
+      }
+    } else {
+      if (url) {
+        await edgestore.blogPostImages.delete({
+          url,
+        });
+      }
+    }
   };
 
   //onSubmit function to create post
@@ -144,15 +149,24 @@ const EditBlogPage = ({ blog }: { blog: BlogFormData }) => {
     };
     console.log(data);
 
+    //send the form data to the backend (DB)
     try {
       let responseData;
+      const fetchUrl = edit ? `/api/blogs/${id}` : '/api/blogs';
+      const method = edit ? 'PATCH' : 'POST';
+      const body = edit
+        ? JSON.stringify({ ...data, updatedAt: Date.now() })
+        : JSON.stringify({
+            ...data,
+            author: { name: 'Kurapika', img: "can't see me yet" }, // Add author info
+          });
       try {
-        const res = await fetch(`/api/blogs/${blog?._id}`, {
-          method: 'PATCH',
+        const res = await fetch(fetchUrl, {
+          method,
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ ...data, updatedAt: Date.now() }),
+          body,
         });
 
         // Manually handle HTTP errors
@@ -162,19 +176,24 @@ const EditBlogPage = ({ blog }: { blog: BlogFormData }) => {
 
         responseData = await res.json();
       } catch (error) {
-        toast.error('Error - Could not patch');
+        toast.error('Error - Request Failed');
         console.log(error);
       }
 
       if (responseData?.success) {
-        resetForm();
-        toast.success(responseData?.msg);
+        if (image.url !== defaultImage?.url)
+          await edgestore.blogPostImages.confirmUpload({
+            url: image.url,
+          });
 
-        await edgestore.blogPostImages.confirmUpload({
-          url: image.url,
-        });
-        router.push('/admin/blogs');
-        router.refresh();
+        if (edit) {
+          router.push('/admin/blogs');
+          router.refresh();
+        } else {
+          resetForm();
+        }
+
+        toast.success(responseData?.msg);
       } else {
         toast.error(responseData?.msg);
         console.log(
@@ -194,18 +213,20 @@ const EditBlogPage = ({ blog }: { blog: BlogFormData }) => {
     };
   }, []);
 
-  if (!blog) {
+  // For the edit page, if there's no id i.e that blog wasn't found
+  // redirect back to the blogs table
+  if (edit && !id) {
     router.push('/admin/blogs');
     return;
   }
 
   return (
-    <section className="px-5 pb-10 ~pt-5/8">
-      <div className="mx-auto max-w-6xl">
+    <section className='px-5 pb-10 ~pt-5/8'>
+      <div className='mx-auto max-w-6xl'>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div className="w-[85%] max-w-md space-y-8">
+          <div className='w-[85%] max-w-md space-y-8'>
             <div>
-              <h3 className="form-label">Edit Image</h3>
+              <h3 className='form-label'>{edit ? 'Edit' : 'Upload'} Image</h3>
               <div
                 {...getRootProps({
                   className: clsx(
@@ -216,24 +237,24 @@ const EditBlogPage = ({ blog }: { blog: BlogFormData }) => {
                   tabIndex: 0,
                 })}
               >
-                <ImageCircleIcon className="~size-[1.8rem]/[2.5rem]" />
-                <p className="h- h- text-center ~text-[0.8rem]/base">
+                <ImageCircleIcon className='~size-[1.8rem]/[2.5rem]' />
+                <p className='h- h- text-center ~text-[0.8rem]/base'>
                   {isDragActive
                     ? 'Drop the image here...'
                     : 'Drag & drop image here, or click to select image'}
                 </p>
 
-                <small className="text-center tracking-wide text-gray-500 ~text-xs/[0.8rem]">
+                <small className='text-center tracking-wide text-gray-500 ~text-xs/[0.8rem]'>
                   Image size (50KB &le; size &le; 2MB)
                 </small>
 
                 {uploadProgress > 0 && (
-                  <div className="flex w-full items-center gap-2 text-sm">
+                  <div className='flex w-full items-center gap-2 text-sm'>
                     Uploading:
-                    <span className="relative flex w-3/4 items-center justify-center overflow-hidden rounded-full border border-[#7777] text-xs">
+                    <span className='relative flex w-3/4 items-center justify-center overflow-hidden rounded-full border border-[#7777] text-xs'>
                       {Math.round(uploadProgress)}%
                       <span
-                        className="absolute left-0 top-0 z-[-1] inline-block h-full bg-[#ccc] transition-all duration-300"
+                        className='absolute left-0 top-0 z-[-1] inline-block h-full bg-[#ccc] transition-all duration-300'
                         style={{ width: `${uploadProgress}%` }}
                       ></span>
                     </span>
@@ -241,7 +262,7 @@ const EditBlogPage = ({ blog }: { blog: BlogFormData }) => {
                 )}
 
                 {submitCount > 0 && !image && (
-                  <p className="error">An image is required to proceed</p>
+                  <p className='error'>An image is required to proceed</p>
                 )}
                 <input {...getInputProps()} />
 
@@ -251,17 +272,17 @@ const EditBlogPage = ({ blog }: { blog: BlogFormData }) => {
                       initial={{ opacity: 0, scale: 0.8 }}
                       animate={{ opacity: 1, scale: 1 }}
                       exit={{ opacity: 0, scale: 0 }}
-                      className="absolute -inset-[1px] rounded-xl bg-white"
+                      className='absolute -inset-[1px] rounded-xl bg-white'
                     >
                       {/* Remove Image */}
                       <motion.button
                         whileHover={{ scale: 1.075 }}
                         whileTap={{ scale: 0.95 }}
-                        type="button"
+                        type='button'
                         onClick={async () => await removeImage()}
-                        className="absolute -right-2 -top-2 rounded-full text-red-600"
+                        className='absolute -right-2 -top-2 rounded-full text-red-600'
                       >
-                        <XCircleIcon className="rounded-full bg-white ~size-6/7" />
+                        <XCircleIcon className='rounded-full bg-white ~size-6/7' />
                       </motion.button>
 
                       {/* Change Image */}
@@ -270,17 +291,17 @@ const EditBlogPage = ({ blog }: { blog: BlogFormData }) => {
                         animate={{ x: 0, y: '-50%', opacity: 1 }}
                         whileHover={{ scale: 1.1 }}
                         whileTap={{ scale: 0.95 }}
-                        type="button"
+                        type='button'
                         onClick={() => {
                           open();
                         }}
-                        className="absolute -right-10 top-1/2 size-7 rounded-full bg-[#f5f5f5] p-[0.15rem]"
+                        className='absolute -right-10 top-1/2 size-7 rounded-full bg-[#f5f5f5] p-[0.15rem]'
                       >
-                        <ImageToggleIcon svgClassName="size-full" />
+                        <ImageToggleIcon svgClassName='size-full' />
                       </motion.button>
                       <Image
                         src={image.preview}
-                        className="size-full rounded-xl object-cover object-center"
+                        className='size-full rounded-xl object-cover object-center'
                         width={1280}
                         height={720}
                         alt={image.image?.name || ''}
@@ -292,15 +313,15 @@ const EditBlogPage = ({ blog }: { blog: BlogFormData }) => {
               </div>
             </div>
 
-            <div className="grid">
-              <label className="form-label" htmlFor="title">
+            <div className='grid'>
+              <label className='form-label' htmlFor='title'>
                 Title
               </label>
               <input
-                className="input-base rounded-sm ~text-sm/base"
-                placeholder="Enter your captivating title here..."
-                id="title"
-                type="text"
+                className='input-base rounded-sm ~text-sm/base'
+                placeholder='Enter your captivating title here...'
+                id='title'
+                type='text'
                 {...register('title', {
                   required: {
                     value: true,
@@ -309,23 +330,23 @@ const EditBlogPage = ({ blog }: { blog: BlogFormData }) => {
                 })}
               />
               {errors?.title?.message && (
-                <p className="error mt-2 ps-1">{errors.title.message}</p>
+                <p className='error mt-2 ps-1'>{errors.title.message}</p>
               )}
             </div>
 
-            <div className="grid">
-              <h3 className="form-label">Category</h3>
+            <div className='grid'>
+              <h3 className='form-label'>Category</h3>
 
-              <div className="flex flex-wrap rounded-3xl border px-2 py-6 ~gap-x-1/2 ~gap-y-2/4">
+              <div className='flex flex-wrap rounded-3xl border px-2 py-6 ~gap-x-1/2 ~gap-y-2/4'>
                 {categories.map((category, index) => (
                   <label
-                    className="mx-auto flex cursor-pointer items-center gap-2 rounded-full border py-2 font-medium transition-all duration-300 ~text-[0.8rem]/[0.9rem] ~px-2.5/4 has-[:checked]:bg-stone-800 has-[:checked]:text-white hover:scale-110"
+                    className='mx-auto flex cursor-pointer items-center gap-2 rounded-full border py-2 font-medium transition-all duration-300 ~text-[0.8rem]/[0.9rem] ~px-2.5/4 has-[:checked]:bg-stone-800 has-[:checked]:text-white hover:scale-110'
                     key={index}
                   >
                     <input
-                      className="peer"
+                      className='peer'
                       hidden
-                      type="checkbox"
+                      type='checkbox'
                       value={category.name}
                       {...register('categories', {
                         required: {
@@ -343,26 +364,26 @@ const EditBlogPage = ({ blog }: { blog: BlogFormData }) => {
                       })}
                     />
                     <category.icon
-                      className="size-4 peer-checked:fill-white"
-                      svgClassName="size-full"
+                      className='size-4 peer-checked:fill-white'
+                      svgClassName='size-full'
                     />
                     <span> {category.name}</span>
                   </label>
                 ))}
               </div>
               {errors?.categories?.message && (
-                <p className="error mt-2 ps-1">{errors.categories.message}</p>
+                <p className='error mt-2 ps-1'>{errors.categories.message}</p>
               )}
             </div>
 
-            <div className="grid">
-              <label className="form-label" htmlFor="description">
+            <div className='grid'>
+              <label className='form-label' htmlFor='description'>
                 Description
               </label>
               <textarea
-                className="input-base rounded-sm ~text-sm/base scrollbar-thin scrollbar-thumb-[#777]"
-                placeholder="Give us a sneak peek..."
-                id="description"
+                className='input-base rounded-sm ~text-sm/base scrollbar-thin scrollbar-thumb-[#777]'
+                placeholder='Give us a sneak peek...'
+                id='description'
                 rows={3}
                 {...register('description', {
                   required: {
@@ -372,18 +393,18 @@ const EditBlogPage = ({ blog }: { blog: BlogFormData }) => {
                 })}
               />
               {errors?.description?.message && (
-                <p className="error mt-2 ps-1">{errors.description.message}</p>
+                <p className='error mt-2 ps-1'>{errors.description.message}</p>
               )}
             </div>
 
-            <div className="grid">
-              <label className="form-label" htmlFor="content">
+            <div className='grid'>
+              <label className='form-label' htmlFor='content'>
                 Content
               </label>
               <textarea
-                className="input-base rounded-sm ~text-sm/base scrollbar-thin scrollbar-thumb-[#777]"
-                placeholder="Compose your blog post..."
-                id="content"
+                className='input-base rounded-sm ~text-sm/base scrollbar-thin scrollbar-thumb-[#777]'
+                placeholder='Compose your blog post...'
+                id='content'
                 rows={8}
                 {...register('content', {
                   required: {
@@ -393,14 +414,14 @@ const EditBlogPage = ({ blog }: { blog: BlogFormData }) => {
                 })}
               />
               {errors?.content?.message && (
-                <p className="error mt-2 ps-1">{errors.content.message}</p>
+                <p className='error mt-2 ps-1'>{errors.content.message}</p>
               )}
             </div>
           </div>
-          <div className="mt-10 flex items-center gap-4">
+          <div className='mt-10 flex items-center gap-4'>
             <button
               disabled={isSubmitting}
-              type="submit"
+              type='submit'
               className={clsx(
                 isSubmitting && 'text-white',
                 'group relative z-[1] inline-block overflow-hidden rounded-3xl border border-black px-6 py-2 font-medium transition-all duration-300 ~text-sm/base hover:text-white',
@@ -414,17 +435,23 @@ const EditBlogPage = ({ blog }: { blog: BlogFormData }) => {
                   'absolute -left-[1px] -top-[1px] z-[-1] block h-[calc(100%+2px)] w-0 rounded-3xl bg-black transition-all duration-300',
                 )}
               />
-              {isSubmitting ? 'EDIT...' : 'EDIT'}
+              {isSubmitting
+                ? edit
+                  ? 'SAVING...'
+                  : 'CREATING...'
+                : edit
+                  ? 'SAVE'
+                  : 'CREATE'}
             </button>
 
             <button
               disabled={isSubmitting}
               onClick={() => resetForm()}
-              type="button"
-              className="group relative z-[1] inline-block overflow-hidden rounded-3xl border border-red-500 px-6 py-2 font-medium text-red-500 transition-all duration-300 ~text-sm/base hover:text-white"
+              type='button'
+              className='group relative z-[1] inline-block overflow-hidden rounded-3xl border border-red-500 px-6 py-2 font-medium text-red-500 transition-all duration-300 ~text-sm/base hover:text-white'
             >
-              <span className="absolute -left-[1px] -top-[1px] z-[-1] block h-[calc(100%+2px)] w-0 rounded-3xl bg-red-500 transition-all duration-300 group-hover:w-[calc(100%+2px)]" />
-              CLEAR
+              <span className='absolute -left-[1px] -top-[1px] z-[-1] block h-[calc(100%+2px)] w-0 rounded-3xl bg-red-500 transition-all duration-300 group-hover:w-[calc(100%+2px)]' />
+              {edit ? 'RESET' : 'CLEAR'}
             </button>
           </div>
         </form>
@@ -432,4 +459,4 @@ const EditBlogPage = ({ blog }: { blog: BlogFormData }) => {
     </section>
   );
 };
-export default EditBlogPage;
+export default BlogForm;

@@ -95,6 +95,7 @@ export const PATCH = async (
 
     if (url && url !== updatedData.image.url)
       await backendClient.blogPostImages.deleteFile({ url });
+
     await blog.save();
     return NextResponse.json({
       success: true,

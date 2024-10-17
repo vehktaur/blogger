@@ -47,3 +47,13 @@ export interface BlogFormData {
   description: string;
   _id?: string;
 }
+
+export interface Input {
+  label: string;
+  name: keyof BlogFormData;
+  type: string;
+  id: string;
+  required?: boolean;
+  errorMsg?: string;
+  placeholder?: string;
+}
