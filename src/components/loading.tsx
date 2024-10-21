@@ -1,6 +1,8 @@
-const Loading = () => {
+const Loading = ({ height }: { height?: string }) => {
   return (
-    <div className='grid h-full min-h-[65vh] place-items-center'>
+    <div
+      className={`grid h-full min-h-[${height || '65vh'}] place-items-center italic`}
+    >
       Loading...
     </div>
   );
