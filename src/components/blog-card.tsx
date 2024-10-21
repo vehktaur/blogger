@@ -24,7 +24,7 @@ const BlogCard = ({ blog }: { blog: Blog }) => {
             {blog.categories.map((category) => (
               <span
                 key={`${category}_${blog._id}`}
-                className='rounded-[0.1rem] bg-black p-1 text-white ~text-xs/sm'
+                className='rounded-[0.15rem] bg-black py-1 px-2 text-white text-xs'
               >
                 {category}
               </span>

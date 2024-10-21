@@ -22,6 +22,7 @@ import {
 import { useEdgeStore } from '@/lib/edgestore';
 import { useRouter } from 'next/navigation';
 import Input from './input';
+import Markdown from 'react-markdown';
 
 const BlogForm = ({
   defaultImage,
@@ -35,9 +36,19 @@ const BlogForm = ({
   //Set Default values for Image and RHFData
 
   //Define custom data and state
+  //Declare useForm for RHF Form Control
+  const {
+    register,
+    handleSubmit,
+    reset,
+    watch,
+    formState: { errors, isSubmitting, submitCount },
+  } = useFormContext<BlogFormData>();
   const [image, setImage] = useState<ImageFile | null>(defaultImage); // state to save blog image file
+  const content = watch('content');
   const { edgestore } = useEdgeStore(); // hook for image upload to edge store
   const [uploadProgress, setUploadProgress] = useState(edit ? 100 : 0); //to show image upload progress
+  const [showPreview, setShowPreview] = useState(false);
   const categories = [
     { name: 'Tech', icon: TechIcon },
     { name: 'Lifestyle', icon: LifestyleIcon },
@@ -49,14 +60,6 @@ const BlogForm = ({
   ]; //different categories for a blog post
 
   const router = useRouter(); //router to redirect to blogs table after edit
-
-  //Declare useForm for RHF Form Control
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors, isSubmitting, submitCount },
-  } = useFormContext<BlogFormData>();
 
   //Define React Drop Zone methods and properties
   const { getRootProps, getInputProps, rootRef, isDragActive, open } =
@@ -211,14 +214,9 @@ const BlogForm = ({
     return () => {
       if (image) URL.revokeObjectURL(image.preview);
     };
-  }, []);
+  }, [image]);
 
-  // For the edit page, if there's no id i.e that blog wasn't found
-  // redirect back to the blogs table
-  if (edit && !id) {
-    router.push('/admin/blogs');
-    return;
-  }
+  const markdown = '# Hi, *Pluto*!';
 
   return (
     <section className='px-5 pb-10 ~pt-5/8'>
@@ -332,7 +330,7 @@ const BlogForm = ({
               <div className='flex flex-wrap rounded-3xl border px-2 py-6 ~gap-x-1/2 ~gap-y-2/4'>
                 {categories.map((category, index) => (
                   <label
-                    className='mx-auto flex cursor-pointer items-center gap-2 rounded-full border py-2 font-medium transition-all duration-300 ~text-[0.8rem]/[0.9rem] ~px-2.5/4 has-[:checked]:bg-stone-800 has-[:checked]:text-white hover:scale-110'
+                    className='mx-auto flex cursor-pointer items-center gap-2 rounded-full border py-2 font-medium transition-all duration-300 ~text-[0.8rem]/[0.9rem] ~px-2.5/4 has-[:checked]:bg-stone-800 has-[:checked]:text-white hover:scale-105'
                     key={index}
                   >
                     <input
@@ -390,21 +388,55 @@ const BlogForm = ({
             </div>
 
             <div className='grid'>
-              <label className='form-label' htmlFor='content'>
-                Content
-              </label>
-              <textarea
-                className='input-base rounded-sm ~text-sm/base scrollbar-thin scrollbar-thumb-[#777]'
-                placeholder='Compose your blog post...'
-                id='content'
-                rows={8}
-                {...register('content', {
-                  required: {
-                    value: true,
-                    message: 'Content cannot be empty',
-                  },
-                })}
-              />
+              <div className='mb-1 flex w-fit items-center gap-3 border-b border-gray-500'>
+                <label
+                  htmlFor='content'
+                  className={`cursor-pointer border-stone-700 ~px-3/6 pb-1 transition-all duration-100 ~text-base/lg ${showPreview ? 'font-normal text-gray-400' : 'border-b-4 font-medium'}`}
+                  onClick={() => setShowPreview(false)}
+                >
+                  Content
+                </label>
+                <button
+                  className={`border-stone-700 ~px-3/6 pb-1 transition-all duration-100 ~text-base/lg ${showPreview ? 'border-b-4 font-medium' : 'font-normal text-gray-400'}`}
+                  type='button'
+                  onClick={() => setShowPreview(true)}
+                >
+                  Preview
+                </button>
+              </div>
+
+              <div className='relative'>
+                {showPreview && (
+                  <div className='input-base prose absolute inset-0 overflow-y-auto bg-white scrollbar-thin scrollbar-thumb-[#777]'>
+                    <Markdown>{content}</Markdown>
+                  </div>
+                )}
+                <textarea
+                  className='input-base rounded-sm ~text-sm/base scrollbar-thin scrollbar-thumb-[#777]'
+                  placeholder='Compose your blog post...'
+                  id='content'
+                  rows={8}
+                  {...register('content', {
+                    required: {
+                      value: true,
+                      message: 'Content cannot be empty',
+                    },
+                  })}
+                />
+              </div>
+
+              <p className='mt-2 text-xs'>
+                You can format your text using{' '}
+                <a
+                  href='https://www.markdownguide.org/cheat-sheet/'
+                  target='_blank'
+                  className='font-medium text-stone-600 underline'
+                >
+                  Markdown syntax
+                </a>
+                .
+              </p>
+
               {errors?.content?.message && (
                 <p className='error mt-2 ps-1'>{errors.content.message}</p>
               )}

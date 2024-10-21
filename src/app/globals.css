@@ -58,7 +58,7 @@ input[type='search']:focus::-webkit-search-cancel-button {
   }
 
   .form-label {
-    @apply mb-4 font-medium ~text-lg/xl;
+    @apply mb-4 font-medium ~text-base/lg;
   }
 
   .error {

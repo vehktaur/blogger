@@ -1,4 +1,5 @@
 import BlogsTable from '@/components/blogs-table';
+import Loading from '@/components/loading';
 import SearchInput from '@/components/search-input';
 import { Metadata } from 'next';
 import { Suspense } from 'react';
@@ -23,7 +24,7 @@ const Blogs = ({
           <h1 className='font-medium ~text-lg/xl ~mt-4/6'>All Blogs</h1>
         </header>
 
-        <Suspense fallback='Loading'>
+        <Suspense key={title} fallback={<Loading />}>
           <BlogsTable title={title} />
         </Suspense>
       </div>

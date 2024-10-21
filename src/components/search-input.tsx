@@ -14,7 +14,7 @@ const SearchInput = () => {
     } else {
       router.push('/admin/blogs');
     }
-  }, [search]);
+  }, [search, router]);
 
   return (
     <div className="flex items-center justify-between gap-2 sm:justify-start sm:gap-4">

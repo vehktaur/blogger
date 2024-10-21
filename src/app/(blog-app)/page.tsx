@@ -21,7 +21,7 @@ const Home = async ({
         <HomeSearch />
 
         {/* List of all the blogs */}
-        <Suspense fallback='Loading...'>
+        <Suspense key={category} fallback='Loading...'>
           <BlogList category={category} />
         </Suspense>
       </div>

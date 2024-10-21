@@ -56,7 +56,7 @@ const HomeSearch = () => {
     } else {
       router.push(`/?category=${activeCategory}`);
     }
-  }, [categories]);
+  }, [categories, router]);
 
   return (
     <section className='padding-inline ~py-3/6'>
