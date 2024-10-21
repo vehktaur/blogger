@@ -27,10 +27,11 @@ const HomeIntro = () => {
   ];
 
   return (
-    <div>
+    <section className='text-center ~pt-4/6 sm:px-8'>
       <Swiper
         className='max-h-[15rem]'
         direction={'vertical'}
+        speed={777}
         spaceBetween={30}
         autoHeight={true}
         mousewheel={{
@@ -61,7 +62,7 @@ const HomeIntro = () => {
           </SwiperSlide>
         ))}
       </Swiper>
-    </div>
+    </section>
   );
 };
 export default HomeIntro;

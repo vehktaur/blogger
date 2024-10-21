@@ -1,6 +1,7 @@
-import BlogList from '@/app/components/BlogList';
-import HomeIntro from '../components/HomeIntro';
-import HomeSearch from '../components/HomeSearch';
+import BlogList from '@/components/blogs-list';
+import HomeIntro from '@/components/home-intro';
+import HomeSearch from '@/components/home-search';
+import { Suspense } from 'react';
 
 const Home = async ({
   searchParams,
@@ -11,19 +12,18 @@ const Home = async ({
     typeof searchParams.category === 'string' ? searchParams.category : '';
 
   return (
-    <div className="~text-sm/lg ~pt-12/20">
-      <div className="mx-auto max-w-7xl">
-        <section className="text-center ~pt-4/6 sm:px-8">
-          <HomeIntro />
-        </section>
+    <div className='~text-sm/lg ~pt-12/20'>
+      <div className='mx-auto max-w-7xl'>
+        {/* Swiper intro on homepage*/}
+        <HomeIntro />
 
-        <section className="px-5 ~mt-3/6">
-          <HomeSearch />
-        </section>
+        {/* Search and filter for blogs list */}
+        <HomeSearch />
 
-        <section className="px-5 ~mb-12/20">
+        {/* List of all the blogs */}
+        <Suspense fallback='Loading...'>
           <BlogList category={category} />
-        </section>
+        </Suspense>
       </div>
     </div>
   );

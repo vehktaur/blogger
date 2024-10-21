@@ -1,4 +1,4 @@
-import DynamicImage from '@/app/components/DynamicImage';
+import DynamicImage from '@/components/dynamic-image';
 import { assets } from '@/assets/assets';
 import { getBlog } from '@/lib/data';
 import { MDXRemote } from 'next-mdx-remote/rsc';

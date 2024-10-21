@@ -1,5 +1,6 @@
 import { ConnectDB } from '@/lib/config/db';
 import BlogModel from '@/lib/models/BlogModel';
+import { revalidatePath } from 'next/cache';
 import { type NextRequest, NextResponse } from 'next/server';
 
 //Get Blogs from the Database
@@ -88,6 +89,8 @@ export async function POST(request: NextRequest) {
   // Save blog to the DB
   try {
     await BlogModel.create(blogData);
+    revalidatePath('/admin/blogs');
+    revalidatePath('/');
     return NextResponse.json({
       success: true,
       msg: `Blog added successfully`,

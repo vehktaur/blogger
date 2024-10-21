@@ -1,17 +1,17 @@
 import { Blog } from '@/lib/definitions';
 import { ChevronDoubleRightIcon } from '@heroicons/react/20/solid';
 import Link from 'next/link';
-import DynamicImage from './DynamicImage';
+import DynamicImage from './dynamic-image';
 import Image from 'next/image';
 
 const BlogCard = ({ blog }: { blog: Blog }) => {
   const url = `${blog.title}__${blog._id}`;
   return (
     <Link className='grid' href={`/blog/${encodeURIComponent(url)}`}>
-      <div className='group flex w-full max-w-[18rem] flex-col overflow-hidden rounded border border-black shadow transition-shadow duration-500 hover:shadow-offset sm:max-w-[18.75rem]'>
+      <div className='group flex w-full max-w-80 flex-col overflow-hidden rounded border border-black shadow transition-shadow duration-500 hover:shadow-offset sm:max-w-[18.75rem]'>
         <div className='border-b border-black'>
           <Image
-            className='w-full object-cover aspect-[16/11] sm:aspect-[3/2]'
+            className='aspect-[16/11] w-full object-cover sm:aspect-[3/2]'
             src={blog.image.url}
             alt={blog.title}
             width={1280}

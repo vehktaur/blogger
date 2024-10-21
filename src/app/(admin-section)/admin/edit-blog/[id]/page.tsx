@@ -1,5 +1,5 @@
-import BlogForm from '@/app/components/BlogForm';
-import UseFormContextProvider from '@/app/context/UseFormContextProvider';
+import BlogForm from '@/components/blog-form';
+import UseFormContextProvider from '@/context/UseFormContextProvider';
 import { getBlog } from '@/lib/data';
 import { BlogFormData } from '@/lib/definitions';
 

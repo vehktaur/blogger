@@ -59,50 +59,48 @@ const HomeSearch = () => {
   }, [categories]);
 
   return (
-    <div>
-      <form
-        className="mx-auto w-4/5 min-w-[260px] max-w-[35rem]"
-        onSubmit={handleSubmit(onSubmit)}
-        noValidate
-      >
-        <div className="flex items-stretch shadow-offset">
-          <input
-            className="input-base border-black"
-            type="email"
-            {...register('query')}
-            placeholder="Enter your email"
-          />
-          <button
-            className="border border-l-0 border-black transition-colors duration-300 ~px-3/6 hover:bg-gray-200"
-            type="submit"
-          >
-            Subscribe
-          </button>
-        </div>
-        {errors.query?.message && (
-          <p className="error mt-3">{errors.query?.message}</p>
-        )}
-      </form>
+    <section className='padding-inline ~py-3/6'>
+      <div className='flex flex-col items-center ~mt-8/12 ~gap-6/10 sm:justify-between md:flex-row md:~gap-1/10'>
+        <form onSubmit={handleSubmit(onSubmit)} noValidate>
+          <div className='flex items-stretch shadow-offset'>
+            <input
+              className='input-base border-black py-2 ~text-sm/base'
+              type='email'
+              {...register('query')}
+              placeholder='Blog title...'
+            />
+            <button
+              className='border border-l-0 border-black px-3 transition-colors duration-300 ~text-sm/base hover:bg-gray-200'
+              type='submit'
+            >
+              Search
+            </button>
+          </div>
+          {errors.query?.message && (
+            <p className='error mt-3'>{errors.query?.message}</p>
+          )}
+        </form>
 
-      <div className="flex items-center overflow-x-auto px-5 ~mt-8/12 ~gap-1/2 scrollbar-none xs:justify-center">
-        {categories.map(({ category, active }) => (
-          <button
-            key={category}
-            onClick={() => filterBlogs(category)}
-            className={clsx(
-              'rounded-sm py-1 transition-colors duration-300 ~px-2/3 hover:bg-[#444] hover:text-white',
-              {
-                'bg-black text-white hover:!bg-black':
-                  category.toLowerCase() === activeCategory ||
-                  (category === 'All' && !activeCategory),
-              },
-            )}
-          >
-            {category}
-          </button>
-        ))}
+        <div className='flex max-w-[95%] items-center gap-1 overflow-x-auto scrollbar-none xs:justify-center md:px-0'>
+          {categories?.map(({ category }) => (
+            <button
+              key={category}
+              onClick={() => filterBlogs(category)}
+              className={clsx(
+                'rounded-sm py-1 transition-colors duration-300 ~text-sm/base ~px-2/3 hover:bg-[#444] hover:text-white',
+                {
+                  'bg-black text-white hover:!bg-black':
+                    category.toLowerCase() === activeCategory ||
+                    (category === 'All' && !activeCategory),
+                },
+              )}
+            >
+              {category}
+            </button>
+          ))}
+        </div>
       </div>
-    </div>
+    </section>
   );
 };
 export default HomeSearch;

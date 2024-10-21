@@ -1,4 +1,4 @@
-import BlogCard from './BlogCard';
+import BlogCard from './blog-card';
 import { Blog as BlogData } from '@/lib/definitions';
 import { getAllBlogs } from '@/lib/data';
 
@@ -16,7 +16,7 @@ const BlogList = async ({ category }: { category: string }) => {
         );
 
   return (
-    <section className='px-5 py-4 sm:px-10'>
+    <section className='padding-inline pt-4 ~pb-12/20'>
       <div className='max-w-7xl pt-5'>
         {!filteredBlogs ? (
           <p className='text-center font-medium'>Could Not Load Blogs</p>

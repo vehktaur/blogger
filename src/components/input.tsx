@@ -17,13 +17,13 @@ const Input = ({
 
   return (
     <div className='grid'>
-      <label className='form-label' htmlFor={id}>
+      <label className='form-label' htmlFor={id || name}>
         {label}
       </label>
       <input
         className='input-base rounded-sm ~text-sm/base'
         placeholder={placeholder}
-        id={id}
+        id={id || name}
         type={type}
         {...register(name, {
           required: {

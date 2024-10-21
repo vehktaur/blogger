@@ -1,6 +1,7 @@
-import BlogsTable from '@/app/components/BlogsTable';
-import SearchInput from '@/app/components/SearchInput';
+import BlogsTable from '@/components/blogs-table';
+import SearchInput from '@/components/search-input';
 import { Metadata } from 'next';
+import { Suspense } from 'react';
 
 export const metadata: Metadata = {
   title: 'All Blogs - User Dashboard',
@@ -15,16 +16,16 @@ const Blogs = ({
     typeof searchParams.title === 'string' ? searchParams.title : '';
 
   return (
-    <div className="h-full px-5 pb-4 ~pt-5/8">
-      <div className="mx-auto min-h-full max-w-6xl">
+    <div className='h-full px-5 pb-4 ~pt-5/8'>
+      <div className='mx-auto min-h-full max-w-6xl'>
         <header>
           <SearchInput />
-          <h1 className="font-medium ~text-lg/xl ~mt-4/6">All Blogs</h1>
+          <h1 className='font-medium ~text-lg/xl ~mt-4/6'>All Blogs</h1>
         </header>
 
-        <div className="mt-4">
+        <Suspense fallback='Loading'>
           <BlogsTable title={title} />
-        </div>
+        </Suspense>
       </div>
     </div>
   );

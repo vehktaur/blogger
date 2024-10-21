@@ -21,6 +21,7 @@ import {
 } from '@/assets/svgs';
 import { useEdgeStore } from '@/lib/edgestore';
 import { useRouter } from 'next/navigation';
+import Input from './input';
 
 const BlogForm = ({
   defaultImage,
@@ -188,7 +189,6 @@ const BlogForm = ({
 
         if (edit) {
           router.push('/admin/blogs');
-          router.refresh();
         } else {
           resetForm();
         }
@@ -248,6 +248,7 @@ const BlogForm = ({
                   Image size (50KB &le; size &le; 2MB)
                 </small>
 
+                {/* Show Image Upload Progress */}
                 {uploadProgress > 0 && (
                   <div className='flex w-full items-center gap-2 text-sm'>
                     Uploading:
@@ -266,13 +267,14 @@ const BlogForm = ({
                 )}
                 <input {...getInputProps()} />
 
+                {/* Image Preview */}
                 <AnimatePresence>
                   {image?.preview && uploadProgress === 100 && (
                     <motion.div
                       initial={{ opacity: 0, scale: 0.8 }}
                       animate={{ opacity: 1, scale: 1 }}
                       exit={{ opacity: 0, scale: 0 }}
-                      className='absolute -inset-[1px] rounded-xl bg-white'
+                      className='absolute -inset-[1px] rounded-xl border bg-white'
                     >
                       {/* Remove Image */}
                       <motion.button
@@ -313,29 +315,19 @@ const BlogForm = ({
               </div>
             </div>
 
-            <div className='grid'>
-              <label className='form-label' htmlFor='title'>
-                Title
-              </label>
-              <input
-                className='input-base rounded-sm ~text-sm/base'
-                placeholder='Enter your captivating title here...'
-                id='title'
-                type='text'
-                {...register('title', {
-                  required: {
-                    value: true,
-                    message: 'Enter a title',
-                  },
-                })}
-              />
-              {errors?.title?.message && (
-                <p className='error mt-2 ps-1'>{errors.title.message}</p>
-              )}
-            </div>
+            <Input
+              label='Title'
+              name='title'
+              type='text'
+              required={true}
+              errorMsg='Enter a title'
+              placeholder='Enter your captivating title here...'
+            />
 
             <div className='grid'>
-              <h3 className='form-label'>Category</h3>
+              <label className='form-label' htmlFor='categories'>
+                Category
+              </label>
 
               <div className='flex flex-wrap rounded-3xl border px-2 py-6 ~gap-x-1/2 ~gap-y-2/4'>
                 {categories.map((category, index) => (

@@ -1,9 +1,7 @@
 export const getAllBlogs = async () => {
   try {
     const apiUrl = process.env.API_URL || 'http://localhost:3000';
-    const res = await fetch(`${apiUrl}/api/blogs`, {
-      cache: 'no-store',
-    });
+    const res = await fetch(`${apiUrl}/api/blogs`);
     if (!res.ok) {
       throw new Error('Failed to get blogs');
     }
