@@ -1,4 +1,4 @@
-import DynamicImage from '@/components/dynamic-image';
+import BlurImage from '@/components/blur-image';
 import { assets } from '@/assets/assets';
 import { getBlog } from '@/lib/data';
 import { MDXRemote } from 'next-mdx-remote/rsc';
@@ -21,7 +21,7 @@ const Blog = async ({ params }: { params: { title: string } }) => {
               {blog.title}
             </h1>
 
-            <Image
+            <BlurImage
               className='mx-auto rounded-full border border-white ~w-16/20'
               src={assets.profile_img}
               alt={`${blog.author.name}`}
@@ -36,7 +36,7 @@ const Blog = async ({ params }: { params: { title: string } }) => {
       </div>
       <div className='px-5 sm:~px-8/20'>
         <div className='mx-auto max-w-[50rem]'>
-          <Image
+          <BlurImage
             className='mx-auto -mt-[6.25rem] mb-10 w-full border-4 border-white'
             src={blog.image.url}
             alt={blog.image.name}

@@ -1,8 +1,7 @@
 import { Blog } from '@/lib/definitions';
 import { ChevronDoubleRightIcon } from '@heroicons/react/20/solid';
 import Link from 'next/link';
-import DynamicImage from './dynamic-image';
-import Image from 'next/image';
+import BlurImage from './blur-image';
 
 const BlogCard = ({ blog }: { blog: Blog }) => {
   const url = `${blog.title}__${blog._id}`;
@@ -10,7 +9,7 @@ const BlogCard = ({ blog }: { blog: Blog }) => {
     <Link className='grid' href={`/blog/${encodeURIComponent(url)}`}>
       <div className='group flex w-full max-w-80 flex-col overflow-hidden rounded border border-black shadow transition-shadow duration-500 hover:shadow-offset sm:max-w-[18.75rem]'>
         <div className='border-b border-black'>
-          <Image
+          <BlurImage
             className='aspect-[16/11] w-full object-cover sm:aspect-[3/2]'
             src={blog.image.url}
             alt={blog.title}
@@ -24,7 +23,7 @@ const BlogCard = ({ blog }: { blog: Blog }) => {
             {blog.categories.map((category) => (
               <span
                 key={`${category}_${blog._id}`}
-                className='rounded-[0.15rem] bg-black py-1 px-2 text-white text-xs'
+                className='rounded-[0.15rem] bg-black px-2 py-1 text-xs text-white'
               >
                 {category}
               </span>
