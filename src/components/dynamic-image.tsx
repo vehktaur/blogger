@@ -1,13 +1,13 @@
+import 'server-only';
+
 import { getBlurData } from '@/lib/utils';
 import Image, { type ImageProps } from 'next/image';
 
-const DynamicImage = async ({
-  placeholder,
-  blurDataURL,
-  ...props
-}: ImageProps) => {
-  const base64 = await getBlurData(props.src as string);
+const DynamicImage = async ({ src, ...rest }: ImageProps) => {
+  if (typeof src !== 'string') return <Image src={src} {...rest} />;
 
-  return <Image {...props} placeholder='blur' blurDataURL={base64} />;
+  const base64 = await getBlurData(src);
+
+  return <Image src={src} {...rest} placeholder='blur' blurDataURL={base64} />;
 };
 export default DynamicImage;
