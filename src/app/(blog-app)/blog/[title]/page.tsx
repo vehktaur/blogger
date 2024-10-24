@@ -7,7 +7,7 @@ import { redirect } from 'next/navigation';
 import { Blog as BlogInterface } from '@/lib/definitions';
 
 // Revalidate blog posts after 1 minute
-export const revalidate = 60;
+export const revalidate = 60 * 5;
 
 // Generate Static Blog Pages at build time
 export const generateStaticParams = async () => {
@@ -29,7 +29,7 @@ export const generateMetadata = async ({
 
   const blog: BlogInterface = await getBlog(id || 'no-id');
   return {
-    title: blog.title,
+    title: `${blog.title} | Blogger`,
     description: blog.description,
   };
 };

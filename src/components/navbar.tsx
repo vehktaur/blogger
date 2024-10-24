@@ -31,8 +31,8 @@ const Navbar = () => {
   }, []);
 
   return (
-    <div ref={navbar} className='fixed left-0 top-0 z-10 w-full'>
-      <nav className='mx-auto flex max-w-7xl items-center justify-between gap-4 px-5 pb-3 pt-4 sm:px-10'>
+    <div ref={navbar} className='fixed left-0 top-0 z-10 w-full padding-inline'>
+      <nav className='mx-auto flex max-w-7xl items-center justify-between gap-4 pb-3 pt-4'>
         <Link className='block' href='/'>
           <Image
             src='/icons/logo.png'
