@@ -1,18 +1,50 @@
 import BlurImage from '@/components/blur-image';
 import { assets } from '@/assets/assets';
-import { getBlog } from '@/lib/data';
+import { getAllBlogs, getBlog } from '@/lib/data';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import Image from 'next/image';
+import { redirect } from 'next/navigation';
+import { Blog as BlogInterface } from '@/lib/definitions';
+
+// Revalidate blog posts after 1 minute
+export const revalidate = 60;
+
+// Generate Static Blog Pages at build time
+export const generateStaticParams = async () => {
+  const blogs: BlogInterface[] = await getAllBlogs();
+  const staticBlogs = blogs.map((blog) => {
+    title: `${blog.title}__${blog._id}`;
+  });
+
+  return staticBlogs;
+};
+
+export const generateMetaData = async ({
+  params,
+}: {
+  params: { title: string };
+}) => {
+  const url = decodeURIComponent(params.title);
+  const id = url.split('__').pop();
+
+  const blog: BlogInterface = await getBlog(id || 'no-id');
+  return {
+    title: blog.title,
+    description: blog.description,
+  };
+};
 
 const Blog = async ({ params }: { params: { title: string } }) => {
   const url = decodeURIComponent(params.title);
   const id = url.split('__').pop();
 
-  const blog = await getBlog(id!);
+  const blog = await getBlog(id || 'no-id');
 
-  // const blog = blogData.find((blog) => blog.title === blogTitle);
+  if (!blog) {
+    redirect('/');
+  }
 
-  return blog ? (
+  return (
     <>
       <div className='bg-gray-200 pt-20'>
         <div className='px-5 pb-5 text-center ~pt-8/16 sm:~px-8/20'>
@@ -80,8 +112,6 @@ const Blog = async ({ params }: { params: { title: string } }) => {
         </div>
       </div>
     </>
-  ) : (
-    <></>
   );
 };
 export default Blog;

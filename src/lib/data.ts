@@ -1,7 +1,11 @@
 export const getAllBlogs = async () => {
   try {
     const apiUrl = process.env.API_URL || 'http://localhost:3000';
-    const res = await fetch(`${apiUrl}/api/blogs`);
+    const res = await fetch(`${apiUrl}/api/blogs`, {
+      next: {
+        tags: ['blogs'],
+      },
+    });
     if (!res.ok) {
       throw new Error('Failed to get blogs');
     }
