@@ -30,6 +30,11 @@ input[type='search']:focus::-webkit-search-cancel-button {
   body {
     @apply scrollbar scrollbar-track-[#f1f1f1] scrollbar-thumb-[#555] scrollbar-w-[0.85rem];
   }
+
+  textarea::-webkit-scrollbar-track,
+  textarea::-webkit-scrollbar-thumb {
+    cursor: default;
+  }
 }
 
 @layer utilities {
@@ -54,11 +59,11 @@ input[type='search']:focus::-webkit-search-cancel-button {
   }
 
   .input-base {
-    @apply block w-full border outline-none transition-all duration-500 ~px-3/4 ~py-2.5/3 focus:border-stone-500;
+    @apply block w-full border outline-none transition-all duration-500 ~px-3/4 ~py-2/2.5 focus:border-stone-500;
   }
 
   .form-label {
-    @apply mb-4 font-medium ~text-base/lg;
+    @apply text-base font-medium ~mb-1.5/2;
   }
 
   .error {

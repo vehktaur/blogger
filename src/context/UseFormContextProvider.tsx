@@ -9,7 +9,7 @@ const UseFormContextProvider = ({
   defaultValues?: any;
   children: React.ReactNode;
 }) => {
-  const methods = useForm({ defaultValues: defaultValues?.formData });
+  const methods = useForm({ defaultValues });
 
   return <FormProvider {...methods}> {children}</FormProvider>;
 };

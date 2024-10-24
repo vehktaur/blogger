@@ -56,7 +56,7 @@ export const DELETE = async (
     const { url } = await request.json();
     await backendClient.blogPostImages.deleteFile({ url });
     await BlogModel.deleteOne({ _id: id });
-    revalidatePath('/admin/blogs');
+    revalidatePath('/blogs');
     return NextResponse.json({
       success: true,
       msg: 'Blog Deleted',
@@ -99,7 +99,7 @@ export const PATCH = async (
       await backendClient.blogPostImages.deleteFile({ url });
 
     await blog.save();
-    revalidatePath('/admin/blogs');
+    revalidatePath('/blogs');
     return NextResponse.json({
       success: true,
       msg: 'Blog Updated',

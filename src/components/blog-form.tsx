@@ -191,7 +191,7 @@ const BlogForm = ({
           });
 
         if (edit) {
-          router.push('/admin/blogs');
+          router.push('/blogs');
         } else {
           resetForm();
         }
@@ -216,8 +216,6 @@ const BlogForm = ({
     };
   }, [image]);
 
-  const markdown = '# Hi, *Pluto*!';
-
   return (
     <section className='px-5 pb-10 ~pt-5/8'>
       <div className='mx-auto max-w-6xl'>
@@ -229,7 +227,7 @@ const BlogForm = ({
                 {...getRootProps({
                   className: clsx(
                     !image?.image && 'border cursor-pointer',
-                    '~px-4/8 block border-dashed rounded-xl flex flex-col items-center ~gap-3/4 ~h-48/60 justify-center relative',
+                    '~px-4/8 block border-dashed rounded-3xl flex flex-col items-center ~gap-3/4 ~h-48/60 justify-center relative',
                     isDragActive ? 'border-[#000]' : 'border-[#aaa]',
                   ),
                   tabIndex: 0,
@@ -272,7 +270,7 @@ const BlogForm = ({
                       initial={{ opacity: 0, scale: 0.8 }}
                       animate={{ opacity: 1, scale: 1 }}
                       exit={{ opacity: 0, scale: 0 }}
-                      className='absolute -inset-[1px] rounded-xl border bg-white'
+                      className='absolute -inset-[1px] rounded-3xl border bg-white'
                     >
                       {/* Remove Image */}
                       <motion.button
@@ -301,7 +299,7 @@ const BlogForm = ({
                       </motion.button>
                       <Image
                         src={image.preview}
-                        className='size-full rounded-xl object-cover object-center'
+                        className='size-full rounded-3xl object-cover object-center'
                         width={1280}
                         height={720}
                         alt={image.image?.name || ''}
@@ -371,7 +369,7 @@ const BlogForm = ({
                 Description
               </label>
               <textarea
-                className='input-base rounded-sm ~text-sm/base scrollbar-thin scrollbar-thumb-[#777]'
+                className='input-base rounded-3xl ~text-sm/base scrollbar-thin scrollbar-thumb-[#777]'
                 placeholder='Give us a sneak peek...'
                 id='description'
                 rows={3}
@@ -388,31 +386,37 @@ const BlogForm = ({
             </div>
 
             <div className='grid'>
-              <div className='mb-1 flex w-fit items-center gap-3 border-b border-gray-500'>
+              <div className='mb-1 flex w-fit items-center gap-2'>
                 <label
                   htmlFor='content'
-                  className={`cursor-pointer border-stone-700 ~px-3/6 pb-1 transition-all duration-100 ~text-base/lg ${showPreview ? 'font-normal text-gray-400' : 'border-b-4 font-medium'}`}
+                  className={`relative cursor-pointer pb-2 text-base transition-all duration-100 ~px-3/6 ${showPreview ? 'font-normal text-gray-400' : 'font-medium'}`}
                   onClick={() => setShowPreview(false)}
                 >
+                  <span
+                    className={`absolute bottom-0 h-1 origin-center rounded-3xl bg-stone-700 transition-all duration-300 ${showPreview ? 'left-1/2 w-0' : 'left-0 w-full'}`}
+                  />
                   Content
                 </label>
                 <button
-                  className={`border-stone-700 ~px-3/6 pb-1 transition-all duration-100 ~text-base/lg ${showPreview ? 'border-b-4 font-medium' : 'font-normal text-gray-400'}`}
+                  className={`relative pb-2 text-base transition-all duration-100 ~px-3/6 ${showPreview ? 'font-medium' : 'font-normal text-gray-400'}`}
                   type='button'
                   onClick={() => setShowPreview(true)}
                 >
+                  <span
+                    className={`absolute bottom-0 h-1 origin-center rounded-3xl bg-stone-700 transition-all duration-300 ${showPreview ? 'left-0 w-full' : 'left-1/2 w-0'}`}
+                  />
                   Preview
                 </button>
               </div>
 
-              <div className='relative'>
+              <div className='relative overflow-hidden'>
                 {showPreview && (
-                  <div className='input-base prose absolute inset-0 overflow-y-auto bg-white scrollbar-thin scrollbar-thumb-[#777]'>
+                  <div className='input-base prose absolute inset-0 overflow-y-auto rounded-3xl bg-white scrollbar-thin scrollbar-thumb-[#777]'>
                     <Markdown>{content}</Markdown>
                   </div>
                 )}
                 <textarea
-                  className='input-base rounded-sm ~text-sm/base scrollbar-thin scrollbar-thumb-[#777]'
+                  className='input-base rounded-3xl ~text-sm/base scrollbar-thin scrollbar-thumb-[#777]'
                   placeholder='Compose your blog post...'
                   id='content'
                   rows={8}

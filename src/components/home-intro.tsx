@@ -27,7 +27,7 @@ const HomeIntro = () => {
   ];
 
   return (
-    <section className='text-center ~pt-4/6 sm:px-8'>
+    <section className='sm:padding-inline mx-auto max-w-7xl text-center ~pt-4/6'>
       <Swiper
         className='max-h-[15rem]'
         direction={'vertical'}

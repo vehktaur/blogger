@@ -48,11 +48,25 @@ export interface BlogFormData {
   _id?: string;
 }
 
+export interface PersonalInfo {
+  username: string;
+  email: string;
+  firstName: string;
+  lastName: string;
+}
+
+export interface Password {
+  password: string;
+  newPassword?: string;
+  confirmPassword?: string;
+}
+
 export interface Input {
   label: string;
-  name: keyof BlogFormData;
+  name: keyof BlogFormData | keyof PersonalInfo | keyof Password;
   type: string;
   id?: string;
+  disabled?: boolean;
   required?: boolean;
   errorMsg?: string;
   placeholder?: string;

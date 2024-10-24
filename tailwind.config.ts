@@ -14,6 +14,9 @@ const config: Config = {
     screens,
     fontSize,
     extend: {
+      backgroundImage: {
+        user: 'url("../assets/images/user.png")',
+      },
       boxShadow: {
         offset: '-7px 7px 0 #000000',
       },

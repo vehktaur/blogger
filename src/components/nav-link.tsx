@@ -1,5 +1,6 @@
 'use client';
 
+import clsx from 'clsx';
 import Link, { LinkProps } from 'next/link';
 import { usePathname } from 'next/navigation';
 import { ReactNode } from 'react';
@@ -20,10 +21,7 @@ const NavLink = ({
   const isActive = props.href === pathname;
 
   return (
-    <Link
-      {...props}
-      className={`${className} ${isActive ? activeClassName : ''}`}
-    >
+    <Link {...props} className={clsx(isActive && activeClassName, className)}>
       {children}
     </Link>
   );

@@ -16,8 +16,8 @@ const BlogList = async ({ category }: { category: string }) => {
         );
 
   return (
-    <section className='padding-inline pt-4 ~pb-12/20'>
-      <div className='max-w-7xl pt-5'>
+    <section className='padding-inline pt-10 ~pb-12/20'>
+      <div className='mx-auto max-w-7xl'>
         {!filteredBlogs ? (
           <p className='text-center font-medium'>Could Not Load Blogs</p>
         ) : filteredBlogs.length === 0 ? (

@@ -89,7 +89,7 @@ export async function POST(request: NextRequest) {
   // Save blog to the DB
   try {
     await BlogModel.create(blogData);
-    revalidatePath('/admin/blogs');
+    revalidatePath('/blogs');
     revalidatePath('/');
     return NextResponse.json({
       success: true,

@@ -101,43 +101,43 @@ const Dropdown = ({ id, url }: { id: string; url: string }) => {
   }, [isOpen]);
 
   return (
-    <div className="relative" ref={dropdownRef}>
+    <div className='relative' ref={dropdownRef}>
       {showConfirmation && (
         <div
-          title=""
-          className="bg fixed inset-0 z-50 grid place-items-center bg-[#00000046]"
+          title=''
+          className='bg fixed inset-0 z-50 grid place-items-center bg-[#00000046]'
         >
           <motion.div
             initial={{ opacity: 0, scale: 0.5 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="max-w-[20rem] rounded-3xl bg-white px-6 py-8 text-center text-sm shadow-md ring-1 ring-stone-100"
+            className='max-w-[20rem] rounded-3xl bg-white px-6 py-8 text-center text-sm shadow-md ring-1 ring-stone-100'
           >
             <p>
               Are you sure you want to{' '}
-              <span className="font-medium text-red-700">delete</span> this
+              <span className='font-medium text-red-700'>delete</span> this
               blog?
             </p>
-            <p className="mt-2">
-              <strong className="font-medium">
+            <p className='mt-2'>
+              <strong className='font-medium'>
                 This action cannot be undone
               </strong>
             </p>
 
-            <div className="mt-4 flex items-center justify-center gap-4">
+            <div className='mt-4 flex items-center justify-center gap-4'>
               <button
                 disabled={isDisbaled}
                 onClick={() => deleteBlog(id, url)}
-                className="group relative z-[1] overflow-hidden rounded-3xl border border-red-300 px-4 py-2 font-medium hover:text-white"
+                className='group relative z-[1] overflow-hidden rounded-3xl border border-red-300 px-4 py-2 font-medium hover:text-white'
               >
-                <span className="absolute -left-[1px] -top-[1px] z-[-1] block h-[calc(100%+2px)] w-0 rounded-3xl bg-red-500 transition-all duration-300 group-hover:w-[calc(100%+2px)]" />
+                <span className='absolute -left-[1px] -top-[1px] z-[-1] block h-[calc(100%+2px)] w-0 rounded-3xl bg-red-500 transition-all duration-300 group-hover:w-[calc(100%+2px)]' />
                 Yes
               </button>
               <button
                 disabled={isDisbaled}
                 onClick={() => setShowConfirmation(false)}
-                className="group relative z-[1] overflow-hidden rounded-3xl border border-green-300 px-4 py-2 font-medium hover:text-white"
+                className='group relative z-[1] overflow-hidden rounded-3xl border border-green-300 px-4 py-2 font-medium hover:text-white'
               >
-                <span className="absolute -left-[1px] -top-[1px] z-[-1] block h-[calc(100%+2px)] w-0 rounded-3xl bg-green-500 transition-all duration-300 group-hover:w-[calc(100%+2px)]" />
+                <span className='absolute -left-[1px] -top-[1px] z-[-1] block h-[calc(100%+2px)] w-0 rounded-3xl bg-green-500 transition-all duration-300 group-hover:w-[calc(100%+2px)]' />
                 No
               </button>
             </div>
@@ -146,11 +146,11 @@ const Dropdown = ({ id, url }: { id: string; url: string }) => {
       )}
 
       <button
-        title="options"
+        title='options'
         onClick={handleClick}
-        className="grid place-items-center"
+        className='grid place-items-center'
       >
-        <EllipsisHorizontalIcon className="w-5 text-stone-950" />
+        <EllipsisHorizontalIcon className='w-5 text-stone-950' />
       </button>
       {isOpen && (
         <div
@@ -160,19 +160,19 @@ const Dropdown = ({ id, url }: { id: string; url: string }) => {
           )}
         >
           <Link
-            href={`/admin/edit-blog/${id}`}
-            className="flex w-full items-center gap-1.5 py-2 text-left text-sm transition-transform duration-500 will-change-transform hover:scale-[103%] hover:font-medium"
+            href={`/edit-blog/${id}`}
+            className='flex w-full items-center gap-1.5 py-2 text-left text-sm transition-transform duration-500 will-change-transform hover:scale-[103%] hover:font-medium'
           >
-            <PencilSquareIcon className="w-4" /> Edit blog
+            <PencilSquareIcon className='w-4' /> Edit blog
           </Link>
           <button
             onClick={() => {
               setShowConfirmation(true);
               setIsOpen(false);
             }}
-            className="flex w-full items-center gap-1.5 py-2 text-left text-sm text-red-600 transition-transform duration-500 will-change-transform hover:scale-[103%] hover:font-medium"
+            className='flex w-full items-center gap-1.5 py-2 text-left text-sm text-red-600 transition-transform duration-500 will-change-transform hover:scale-[103%] hover:font-medium'
           >
-            <TrashIcon className="w-4" /> Delete blog
+            <TrashIcon className='w-4' /> Delete blog
           </button>
         </div>
       )}

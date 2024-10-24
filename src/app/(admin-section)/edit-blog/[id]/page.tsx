@@ -9,7 +9,7 @@ const EditBlog = async ({ params }: { params: { id: string } }) => {
 
   // Go back to blogs page if blog doesn't exist
   if (!blog) {
-    redirect('/admin/blogs');
+    redirect('/blogs');
   }
 
   const defaultValues = {
@@ -32,7 +32,7 @@ const EditBlog = async ({ params }: { params: { id: string } }) => {
   };
 
   return (
-    <UseFormContextProvider defaultValues={defaultValues}>
+    <UseFormContextProvider defaultValues={defaultValues.formData}>
       <BlogForm defaultImage={defaultValues.image} edit={true} id={blog._id} />
     </UseFormContextProvider>
   );

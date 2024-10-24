@@ -60,7 +60,7 @@ const HomeSearch = () => {
 
   return (
     <section className='padding-inline ~py-3/6'>
-      <div className='flex flex-col items-center ~mt-8/12 ~gap-6/10 sm:justify-between md:flex-row md:~gap-1/10'>
+      <div className='mx-auto flex max-w-7xl flex-col items-center ~mt-8/12 ~gap-6/10 sm:justify-between md:flex-row md:~gap-1/10'>
         <form onSubmit={handleSubmit(onSubmit)} noValidate>
           <div className='flex items-stretch shadow-offset'>
             <input
