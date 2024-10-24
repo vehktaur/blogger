@@ -19,7 +19,7 @@ export const generateStaticParams = async () => {
   return staticBlogs;
 };
 
-export const generateMetaData = async ({
+export const generateMetadata = async ({
   params,
 }: {
   params: { title: string };
