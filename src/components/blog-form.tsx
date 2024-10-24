@@ -23,6 +23,7 @@ import { useEdgeStore } from '@/lib/edgestore';
 import { useRouter } from 'next/navigation';
 import Input from './input';
 import Markdown from 'react-markdown';
+import { addBlog, editBlog } from '@/app/actions';
 
 const BlogForm = ({
   defaultImage,
@@ -156,32 +157,14 @@ const BlogForm = ({
     //send the form data to the backend (DB)
     try {
       let responseData;
-      const fetchUrl = edit ? `/api/blogs/${id}` : '/api/blogs';
-      const method = edit ? 'PATCH' : 'POST';
-      const body = edit
-        ? JSON.stringify({ ...data, updatedAt: Date.now() })
-        : JSON.stringify({
-            ...data,
-            author: { name: 'Kurapika', img: "can't see me yet" }, // Add author info
-          });
-      try {
-        const res = await fetch(fetchUrl, {
-          method,
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body,
+
+      if (edit && id) {
+        responseData = await editBlog({ ...data, updatedAt: Date.now() }, id);
+      } else {
+        responseData = await addBlog({
+          ...data,
+          author: { name: 'Kurapika', img: "can't see me yet" }, // Add author info
         });
-
-        // Manually handle HTTP errors
-        if (!res.ok) {
-          throw new Error(`HTTP error! status: ${res.status}`);
-        }
-
-        responseData = await res.json();
-      } catch (error) {
-        toast.error('Error - Request Failed');
-        console.log(error);
       }
 
       if (responseData?.success) {
@@ -199,13 +182,11 @@ const BlogForm = ({
         toast.success(responseData?.msg);
       } else {
         toast.error(responseData?.msg);
-        console.log(
-          `The data sent was: ${JSON.stringify(responseData?.data?.blogData)}`,
-        );
+        console.log(`The data sent was: ${JSON.stringify(responseData)}`);
       }
     } catch (error) {
+      toast.error('Error - Request Failed');
       console.log(error);
-      toast.error(`${error}`);
     }
   };
 

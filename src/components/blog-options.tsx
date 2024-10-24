@@ -1,5 +1,6 @@
 'use client';
 
+import { deleteBlog } from '@/app/actions';
 import {
   EllipsisHorizontalIcon,
   PencilSquareIcon,
@@ -8,11 +9,10 @@ import {
 import clsx from 'clsx';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 import { RefObject, useEffect, useRef, useState } from 'react';
 import { toast } from 'react-toastify';
 
-const Dropdown = ({ id, url }: { id: string; url: string }) => {
+const BlogOptions = ({ id, url }: { id: string; url: string }) => {
   //Define state variables
   const [isOpen, setIsOpen] = useState(false);
   const [spaceDown, setSpaceDown] = useState(true);
@@ -20,35 +20,21 @@ const Dropdown = ({ id, url }: { id: string; url: string }) => {
   const [showConfirmation, setShowConfirmation] = useState(false);
   const dropdownRef: RefObject<HTMLDivElement> = useRef<HTMLDivElement>(null);
 
-  //Get router to refresh page
-  const router = useRouter();
-
   //Handle Toggle Effects
   const handleClick = (): void => {
     setIsOpen((prev) => !prev);
   };
 
-  const deleteBlog = async (blogId: string, imageUrl: string) => {
+  const handleDelete = async (id: string, url: string) => {
     try {
       setIsDisabled(true);
-      const response = await fetch(`/api/blogs/${blogId}`, {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          url: imageUrl,
-        }),
-      });
+      const response = await deleteBlog(id, url);
 
-      const data = await response.json();
-
-      if (data.success) {
+      if (response.success) {
         console.log('Blog deleted successfully');
         toast.success('Blog Deleted');
-        router.refresh();
       } else {
-        console.log('Failed to delete blog:', data.msg);
+        console.log('Failed to delete blog:', response.msg);
         toast.error('Could not delete');
       }
     } catch (error) {
@@ -126,7 +112,7 @@ const Dropdown = ({ id, url }: { id: string; url: string }) => {
             <div className='mt-4 flex items-center justify-center gap-4'>
               <button
                 disabled={isDisbaled}
-                onClick={() => deleteBlog(id, url)}
+                onClick={() => handleDelete(id, url)}
                 className='group relative z-[1] overflow-hidden rounded-3xl border border-red-300 px-4 py-2 font-medium hover:text-white'
               >
                 <span className='absolute -left-[1px] -top-[1px] z-[-1] block h-[calc(100%+2px)] w-0 rounded-3xl bg-red-500 transition-all duration-300 group-hover:w-[calc(100%+2px)]' />
@@ -179,4 +165,4 @@ const Dropdown = ({ id, url }: { id: string; url: string }) => {
     </div>
   );
 };
-export default Dropdown;
+export default BlogOptions;

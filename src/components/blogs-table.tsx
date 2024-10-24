@@ -1,5 +1,5 @@
 import { assets } from '@/assets/assets';
-import Dropdown from './dropdown';
+import BlogOptions from './blog-options';
 import Image from 'next/image';
 import { Blog } from '@/lib/definitions';
 import { getAllBlogs } from '@/lib/data';
@@ -57,7 +57,7 @@ const BlogsTable = async ({ title }: { title: string }) => {
             <p>{new Date(blog.createdAt).toDateString()}</p>
             <div>
               <div className='w-fit'>
-                <Dropdown id={blog._id} url={blog.image.url} />
+                <BlogOptions id={blog._id} url={blog.image.url} />
               </div>
             </div>
           </div>

@@ -1,13 +1,13 @@
 export interface Blog {
-  _id: number;
+  _id?: string | number ;
   title: string;
   description: string;
   image: {
     url: string;
-    thumbnailUrl: string;
-    name: string;
+    thumbnailUrl?: string;
+    name?: string;
   };
-  createdAt: number | string;
+  createdAt?: number | string;
   updatedAt?: number | string;
   categories: string[];
   author: { name: string; img: string };
