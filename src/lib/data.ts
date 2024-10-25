@@ -3,6 +3,7 @@ export const getAllBlogs = async () => {
     const apiUrl = process.env.API_URL || 'http://localhost:3000';
     const res = await fetch(`${apiUrl}/api/blogs`, {
       next: {
+        revalidate: 3600,
         tags: ['blogs'],
       },
     });
@@ -10,6 +11,7 @@ export const getAllBlogs = async () => {
       throw new Error('Failed to get blogs');
     }
     const data = await res.json();
+
     return data.blogs;
   } catch (error) {
     console.log(error);
@@ -19,7 +21,9 @@ export const getAllBlogs = async () => {
 export const getBlog = async (id: string) => {
   try {
     const apiUrl = process.env.API_URL || 'http://localhost:3000';
-    const res = await fetch(`${apiUrl}/api/blogs/${id}`);
+    const res = await fetch(`${apiUrl}/api/blogs/${id}`, {
+      next: { revalidate: 3600, tags: [`blog-${id}`] },
+    });
     if (!res.ok) {
       throw new Error('Failed to get blogs');
     }

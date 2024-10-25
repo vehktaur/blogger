@@ -12,7 +12,7 @@ const ProfileLayout = ({ children }: { children: React.ReactNode }) => {
       path: '/profile',
     },
     {
-      name: 'Password',
+      name: 'Security',
       icon: <LockClosedIcon className='w-4' />,
       path: '/profile/password',
     },
@@ -27,12 +27,12 @@ const ProfileLayout = ({ children }: { children: React.ReactNode }) => {
         </UseFormContextProvider>
 
         {/* Link and header for different profile sections */}
-        <h1 className='mb-10 flex w-full max-w-3xl border-b-2 ~text-base/lg ~gap-4/12'>
+        <h1 className='mb-10 flex pb-1 w-full max-w-3xl border-b-2 ~text-base/lg ~gap-4/12'>
           {navLinks.map(({ name, icon, path }) => (
             <NavLink
               key={path}
-              activeClassName='font-semibold !text-black !border-black border-b-[3px]'
-              className='flex items-center gap-1.5 hover:border-b-2 border-gray-500 px-1 text-stone-400 transition duration-100 ~pb-2/3 hover:text-black'
+              activeClassName='!text-black !border-black !border-b-[3px]'
+              className='flex items-center font-semibold gap-1.5 hover:border-b-2 border-gray-500 pe-2.5 text-stone-400 transition duration-100 ~pb-1/2 hover:text-black'
               href={path}
             >
               {icon}

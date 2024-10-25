@@ -4,26 +4,16 @@ import { ConnectDB } from '@/lib/config/db';
 import { Blog } from '@/lib/definitions';
 import { backendClient } from '@/lib/edgestore-server';
 import BlogModel from '@/lib/models/BlogModel';
-import { revalidatePath } from 'next/cache';
+import { revalidateTag } from 'next/cache';
 
 //Save Blogs to the Database
 export const addBlog = async (blogData: Blog) => {
-  //Connect to MongoDB
   try {
+    //Connect to MongoDB
     await ConnectDB();
-  } catch (error) {
-    return {
-      success: false,
-      msg: 'Failed to connect to DB',
-      error,
-    };
-  }
 
-  // Save blog to the DB
-  try {
     await BlogModel.create(blogData);
-    revalidatePath('/blogs');
-    revalidatePath('/');
+    revalidateTag('blogs');
     return {
       success: true,
       msg: `Blog added successfully`,
@@ -42,20 +32,13 @@ export const addBlog = async (blogData: Blog) => {
 //Delete a Blog from the DB
 export const deleteBlog = async (id: string, url: string) => {
   try {
+    //Connect to DB
     await ConnectDB();
-  } catch (error) {
-    return {
-      success: false,
-      msg: 'Failed to connect to DB',
-      error,
-    };
-  }
 
-  try {
     await backendClient.blogPostImages.deleteFile({ url });
     await BlogModel.deleteOne({ _id: id });
-    revalidatePath('/');
-    revalidatePath('/blogs');
+
+    revalidateTag('blogs');
     return {
       success: true,
       msg: 'Blog Deleted',
@@ -72,19 +55,10 @@ export const deleteBlog = async (id: string, url: string) => {
 
 //Update a Blog Post
 export const editBlog = async (updatedData: any, id: string) => {
-  //Connect to DB
   try {
+    //Connect to DB
     await ConnectDB();
-  } catch (error) {
-    console.log(error);
-    return {
-      success: false,
-      msg: 'Failed to connect to DB',
-      error,
-    };
-  }
 
-  try {
     const blog = await BlogModel.findById(id);
     const { url } = blog.image;
     Object.assign(blog, updatedData);
@@ -93,8 +67,9 @@ export const editBlog = async (updatedData: any, id: string) => {
       await backendClient.blogPostImages.deleteFile({ url });
 
     await blog.save();
-    revalidatePath('/');
-    revalidatePath('/blogs');
+    revalidateTag(`blog-${id}`);
+    revalidateTag('blogs');
+
     return {
       success: true,
       msg: 'Blog Updated',

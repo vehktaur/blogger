@@ -6,7 +6,6 @@ import 'swiper/css/pagination';
 
 import Navbar from '@/components/navbar';
 import Footer from '@/components/footer';
-import { ToastContainer } from 'react-toastify';
 
 export const metadata: Metadata = {
   title: 'Blogger',
@@ -25,7 +24,7 @@ export default function RootLayout({
 }>) {
   return (
     <html className='scroll-smooth' lang='en'>
-      <body className={`grid min-h-screen ${barlow.className}`}>
+      <body className={`flex flex-col min-h-screen w-screen ${barlow.className}`}>
         <Navbar />
 
         <main>{children}</main>

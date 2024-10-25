@@ -4,20 +4,10 @@ import { NextResponse } from 'next/server';
 
 //Get Blogs from the Database
 export const GET = async () => {
-  //Connect to MongoDB
   try {
+    //Connect to MongoDB
     await ConnectDB();
-  } catch (error) {
-    return NextResponse.json({
-      success: false,
-      msg: 'Failed to connect to DB',
-      error,
-    });
-  }
 
-  //const { searchParams } = request.nextUrl;
-
-  try {
     const blogs = await BlogModel.find({ 'author.name': 'Kurapika' });
     return NextResponse.json({
       success: true,

@@ -16,7 +16,7 @@ const BlogOptions = ({ id, url }: { id: string; url: string }) => {
   //Define state variables
   const [isOpen, setIsOpen] = useState(false);
   const [spaceDown, setSpaceDown] = useState(true);
-  const [isDisbaled, setIsDisabled] = useState(false);
+  const [isDisabled, setIsDisabled] = useState(false);
   const [showConfirmation, setShowConfirmation] = useState(false);
   const dropdownRef: RefObject<HTMLDivElement> = useRef<HTMLDivElement>(null);
 
@@ -50,16 +50,25 @@ const BlogOptions = ({ id, url }: { id: string; url: string }) => {
     if (isOpen && dropdownRef.current) {
       const dropdown = dropdownRef.current;
       const dropdownRect = dropdown.getBoundingClientRect();
+      const parent = dropdown.parentElement;
+      const parentRect = parent?.getBoundingClientRect();
 
       const menuHeight = dropdown.scrollHeight;
       const spaceAbove = dropdownRect.top;
-      const spaceBelow = window.innerHeight - dropdownRect.bottom;
+      const spaceBelow = parentRect!.bottom - dropdownRect.bottom;
 
-      if (menuHeight > spaceBelow && spaceAbove > menuHeight) {
-        setSpaceDown(false);
+      const threshold = 10; // Small margin to avoid tight fits
+
+      if (
+        menuHeight > spaceBelow - threshold &&
+        spaceAbove > menuHeight + threshold
+      ) {
+        setSpaceDown(false); // Drop up
       } else {
-        setSpaceDown(true);
+        setSpaceDown(true); // Drop down
       }
+    } else {
+      setSpaceDown(true);
     }
   }, [isOpen]);
 
@@ -111,7 +120,7 @@ const BlogOptions = ({ id, url }: { id: string; url: string }) => {
 
             <div className='mt-4 flex items-center justify-center gap-4'>
               <button
-                disabled={isDisbaled}
+                disabled={isDisabled}
                 onClick={() => handleDelete(id, url)}
                 className='group relative z-[1] overflow-hidden rounded-3xl border border-red-300 px-4 py-2 font-medium hover:text-white'
               >
@@ -119,7 +128,7 @@ const BlogOptions = ({ id, url }: { id: string; url: string }) => {
                 Yes
               </button>
               <button
-                disabled={isDisbaled}
+                disabled={isDisabled}
                 onClick={() => setShowConfirmation(false)}
                 className='group relative z-[1] overflow-hidden rounded-3xl border border-green-300 px-4 py-2 font-medium hover:text-white'
               >
@@ -142,7 +151,10 @@ const BlogOptions = ({ id, url }: { id: string; url: string }) => {
         <div
           className={clsx(
             'absolute right-0 z-[2] grid w-[7.5rem] justify-items-start divide-y rounded-lg border border-gray-200 bg-white px-3 py-1',
-            spaceDown ? 'top-full mt-2' : 'bottom-full mb-2',
+            {
+              'top-full mt-2': spaceDown,
+              'bottom-full mb-2': !spaceDown,
+            },
           )}
         >
           <Link

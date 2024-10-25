@@ -35,19 +35,19 @@ const PersonalInfo = () => {
 
         <div className='flex flex-col items-start justify-between gap-8 sm:flex-row'>
           <Input
+            label='Username'
+            name='username'
+            type='text'
+            required={true}
+            placeholder='@username'
+          />
+          <Input
             label='Email Address'
             name='email'
             type='email'
             required={true}
             disabled={true}
             placeholder='user@email.com'
-          />
-          <Input
-            label='Username'
-            name='username'
-            type='text'
-            required={true}
-            placeholder='@username'
           />
         </div>
 

@@ -7,18 +7,10 @@ export const GET = async (
   request: NextRequest,
   { params }: { params: { id: string } },
 ) => {
-  //Connect to MongoDB
   try {
+    //Connect to MongoDB
     await ConnectDB();
-  } catch (error) {
-    return NextResponse.json({
-      success: false,
-      msg: 'Failed to connect to DB',
-      error,
-    });
-  }
 
-  try {
     const id = params.id;
     const blog = await BlogModel.findById(id);
     return NextResponse.json({

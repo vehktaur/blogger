@@ -1,44 +1,44 @@
-import Image from "next/image";
+import Image from 'next/image';
 
 const Footer = () => {
   return (
-    <footer className="self-end bg-black px-5 text-white">
-      <div className="mx-auto flex max-w-7xl flex-col items-center justify-around gap-6 ~py-8/12 sm:flex-row">
+    <footer className='mt-auto bg-black px-5 text-white'>
+      <div className='mx-auto flex max-w-7xl flex-col items-center justify-around gap-6 ~py-8/12 sm:flex-row'>
         <Image
-          src="/icons/logo_light.png"
+          src='/icons/logo_light.png'
           width={120}
           height={100}
-          alt="app logo"
-          className="h-auto w-auto"
+          alt='app logo'
+          className='h-auto w-auto'
         />
 
-        <small className="text-center text-gray-200 sm:text-sm">
-          All rights reserved. Copyright @vehktaur / GreatStack
+        <small className='text-center text-gray-200 sm:text-sm'>
+          All rights reserved. Copyright @vehktaur. Inspired by GreatStack
         </small>
 
-        <div className="flex items-center gap-1">
-          <a href="https://x.com/vehktaur" target="_blank">
+        <div className='flex items-center gap-1'>
+          <a href='https://x.com/vehktaur' target='_blank'>
             <Image
-              src="/icons/x_icon.png"
+              src='/icons/x_icon.png'
               width={40}
               height={40}
-              alt="X Profile"
+              alt='X Profile'
             />
           </a>
-          <a href="https://github.com/vehktaur" target="_blank">
+          <a href='https://github.com/vehktaur' target='_blank'>
             <Image
-              src="/icons/facebook_icon.png"
+              src='/icons/facebook_icon.png'
               width={40}
               height={40}
-              alt="Github Profile"
+              alt='Github Profile'
             />
           </a>
-          <a href="https://linkedin.com/in/victor-akhihiero" target="_blank">
+          <a href='https://linkedin.com/in/victor-akhihiero' target='_blank'>
             <Image
-              src="/icons/googleplus_icon.png"
+              src='/icons/googleplus_icon.png'
               width={40}
               height={40}
-              alt="LinkedIn Profile"
+              alt='LinkedIn Profile'
             />
           </a>
         </div>

@@ -400,7 +400,7 @@ const BlogForm = ({
                   className='input-base rounded-3xl ~text-sm/base scrollbar-thin scrollbar-thumb-[#777]'
                   placeholder='Compose your blog post...'
                   id='content'
-                  rows={8}
+                  rows={10}
                   {...register('content', {
                     required: {
                       value: true,

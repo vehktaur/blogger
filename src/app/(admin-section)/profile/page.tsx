@@ -1,4 +1,4 @@
-import Profile from '@/components/profile';
+import Profile from '@/components/personal-info';
 import UseFormContextProvider from '@/context/UseFormContextProvider';
 
 const ProfilePage = () => {

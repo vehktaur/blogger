@@ -2,6 +2,7 @@ import { assets } from '@/assets/assets';
 import {
   PlusCircleIcon,
   ListBulletIcon,
+  UserCircleIcon,
 } from '@heroicons/react/24/outline';
 import Image from 'next/image';
 import NavLink from './nav-link';
@@ -9,9 +10,14 @@ import NavLink from './nav-link';
 const Sidebar = () => {
   const navLinks = [
     {
-      name: 'Add Blog',
+      name: 'Profile',
+      icon: <UserCircleIcon className='size-7' />,
+      path: '/profile',
+    },
+    {
+      name: 'Create Post',
       icon: <PlusCircleIcon className='size-7' />,
-      path: '/add-blog',
+      path: '/create-post',
     },
     {
       name: 'Blogs List',
@@ -62,7 +68,7 @@ const Sidebar = () => {
         </div>
 
         <div className='mt-auto px-1'>
-          <hr className='mx-auto block border max-w-[90%] border-stone-900 sm:border-[1.5px] rounded-full' />
+          <hr className='mx-auto block max-w-[90%] rounded-full border border-stone-900 sm:border-[1.5px]' />
           <div className='flex items-center px-1 py-3 ~gap-1/4 sm:~px-2/5'>
             <div className='mx-auto flex-shrink-0 overflow-hidden rounded-full ~w-10/12 sm:mx-0'>
               <Image

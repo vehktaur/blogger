@@ -6,7 +6,11 @@ import BlurImage from './blur-image';
 const BlogCard = ({ blog }: { blog: Blog }) => {
   const url = `${blog.title}__${blog._id}`;
   return (
-    <Link className='grid' href={`/blog/${encodeURIComponent(url)}`}>
+    <Link
+      prefetch={true}
+      className='grid'
+      href={`/blog/${encodeURIComponent(url)}`}
+    >
       <div className='group flex w-full max-w-80 flex-col overflow-hidden rounded border border-black shadow transition-shadow duration-500 hover:shadow-offset sm:max-w-[18.75rem]'>
         <div className='border-b border-black'>
           <BlurImage
