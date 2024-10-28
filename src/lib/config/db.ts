@@ -20,3 +20,4 @@ export const ConnectDB = async () => {
     throw new Error(`${error}`);
   }
 };
+

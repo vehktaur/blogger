@@ -10,7 +10,7 @@ export interface Blog {
   createdAt?: number | string;
   updatedAt?: number | string;
   categories: string[];
-  author: { name: string; img: string };
+  author?: { name: string; img: string };
 }
 
 export interface Category {

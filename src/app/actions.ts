@@ -12,6 +12,10 @@ export const addBlog = async (blogData: Blog) => {
     //Connect to MongoDB
     await ConnectDB();
 
+    await backendClient.blogPostImages.confirmUpload({
+      url: blogData.image.url,
+    });
+
     await BlogModel.create(blogData);
     revalidateTag('blogs');
     return {
@@ -54,17 +58,26 @@ export const deleteBlog = async (id: string, url: string) => {
 };
 
 //Update a Blog Post
-export const editBlog = async (updatedData: any, id: string) => {
+export const editBlog = async (updatedData: Blog, id: string) => {
   try {
     //Connect to DB
     await ConnectDB();
 
-    const blog = await BlogModel.findById(id);
-    const { url } = blog.image;
-    Object.assign(blog, updatedData);
+    const blog = await BlogModel.findById(id); //Get the blog TBU from to the DB
+    const { url } = blog?.image; //Get the image present in the DB
+    Object.assign(blog, updatedData); //Update the blog with the values from the updatedData
 
-    if (url && url !== updatedData.image.url)
+    // Check if the image in the DB and the image in the new (updated) data are different
+
+    if (url && url !== updatedData.image.url) {
+      // if they're different, delete the one in edgestore
       await backendClient.blogPostImages.deleteFile({ url });
+
+      // and confirm the new image upload
+      await backendClient.blogPostImages.confirmUpload({
+        url: updatedData.image.url,
+      });
+    }
 
     await blog.save();
     revalidateTag(`blog-${id}`);
