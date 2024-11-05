@@ -1,16 +1,15 @@
+import { ConnectDB } from './config/db';
+import BlogModel from './models/BlogModel';
+
 export const getAllBlogs = async () => {
-
+  'use server';
   try {
-    const apiUrl = process.env.API_URL || 'http://localhost:3000';
-    const res = await fetch(`${apiUrl}/api/blogs`, {
-      cache: 'no-store',
-    });
-    if (!res.ok) {
-      throw new Error('Failed to get blogs');
-    }
-    const data = await res.json();
+    //Connect to MongoDB
+    await ConnectDB();
 
-    return data.blogs;
+    const blogs = await BlogModel.find({});
+
+    return blogs;
   } catch (error) {
     console.log(error);
   }
