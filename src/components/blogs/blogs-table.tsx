@@ -38,7 +38,7 @@ const BlogsTable = async ({ title }: { title: string }) => {
                   alt='user name'
                 />
               </span>
-              <span className='font-medium'>{blog.author.name}</span>
+              <span className='font-medium'>{blog.author?.name}</span>
             </div>
             <div className='flex items-center gap-2 pe-4'>
               <span className='flex-shrink-0 cursor-pointer overflow-hidden rounded-full border border-stone-500 transition-all duration-500 ~size-8/10 hover:z-10 hover:scale-[3]'>

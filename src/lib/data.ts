@@ -12,6 +12,10 @@ export const getAllBlogs = async () => {
     }
     const data = await res.json();
 
+    if (!data.blogs) {
+      throw new Error('No blogs folks');
+    }
+
     return data.blogs;
   } catch (error) {
     console.log(error);

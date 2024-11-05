@@ -1,23 +1,23 @@
 import mongoose from 'mongoose';
 
 const apiUrl = process.env.MONGODB_URI;
+const connection = { isConnected: mongoose.connection?.readyState };
 
-const connection = { isConnected: 0 };
 
 export const ConnectDB = async () => {
   try {
-    if (connection.isConnected) {
+    if (connection.isConnected === 1) {
       console.log('DB already connected');
-      return;
+      return mongoose.connection.getClient(); // Return the MongoDB client if already connected
     }
 
-    const db = await mongoose.connect(apiUrl!);
-    console.log('DB connected successful');
+    await mongoose.connect(apiUrl!); // Establish the connection
+    console.log('DB connected successfully');
 
-    connection.isConnected = db.connections[0].readyState;
+    connection.isConnected = mongoose.connection.readyState;
+    return mongoose.connection.getClient(); // Return the MongoDB client
   } catch (error) {
     console.log('Could not connect to DB');
-    throw new Error(`${error}`);
+    console.log(error);
   }
 };
-
