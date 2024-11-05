@@ -9,7 +9,7 @@ const Login = () => {
       <div className='text-center'>
         <h1 className='mb-3 font-semibold ~text-2xl/4xl'>Welcome Back!</h1>
         <p className='font-medium text-[#777] ~text-sm/base'>
-          Let&#39;s get you logged in hehehhe
+          Let&#39;s get you logged in hehehe
         </p>
       </div>
 
@@ -29,8 +29,8 @@ const Login = () => {
       </UseFormContextProvider>
 
       <p className='mx-auto mt-4 max-w-xl font-medium ~text-sm/base'>
-        Don't have an account?{' '}
-        <Link className='text-lime-600' href='/auth/signup'>
+        Don&#39;t have an account?{' '}
+        <Link className='text-lime-600' href='/auth/sign-up'>
           Sign up
         </Link>
       </p>

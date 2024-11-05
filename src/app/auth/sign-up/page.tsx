@@ -1,4 +1,4 @@
-import SignUpForm from '@/components/auth/signup-form';
+import SignUpForm from '@/components/auth/sign-up-form';
 import ButtonAuth from '@/components/auth/button-auth';
 import UseFormContextProvider from '@/context/UseFormContextProvider';
 import Link from 'next/link';

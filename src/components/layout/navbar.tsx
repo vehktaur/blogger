@@ -169,7 +169,7 @@ const Navbar = () => {
                 <FiLogIn className='mt-1 hidden w-4 sm:block' />
               </Link>
               <Link
-                href='/auth/signup'
+                href='/auth/sign-up'
                 className='flex items-center gap-2 border border-black font-medium shadow-offset transition-colors duration-300 ~px-3/5 ~py-1.5/2.5 hover:bg-gray-200'
               >
                 Get Started

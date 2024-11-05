@@ -4,7 +4,6 @@ import clsx from 'clsx';
 import Input from '../ui/input';
 import { emailPattern, LoginSchema } from '@/lib/definitions';
 import { SubmitHandler, useFormContext } from 'react-hook-form';
-import { signIn } from 'next-auth/react';
 
 const LoginForm = () => {
   const {
@@ -14,7 +13,6 @@ const LoginForm = () => {
 
   const onSubmit: SubmitHandler<LoginSchema> = (data) => {
     console.log(data);
-    signIn('credentials', data);
   };
 
   return (
