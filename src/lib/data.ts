@@ -1,4 +1,5 @@
 export const getAllBlogs = async () => {
+
   try {
     const apiUrl = process.env.API_URL || 'http://localhost:3000';
     const res = await fetch(`${apiUrl}/api/blogs`, {
