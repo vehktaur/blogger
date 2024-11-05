@@ -10,7 +10,7 @@ export const getAllBlogs = async () => {
 
     const blogs = await BlogModel.find({});
 
-    return blogs as Blog[];
+    return blogs as Blog[] | undefined | null | any[];
   } catch (error) {
     console.log(error);
   }
