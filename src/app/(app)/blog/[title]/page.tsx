@@ -6,18 +6,15 @@ import Image from 'next/image';
 import { redirect } from 'next/navigation';
 import { Blog as BlogInterface } from '@/lib/definitions';
 
-// Revalidate blog posts after 1 minute
-export const revalidate = 60;
+// // Generate Static Blog Pages at build time
+// export const generateStaticParams = async () => {
+//   const blogs: BlogInterface[] = await getAllBlogs();
+//   const staticBlogs = blogs.map((blog) => {
+//     title: `${blog.title}__${blog._id}`;
+//   });
 
-// Generate Static Blog Pages at build time
-export const generateStaticParams = async () => {
-  const blogs: BlogInterface[] = await getAllBlogs();
-  const staticBlogs = blogs.map((blog) => {
-    title: `${blog.title}__${blog._id}`;
-  });
-
-  return staticBlogs;
-};
+//   return staticBlogs;
+// };
 
 export const generateMetadata = async ({
   params,
