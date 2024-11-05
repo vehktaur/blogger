@@ -3,11 +3,19 @@ import 'server-only';
 import { getBlurData } from '@/lib/utils';
 import Image, { type ImageProps } from 'next/image';
 
-const BlurImage = async ({ src, ...rest }: ImageProps) => {
-  if (typeof src !== 'string') return <Image src={src} {...rest} />;
+const BlurImage = async ({ src, alt, ...rest }: ImageProps) => {
+  if (typeof src !== 'string') return <Image src={src} {...rest} alt={alt} />;
 
   const { base64 } = await getBlurData(src);
 
-  return <Image src={src} {...rest} placeholder='blur' blurDataURL={base64} />;
+  return (
+    <Image
+      src={src}
+      {...rest}
+      placeholder='blur'
+      blurDataURL={base64}
+      alt={alt}
+    />
+  );
 };
 export default BlurImage;

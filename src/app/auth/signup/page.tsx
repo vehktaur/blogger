@@ -11,7 +11,7 @@ const SignUp = () => {
           Create your account
         </h1>
         <p className='font-medium text-[#777] ~text-sm/base'>
-          Let's get you started with an account
+          Let&#39;s get you started with an account
         </p>
       </div>
 
