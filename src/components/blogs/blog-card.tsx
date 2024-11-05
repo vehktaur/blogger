@@ -1,5 +1,5 @@
-import { Blog } from '@/lib/definitions';
-import { ChevronDoubleRightIcon } from '@heroicons/react/20/solid';
+import { Blog } from "@/lib/models/BlogModel";
+import { RxDoubleArrowRight } from "react-icons/rx";
 import Link from 'next/link';
 import BlurImage from '../ui/blur-image';
 
@@ -34,12 +34,12 @@ const BlogCard = ({ blog }: { blog: Blog }) => {
             ))}
           </div>
 
-          <h3
+          <h2
             className='mb-2 line-clamp-2 font-semibold tracking-tight text-gray-900'
             title={blog.title}
           >
             {blog.title}
-          </h3>
+          </h2>
 
           <p className='line-clamp-3 text-sm tracking-tight text-gray-700'>
             {blog.description}
@@ -48,7 +48,7 @@ const BlogCard = ({ blog }: { blog: Blog }) => {
         <div className='mb-5 mt-auto px-5'>
           <button className='flex items-center gap-1.5 font-bold ~text-sm/base'>
             Read more
-            <ChevronDoubleRightIcon className='mt-[0.025rem] w-4 transition-transform duration-700 group-hover:translate-x-1 group-hover:scale-x-[1.35]' />
+            <RxDoubleArrowRight className='mt-[0.025rem] w-4 transition-transform duration-700 group-hover:translate-x-1 group-hover:scale-x-[1.35]' />
           </button>
         </div>
       </div>

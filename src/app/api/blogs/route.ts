@@ -8,7 +8,7 @@ export const GET = async () => {
     //Connect to MongoDB
     await ConnectDB();
 
-    const blogs = await BlogModel.find({ 'author.name': 'Kurapika' });
+    const blogs = await BlogModel.find();
     return NextResponse.json({
       success: true,
       blogs,

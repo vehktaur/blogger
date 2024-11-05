@@ -1,14 +1,24 @@
 'use client';
 
-import Image from 'next/image';
 import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import Image from 'next/image';
+
+//Component Imports
+import { ImageFile, maxSize, minSize } from '@/lib/definitions';
+import { addBlog, editBlog } from '@/app/actions/blog';
+import Input from '../ui/input';
+
+//Library Imports
+import { SubmitHandler, useFormContext } from 'react-hook-form';
+import { useEdgeStore } from '@/lib/edgestore';
 import { useDropzone } from 'react-dropzone';
-import clsx from 'clsx';
-import { BlogFormData, ImageFile, maxSize, minSize } from '@/lib/definitions';
 import { toast } from 'react-toastify';
 import { AnimatePresence, motion } from 'framer-motion';
-import { XCircleIcon } from '@heroicons/react/16/solid';
-import { SubmitHandler, useFormContext } from 'react-hook-form';
+import Markdown from 'react-markdown';
+import clsx from 'clsx';
+
+//Icon Imports
 import {
   CulinaryIcon,
   EntertainmentIcon,
@@ -19,11 +29,9 @@ import {
   OthersIcon,
   TechIcon,
 } from '@/assets/svgs';
-import { useEdgeStore } from '@/lib/edgestore';
-import { useRouter } from 'next/navigation';
-import Input from '../ui/input';
-import Markdown from 'react-markdown';
-import { addBlog, editBlog } from '@/app/actions';
+import { HiMiniXCircle } from 'react-icons/hi2';
+import { Blog } from '@/lib/models/BlogModel';
+import { Types } from 'mongoose';
 
 const BlogForm = ({
   defaultImage,
@@ -44,7 +52,7 @@ const BlogForm = ({
     reset,
     watch,
     formState: { errors, isSubmitting, submitCount },
-  } = useFormContext<BlogFormData>();
+  } = useFormContext<Blog>();
   const [image, setImage] = useState<ImageFile | null>(defaultImage); // state to save blog image file
   const content = watch('content');
   const { edgestore } = useEdgeStore(); // hook for image upload to edge store
@@ -136,7 +144,7 @@ const BlogForm = ({
   };
 
   //onSubmit function to create post
-  const onSubmit: SubmitHandler<BlogFormData> = async (data) => {
+  const onSubmit: SubmitHandler<Blog> = async (data) => {
     //ensure an image was uploaded
     if (!image) {
       rootRef.current?.focus();
@@ -163,7 +171,7 @@ const BlogForm = ({
       } else {
         responseData = await addBlog({
           ...data,
-          author: { name: 'Kurapika', img: "can't see me yet" }, // Add author info
+          author: new Types.ObjectId('672603b69bb965d1dd286215'), // Add author info
         });
       }
 
@@ -256,7 +264,7 @@ const BlogForm = ({
                         onClick={async () => await removeImage()}
                         className='absolute -right-2 -top-2 rounded-full text-red-600'
                       >
-                        <XCircleIcon className='rounded-full bg-white ~size-6/7' />
+                        <HiMiniXCircle className='rounded-full bg-white ~size-6/7' />
                       </motion.button>
 
                       {/* Change Image */}
@@ -290,7 +298,6 @@ const BlogForm = ({
             <Input
               label='Title'
               name='title'
-              type='text'
               required={true}
               errorMsg='Enter a title'
               placeholder='Enter your captivating title here...'

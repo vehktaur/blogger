@@ -7,14 +7,14 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { RefObject, useEffect, useRef, useState } from 'react';
-import { ArrowRightIcon } from '@heroicons/react/16/solid';
-import {
-  ArrowRightStartOnRectangleIcon,
-  ListBulletIcon,
-  PlusIcon,
-  UserIcon,
-} from '@heroicons/react/24/outline';
+import { FiArrowRight, FiLogIn } from 'react-icons/fi';
+import { HiPlus, HiListBullet } from 'react-icons/hi2';
+import { PiUser } from 'react-icons/pi';
+import { LuLogOut } from 'react-icons/lu';
 import { motion, AnimatePresence } from 'framer-motion';
+import { signOut } from 'next-auth/react';
+import { useSession } from 'next-auth/react';
+import clsx from 'clsx';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -26,27 +26,29 @@ const Navbar = () => {
   const Links = [
     {
       name: 'My Profile',
-      icon: <UserIcon className='size-4' />,
+      icon: <PiUser className='size-4' />,
       path: '/profile',
     },
     {
       name: 'Create Post',
-      icon: <PlusIcon className='size-4' />,
+      icon: <HiPlus className='size-4' />,
       path: '/create-post',
     },
     {
       name: 'Blogs List',
-      icon: <ListBulletIcon className='size-4' />,
+      icon: <HiListBullet className='size-4' />,
       path: '/blogs',
     },
     {
       name: 'Logout',
-      icon: <ArrowRightStartOnRectangleIcon className='size-4' />,
+      icon: <LuLogOut className='size-4' />,
       path: '/',
     },
   ];
 
-  const isLoggedIn = true;
+  const { data: session } = useSession();
+
+  const isLoggedIn = Boolean(session?.user);
 
   useGSAP(() => {
     gsap.to(navbar.current, {
@@ -102,14 +104,26 @@ const Navbar = () => {
                 href='/create-post'
                 className='group hidden items-center gap-2 rounded-full border border-black font-medium shadow-md transition-colors duration-300 ~px-3/5 ~py-1.5/2.5 hover:bg-gray-200 sm:flex'
               >
-                <PlusIcon className='transition-transform duration-300 ~w-4/5 group-hover:rotate-90 group-hover:scale-105' />
+                <HiPlus className='transition-transform duration-300 ~size-4/5 group-hover:rotate-90 group-hover:scale-105' />
                 Create Post
               </Link>
               <div className='relative'>
                 <button
                   onClick={() => toggleDropdown((prev) => !prev)}
-                  className='block rounded-full border bg-slate-500 ~size-10/12'
-                ></button>
+                  className='relative block rounded-full border bg-slate-500 ~size-10/12'
+                >
+                  {session?.user?.image && (
+                    <div className='absolute inset-0 overflow-hidden rounded-full'>
+                      <Image
+                        className='size-full object-cover'
+                        src={session.user.image}
+                        width={1280}
+                        height={720}
+                        alt={session.user.name || 'user profile image'}
+                      />
+                    </div>
+                  )}
+                </button>
                 <AnimatePresence>
                   {dropdown && (
                     <motion.div
@@ -120,23 +134,23 @@ const Navbar = () => {
                       transition={{ duration: 0.3, ease: 'easeInOut' }}
                       className='absolute right-0 top-[calc(100%+0.7rem)] rounded-lg bg-white px-4 pb-4 pt-3 shadow-md ~w-52/64'
                     >
-                      <p>
-                        <strong>Victor Akhihiero</strong>
+                      <p className='truncate'>
+                        <strong>{session?.user?.name}</strong>
                       </p>
                       <p className='leading-none text-gray-700'>
-                        <small>victorakhihiero@gmail.com</small>
+                        <small>{session?.user?.email}</small>
                       </p>
 
                       <ul className='mt-4 space-y-2 px-1 text-sm font-medium'>
                         {Links.map(({ name, icon, path }) => (
                           <li key={path}>
-                            <Link
-                              onClick={() => toggleDropdown((prev) => !prev)}
+                            <MenuItem
+                              name={name}
+                              icon={icon}
+                              path={path}
                               className='flex w-full items-center gap-2 rounded-md border px-3 transition-colors duration-150 ~py-2/3 hover:bg-gray-200'
-                              href={path}
-                            >
-                              {icon} {name}
-                            </Link>
+                              onClick={() => toggleDropdown((prev) => !prev)}
+                            />
                           </li>
                         ))}
                       </ul>
@@ -148,17 +162,18 @@ const Navbar = () => {
           ) : (
             <>
               <Link
-                href='/'
+                href='/auth/login'
                 className='flex items-center gap-2 border border-black font-medium shadow-offset transition-colors duration-300 ~px-3/5 ~py-1.5/2.5 hover:bg-gray-200'
               >
-                Sign In
+                Login
+                <FiLogIn className='mt-1 hidden w-4 sm:block' />
               </Link>
               <Link
-                href='/create-post'
+                href='/auth/signup'
                 className='flex items-center gap-2 border border-black font-medium shadow-offset transition-colors duration-300 ~px-3/5 ~py-1.5/2.5 hover:bg-gray-200'
               >
                 Get Started
-                <ArrowRightIcon className='mt-1 hidden w-4 animate-bounce sm:block' />
+                <FiArrowRight className='mt-1 hidden w-4 animate-bounce sm:block' />
               </Link>
             </>
           )}
@@ -168,3 +183,34 @@ const Navbar = () => {
   );
 };
 export default Navbar;
+
+const MenuItem = ({
+  name,
+  icon,
+  path,
+  className,
+  onClick,
+}: {
+  name: string;
+  icon: JSX.Element;
+  path: string;
+  className: string;
+  onClick: () => void;
+}) => {
+  return name === 'Logout' ? (
+    <button
+      onClick={() => {
+        signOut();
+        onClick();
+      }}
+      className={clsx(className, 'text-red-600')}
+      type='button'
+    >
+      {icon} {name}
+    </button>
+  ) : (
+    <Link onClick={() => onClick()} className={clsx(className)} href={path}>
+      {icon} {name}
+    </Link>
+  );
+};

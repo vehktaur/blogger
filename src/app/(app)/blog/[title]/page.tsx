@@ -4,14 +4,14 @@ import { getAllBlogs, getBlog } from '@/lib/data';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import Image from 'next/image';
 import { redirect } from 'next/navigation';
-import { Blog as BlogInterface } from '@/lib/definitions';
+import { Blog as BlogProps } from '@/lib/definitions';
 
 // Revalidate blog posts after 1 minute
-export const revalidate = 60 * 5;
+export const revalidate = 60 * 60;
 
 // Generate Static Blog Pages at build time
 export const generateStaticParams = async () => {
-  const blogs: BlogInterface[] = await getAllBlogs();
+  const blogs: BlogProps[] = await getAllBlogs();
   const staticBlogs = blogs.map((blog) => {
     title: `${blog.title}__${blog._id}`;
   });
@@ -27,7 +27,7 @@ export const generateMetadata = async ({
   const url = decodeURIComponent(params.title);
   const id = url.split('__').pop();
 
-  const blog: BlogInterface = await getBlog(id || 'no-id');
+  const blog: BlogProps = await getBlog(id || 'no-id');
   return {
     title: `${blog.title} | Blogger`,
     description: blog.description,
@@ -56,12 +56,12 @@ const Blog = async ({ params }: { params: { title: string } }) => {
             <BlurImage
               className='mx-auto rounded-full border border-white ~w-16/20'
               src={assets.profile_img}
-              alt={`${blog.author.name}`}
+              alt={`${blog.author?.name || 'Kurapika'}`}
               width={960}
               height={480}
             />
             <p className='mt-1 pb-2 font-medium italic text-[#333] ~text-sm/base'>
-              {blog.author.name}
+              {blog.author?.name || 'Kurapika'}
             </p>
           </div>
         </div>

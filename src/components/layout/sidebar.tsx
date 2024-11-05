@@ -1,9 +1,6 @@
 import { assets } from '@/assets/assets';
-import {
-  PlusCircleIcon,
-  ListBulletIcon,
-  UserCircleIcon,
-} from '@heroicons/react/24/outline';
+import { HiOutlinePlusCircle, HiListBullet } from 'react-icons/hi2';
+import { PiUser } from 'react-icons/pi';
 import Image from 'next/image';
 import NavLink from '../ui/nav-link';
 
@@ -11,17 +8,17 @@ const Sidebar = () => {
   const navLinks = [
     {
       name: 'Profile',
-      icon: <UserCircleIcon className='size-7' />,
+      icon: <PiUser className='size-7' />,
       path: '/profile',
     },
     {
       name: 'Create Post',
-      icon: <PlusCircleIcon className='size-7' />,
+      icon: <HiOutlinePlusCircle className='size-7' />,
       path: '/create-post',
     },
     {
       name: 'Blogs List',
-      icon: <ListBulletIcon className='size-7' />,
+      icon: <HiListBullet className='size-7' />,
       path: '/blogs',
     },
   ];

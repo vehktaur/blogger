@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose, { InferSchemaType } from 'mongoose';
 
 const { Schema, models, model } = mongoose;
 
@@ -17,25 +17,28 @@ const blogSchema = new Schema(
       required: true,
     },
     author: {
-      name: {
-        type: String,
-        required: true,
-      },
-      img: {
-        type: String,
-      },
+      type: Schema.Types.ObjectId,
+      ref: 'User',
+      required: true,
     },
     image: {
-      url: {
-        type: String,
-        required: true,
+      type: {
+        url: {
+          type: String,
+          required: true,
+        },
+        thumbnailUrl: String,
+        name: String,
       },
-      thumbnailUrl: String,
-      name: String,
+      required: true,
     },
     content: {
       type: String,
       required: true,
+    },
+    isPublic: {
+      type: Boolean,
+      default: true,
     },
   },
   {
@@ -45,5 +48,6 @@ const blogSchema = new Schema(
 
 const BlogModel = models.Blog || model('Blog', blogSchema);
 
+export type Blog = InferSchemaType<typeof blogSchema> & { _id: string };
 
 export default BlogModel;
