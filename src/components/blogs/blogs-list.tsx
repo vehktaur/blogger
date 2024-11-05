@@ -3,7 +3,7 @@ import { Blog as BlogData } from '@/lib/definitions';
 import { getAllBlogs } from '@/lib/data';
 
 const BlogList = async ({ category }: { category: string }) => {
-  const blogs: BlogData[] = await getAllBlogs();
+  const blogs = await getAllBlogs();
 
   const capitalizeString = (str: string) => {
     return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();

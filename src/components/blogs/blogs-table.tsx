@@ -5,9 +5,9 @@ import { Blog } from '@/lib/definitions';
 import { getAllBlogs } from '@/lib/data';
 
 const BlogsTable = async ({ title }: { title: string }) => {
-  const blogs: Blog[] = await getAllBlogs();
+  const blogs = await getAllBlogs();
 
-  const filteredBlogs: Blog[] = blogs?.filter((blog) =>
+  const filteredBlogs = blogs?.filter((blog) =>
     blog.title.toLowerCase().includes(title.toLowerCase()),
   );
 
