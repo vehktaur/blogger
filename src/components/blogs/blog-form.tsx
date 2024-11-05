@@ -33,8 +33,6 @@ import { HiMiniXCircle } from 'react-icons/hi2';
 import { Blog } from '@/lib/models/BlogModel';
 import { Types } from 'mongoose';
 
-export const runtime = 'edge';
-
 const BlogForm = ({
   defaultImage,
   edit,
