@@ -9,6 +9,8 @@ import { Blog as BlogProps } from '@/lib/models/BlogModel';
 // Revalidate blog posts after 1 minute
 export const revalidate = 60;
 
+export const runtime = 'edge';
+
 // Generate Static Blog Pages at build time
 export const generateStaticParams = async () => {
   const blogs: BlogProps[] = await getAllBlogs();

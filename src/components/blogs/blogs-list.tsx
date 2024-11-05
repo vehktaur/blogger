@@ -2,6 +2,8 @@ import BlogCard from './blog-card';
 import { Blog } from '@/lib/models/BlogModel';
 import { getAllBlogs } from '@/lib/data';
 
+export const runtime = 'edge';
+
 const BlogList = async ({ category }: { category: string }) => {
   const blogs: Blog[] = await getAllBlogs();
 

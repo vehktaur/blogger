@@ -1,8 +1,10 @@
 import { assets } from '@/assets/assets';
 import BlogOptions from './blog-options';
 import Image from 'next/image';
-import { Blog } from "@/lib/models/BlogModel";
+import { Blog } from '@/lib/models/BlogModel';
 import { getAllBlogs } from '@/lib/data';
+
+export const runtime = 'edge';
 
 const BlogsTable = async ({ title }: { title: string }) => {
   const blogs: Blog[] = await getAllBlogs();
@@ -38,7 +40,9 @@ const BlogsTable = async ({ title }: { title: string }) => {
                   alt='user name'
                 />
               </span>
-              <span className='font-medium'>{blog.author?.name || 'Kurapika'}</span>
+              <span className='font-medium'>
+                {blog.author?.name || 'Kurapika'}
+              </span>
             </div>
             <div className='flex items-center gap-2 pe-4'>
               <span className='flex-shrink-0 cursor-pointer overflow-hidden rounded-full border border-stone-500 transition-all duration-500 ~size-8/10 hover:z-10 hover:scale-[3]'>
@@ -57,7 +61,11 @@ const BlogsTable = async ({ title }: { title: string }) => {
             <p>{new Date(blog.createdAt).toDateString()}</p>
             <div>
               <div className='w-fit'>
-                <BlogOptions id={blog._id} url={blog.image.url} title={blog.title} />
+                <BlogOptions
+                  id={blog._id}
+                  url={blog.image.url}
+                  title={blog.title}
+                />
               </div>
             </div>
           </div>
