@@ -4,7 +4,7 @@ import { getAllBlogs, getBlog } from '@/lib/data';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import Image from 'next/image';
 import { redirect } from 'next/navigation';
-import { Blog as BlogProps } from '@/lib/definitions';
+import { Blog as BlogProps } from '@/lib/models/BlogModel';
 
 // Revalidate blog posts after 1 minute
 export const revalidate = 60 * 60;
