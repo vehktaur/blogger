@@ -6,6 +6,8 @@ import Image from 'next/image';
 import { redirect } from 'next/navigation';
 import { Blog as BlogInterface } from '@/lib/definitions';
 
+export const revalidate = 60;
+
 // // Generate Static Blog Pages at build time
 // export const generateStaticParams = async () => {
 //   const blogs: BlogInterface[] = await getAllBlogs();
