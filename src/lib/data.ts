@@ -1,4 +1,5 @@
 import { ConnectDB } from './config/db';
+import { Blog } from './definitions';
 import BlogModel from './models/BlogModel';
 
 export const getAllBlogs = async () => {
@@ -9,7 +10,7 @@ export const getAllBlogs = async () => {
 
     const blogs = await BlogModel.find({});
 
-    return blogs;
+    return blogs as Blog[];
   } catch (error) {
     console.log(error);
   }
