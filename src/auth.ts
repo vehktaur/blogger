@@ -8,39 +8,39 @@ import { User } from './lib/models/UserModel';
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
-    Credentials({
-      credentials: {
-        email: {},
-        password: {},
-      },
-      authorize: async (credentials) => {
-        try {
-          const { email, password } = credentials;
+    // Credentials({
+    //   credentials: {
+    //     email: {},
+    //     password: {},
+    //   },
+    //   authorize: async (credentials) => {
+    //     try {
+    //       const { email, password } = credentials;
 
-          const user = (await getUser({ email: String(email) })) as User;
+    //       const user = (await getUser({ email: String(email) })) as User;
 
-          if (!user) {
-            throw new Error('User not found');
-          }
+    //       if (!user) {
+    //         throw new Error('User not found');
+    //       }
 
-          if (user.password) {
-            const validPassword = await bcrypt.compare(
-              password as string,
-              user.password,
-            );
+    //       if (user.password) {
+    //         const validPassword = await bcrypt.compare(
+    //           password as string,
+    //           user.password,
+    //         );
 
-            if (!validPassword) {
-              throw new Error('Invalid credentials');
-            }
-          }
+    //         if (!validPassword) {
+    //           throw new Error('Invalid credentials');
+    //         }
+    //       }
 
-          return user;
-        } catch (error) {
-          console.log(error);
-          return null;
-        }
-      },
-    }),
+    //       return user;
+    //     } catch (error) {
+    //       console.log(error);
+    //       return null;
+    //     }
+    //   },
+    // }),
     GitHub,
     Google,
   ],
