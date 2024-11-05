@@ -2,6 +2,12 @@ import LoginForm from '@/components/auth/login-form';
 import ButtonAuth from '@/components/auth/button-auth';
 import UseFormContextProvider from '@/context/UseFormContextProvider';
 import Link from 'next/link';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Login | Blogger',
+  description: 'Login to Blogger',
+};
 
 const Login = () => {
   return (

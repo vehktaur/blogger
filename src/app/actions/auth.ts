@@ -2,7 +2,7 @@
 
 import { ConnectDB } from '@/lib/config/db';
 import UserModel, { User } from '@/lib/models/UserModel';
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 
 export const signUp = async (user: User) => {
   try {

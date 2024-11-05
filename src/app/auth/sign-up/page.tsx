@@ -2,6 +2,12 @@ import SignUpForm from '@/components/auth/sign-up-form';
 import ButtonAuth from '@/components/auth/button-auth';
 import UseFormContextProvider from '@/context/UseFormContextProvider';
 import Link from 'next/link';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Sign Up | Blogger',
+  description: 'Get started with Blogger',
+};
 
 const SignUp = () => {
   return (
