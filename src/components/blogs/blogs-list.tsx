@@ -1,5 +1,5 @@
 import BlogCard from './blog-card';
-import { Blog as BlogData } from '@/lib/definitions';
+import { Blog as BlogData } from '@/lib/models/BlogModel';
 import { getAllBlogs } from '@/lib/data';
 
 const BlogList = async ({ category }: { category: string }) => {
