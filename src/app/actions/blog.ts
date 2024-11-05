@@ -3,7 +3,7 @@
 import { ConnectDB } from '@/lib/config/db';
 import { backendClient } from '@/lib/edgestore-server';
 import BlogModel, { Blog } from '@/lib/models/BlogModel';
-import { revalidateTag } from 'next/cache';
+import { revalidatePath, revalidateTag } from 'next/cache';
 
 //Save Blogs to the Database
 export const addBlog = async (blogData: Blog) => {
@@ -16,7 +16,8 @@ export const addBlog = async (blogData: Blog) => {
     });
 
     await BlogModel.create(blogData);
-    revalidateTag('blogs');
+    revalidatePath('/');
+    revalidatePath('/blogs');
     return {
       success: true,
       msg: `Blog added successfully`,
@@ -42,7 +43,9 @@ export const deleteBlog = async (id: string, url: string) => {
     await backendClient.blogPostImages.deleteFile({ url });
     await BlogModel.deleteOne({ _id: id });
 
-    revalidateTag('blogs');
+    revalidatePath('/');
+    revalidatePath('/blogs');
+
     return {
       success: true,
       msg: 'Blog Deleted',
@@ -85,7 +88,8 @@ export const editBlog = async (updatedData: Blog, id: string) => {
 
     await blog.save();
     revalidateTag(`blog-${id}`);
-    revalidateTag('blogs');
+    revalidatePath('/');
+    revalidatePath('/blogs');
 
     return {
       success: true,
