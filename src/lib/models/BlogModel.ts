@@ -1,4 +1,5 @@
 import mongoose, { InferSchemaType } from 'mongoose';
+import { User } from './UserModel';
 
 const { Schema, models, model } = mongoose;
 
@@ -49,5 +50,7 @@ const blogSchema = new Schema(
 const BlogModel = models.Blog || model('Blog', blogSchema);
 
 export type Blog = InferSchemaType<typeof blogSchema> & { _id: string };
+export type PopulatedBlog = Omit<Blog, 'author'> & { author: User };
+
 
 export default BlogModel;

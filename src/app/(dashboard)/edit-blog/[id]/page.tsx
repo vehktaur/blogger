@@ -1,11 +1,10 @@
 import BlogForm from '@/components/blogs/blog-form';
 import UseFormContextProvider from '@/context/UseFormContextProvider';
-import { getBlog } from '@/lib/data';
-import { BlogFormData } from '@/lib/definitions';
+import { getBlog } from '@/app/actions/blog';
 import { redirect } from 'next/navigation';
 
 const EditBlog = async ({ params }: { params: { id: string } }) => {
-  const blog: BlogFormData = await getBlog(params.id);
+  const blog = await getBlog(params.id);
 
   // Go back to blogs page if blog doesn't exist
   if (!blog) {

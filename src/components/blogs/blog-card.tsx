@@ -1,9 +1,9 @@
-import { Blog } from "@/lib/models/BlogModel";
+import { PopulatedBlog } from "@/lib/models/BlogModel";
 import { RxDoubleArrowRight } from "react-icons/rx";
 import Link from 'next/link';
 import BlurImage from '../ui/blur-image';
 
-const BlogCard = ({ blog }: { blog: Blog }) => {
+const BlogCard = ({ blog }: { blog: PopulatedBlog }) => {
   const url = `${blog.title}__${blog._id}`;
   return (
     <Link

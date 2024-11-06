@@ -14,8 +14,8 @@ export interface ImageFile {
   image?: File;
   preview: string;
   url: string;
-  thumbnailUrl?: string;
-  name?: string;
+  thumbnailUrl?: string | null;
+  name?: string | null;
 }
 
 export const minSize = 1024 * 1024 * 0.05; // 50KB

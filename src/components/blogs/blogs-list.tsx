@@ -1,9 +1,8 @@
 import BlogCard from './blog-card';
-import { Blog } from '@/lib/models/BlogModel';
-import { getAllBlogs } from '@/lib/data';
+import { getAllBlogs } from '@/app/actions/blog';
 
 const BlogList = async ({ category }: { category: string }) => {
-  const blogs: Blog[] = await getAllBlogs();
+  const blogs = await getAllBlogs();
 
   const capitalizeString = (str: string) => {
     return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();

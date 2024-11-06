@@ -1,18 +1,17 @@
 import BlurImage from '@/components/ui/blur-image';
 import { assets } from '@/assets/assets';
-import { getAllBlogs, getBlog } from '@/lib/data';
+import { getAllBlogs, getBlog } from '@/app/actions/blog';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import Image from 'next/image';
 import { redirect } from 'next/navigation';
-import { Blog as BlogProps } from '@/lib/models/BlogModel';
 
 // Revalidate blog posts after 1 minute
 export const revalidate = 60;
 
 // Generate Static Blog Pages at build time
 export const generateStaticParams = async () => {
-  const blogs: BlogProps[] = await getAllBlogs();
-  const staticBlogs = blogs.map((blog) => {
+  const blogs = await getAllBlogs();
+  const staticBlogs = blogs?.map((blog) => {
     title: `${blog.title}__${blog._id}`;
   });
 
@@ -27,18 +26,24 @@ export const generateMetadata = async ({
   const url = decodeURIComponent(params.title);
   const id = url.split('__').pop();
 
-  const blog: BlogProps = await getBlog(id || 'no-id');
-  return {
-    title: `${blog.title} | Blogger`,
-    description: blog.description,
-  };
+  if (id) {
+    const blog = await getBlog(id);
+    return {
+      title: `${blog?.title} | Blogger`,
+      description: blog?.description,
+    };
+  }
 };
 
 const Blog = async ({ params }: { params: { title: string } }) => {
   const url = decodeURIComponent(params.title);
   const id = url.split('__').pop();
 
-  const blog = await getBlog(id || 'no-id');
+  if (!id) {
+    redirect('/');
+  }
+
+  const blog = await getBlog(id);
 
   if (!blog) {
     redirect('/');
@@ -56,12 +61,12 @@ const Blog = async ({ params }: { params: { title: string } }) => {
             <BlurImage
               className='mx-auto rounded-full border border-white ~w-16/20'
               src={assets.profile_img}
-              alt={`${blog.author?.name || 'Kurapika'}`}
+              alt={`${blog.author?.username || 'Kurapika'}`}
               width={960}
               height={480}
             />
             <p className='mt-1 pb-2 font-medium italic text-[#333] ~text-sm/base'>
-              {blog.author?.name || 'Kurapika'}
+              {blog.author?.username || 'Kurapika'}
             </p>
           </div>
         </div>
@@ -71,7 +76,7 @@ const Blog = async ({ params }: { params: { title: string } }) => {
           <BlurImage
             className='mx-auto -mt-[6.25rem] mb-10 w-full border-4 border-white'
             src={blog.image.url}
-            alt={blog.image.name}
+            alt={blog.image.name || 'Blog cover image'}
             width={1280}
             height={720}
           />

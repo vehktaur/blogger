@@ -13,6 +13,7 @@
     "@edgestore/react": "^0.2.2",
     "@edgestore/server": "^0.2.2",
     "@gsap/react": "^2.1.1",
+    "@plaiceholder/next": "^3.0.0",
     "bcryptjs": "^2.4.3",
     "clsx": "^2.1.1",
     "framer-motion": "^11.3.31",
@@ -22,6 +23,7 @@
     "next": "^14.2.7",
     "next-auth": "^5.0.0-beta.25",
     "next-mdx-remote": "^5.0.0",
+    "plaiceholder": "^3.0.0",
     "react": "^18",
     "react-dom": "^18",
     "react-dropzone": "^14.2.3",
@@ -30,6 +32,7 @@
     "react-markdown": "^9.0.1",
     "react-toastify": "^10.0.5",
     "server-only": "^0.0.1",
+    "sharp": "^0.32.6",
     "swiper": "^11.1.10",
     "zod": "^3.23.8"
   },
