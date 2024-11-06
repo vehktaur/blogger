@@ -11,11 +11,11 @@ export const revalidate = 60;
 // Generate Static Blog Pages at build time
 export const generateStaticParams = async () => {
   const blogs = await getAllBlogs();
-  const staticBlogs = blogs.map((blog) => {
+  const staticBlogs = blogs?.map((blog) => {
     title: `${blog.title}__${blog._id}`;
   });
 
-  return staticBlogs;
+  return staticBlogs ? staticBlogs : [{ title: 'Blog | Blogger' }];
 };
 
 export const generateMetadata = async ({
