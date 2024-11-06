@@ -1,23 +1,26 @@
 import mongoose from 'mongoose';
 
 const apiUrl = process.env.MONGODB_URI;
-const connection = { isConnected: mongoose.connection?.readyState };
-
 
 export const ConnectDB = async () => {
   try {
-    if (connection.isConnected === 1) {
+    if (mongoose.connection.readyState >= 1) {
       console.log('DB already connected');
-      return mongoose.connection.getClient(); // Return the MongoDB client if already connected
+      return mongoose.connection.getClient(); // Already connected
     }
 
-    await mongoose.connect(apiUrl!); // Establish the connection
+    if (!apiUrl) {
+      console.error('No MongoDB URI found in environment variables.');
+      return null;
+    }
+
+    // Connect to MongoDB with options
+    await mongoose.connect(apiUrl);
     console.log('DB connected successfully');
 
-    connection.isConnected = mongoose.connection.readyState;
-    return mongoose.connection.getClient(); // Return the MongoDB client
+    return mongoose.connection.getClient(); // Return the client for verification
   } catch (error) {
-    console.log('Could not connect to DB');
-    console.log(error);
+    console.error('Could not connect to DB:', error);
+    return null;
   }
 };
