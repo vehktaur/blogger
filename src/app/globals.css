@@ -74,3 +74,18 @@ input[type='search']:focus::-webkit-search-cancel-button {
 .swiper-pagination-bullet {
   background-color: #333 !important;
 }
+
+/* Swiper Styles for Onboarding Layoyt */
+
+
+#illustration .swiper-pagination {
+  @apply bottom-8;
+}
+
+#illustration .swiper-pagination-bullet {
+  @apply bg-white z-10;
+}
+
+#illustration .swiper-pagination-bullet-active {
+  @apply w-6 rounded-[0.625rem] transition-all duration-300;
+}

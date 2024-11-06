@@ -2,16 +2,16 @@
 
 import { SubmitHandler, useFormContext } from 'react-hook-form';
 import Input from '../ui/input';
-import { PersonalInfo as PersonalInfoInterface } from '@/lib/definitions';
+import { PersonalInfo as PersonalInfoProps } from '@/lib/definitions';
 import clsx from 'clsx';
 
 const PersonalInfo = () => {
   const {
     handleSubmit,
     formState: { isSubmitting },
-  } = useFormContext<PersonalInfoInterface>();
+  } = useFormContext<PersonalInfoProps>();
 
-  const onSubmit: SubmitHandler<PersonalInfoInterface> = (data) =>
+  const onSubmit: SubmitHandler<PersonalInfoProps> = (data) =>
     console.log(data);
 
   return (
@@ -21,23 +21,16 @@ const PersonalInfo = () => {
           <Input
             label='First Name'
             name='firstName'
-            type='text'
             required={true}
             placeholder='e.g John'
           />
-          <Input
-            label='Last Name'
-            name='lastName'
-            type='text'
-            placeholder='e.g Doe'
-          />
+          <Input label='Last Name' name='lastName' placeholder='e.g Doe' />
         </div>
 
         <div className='flex flex-col items-start justify-between gap-8 sm:flex-row'>
           <Input
             label='Username'
             name='username'
-            type='text'
             required={true}
             placeholder='@username'
           />

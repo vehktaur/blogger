@@ -1,17 +1,4 @@
-export interface Blog {
-  _id?: string | number ;
-  title: string;
-  description: string;
-  image: {
-    url: string;
-    thumbnailUrl?: string;
-    name?: string;
-  };
-  createdAt?: number | string;
-  updatedAt?: number | string;
-  categories: string[];
-  author?: { name: string; img: string };
-}
+import { FieldValues, Validate, ValidationRule } from 'react-hook-form';
 
 export interface Category {
   category: string;
@@ -21,15 +8,14 @@ export interface Category {
 export interface Query {
   query: string;
 }
-export const emailPattern =
-  /^(([^<>()[\]\.,;:\s@"]+(\.[^<>()[\]\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+export const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
 export interface ImageFile {
   image?: File;
   preview: string;
   url: string;
-  thumbnailUrl?: string;
-  name?: string;
+  thumbnailUrl?: string | null;
+  name?: string | null;
 }
 
 export const minSize = 1024 * 1024 * 0.05; // 50KB
@@ -61,13 +47,28 @@ export interface Password {
   confirmPassword?: string;
 }
 
+export interface SignUpSchema extends PersonalInfo {
+  password: string;
+  confirmPassword?: string;
+}
+
+export interface LoginSchema {
+  email: string;
+  password: string;
+}
+
 export interface Input {
   label: string;
   name: keyof BlogFormData | keyof PersonalInfo | keyof Password;
-  type: string;
+  type?: string;
   id?: string;
   disabled?: boolean;
-  required?: boolean;
+  required?: boolean | { star: boolean };
   errorMsg?: string;
   placeholder?: string;
+  minLength?: ValidationRule<number>;
+  pattern?: ValidationRule<RegExp>;
+  validations?:
+    | Validate<any, FieldValues>
+    | Record<string, Validate<any, FieldValues>>;
 }

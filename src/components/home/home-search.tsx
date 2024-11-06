@@ -44,7 +44,7 @@ const HomeSearch = () => {
     if (isSubmitSuccessful) {
       reset();
     }
-  }, [isSubmitSuccessful]);
+  }, [isSubmitSuccessful, reset]);
 
   const router = useRouter();
   useEffect(() => {

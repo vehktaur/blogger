@@ -1,18 +1,26 @@
 'use client';
 
-import { deleteBlog } from '@/app/actions';
-import {
-  EllipsisHorizontalIcon,
-  PencilSquareIcon,
-  TrashIcon,
-} from '@heroicons/react/24/outline';
+import { deleteBlog } from '@/app/actions/blog';
+
+import { RiDeleteBin2Line } from 'react-icons/ri';
+import { SlOptions } from 'react-icons/sl';
+import { PiEyesFill } from 'react-icons/pi';
+import { MdOutlineEditNote } from 'react-icons/md';
 import clsx from 'clsx';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { RefObject, useEffect, useRef, useState } from 'react';
 import { toast } from 'react-toastify';
 
-const BlogOptions = ({ id, url }: { id: string; url: string }) => {
+const BlogOptions = ({
+  id,
+  url,
+  title,
+}: {
+  id: string;
+  url: string;
+  title: string;
+}) => {
   //Define state variables
   const [isOpen, setIsOpen] = useState(false);
   const [spaceDown, setSpaceDown] = useState(true);
@@ -50,12 +58,10 @@ const BlogOptions = ({ id, url }: { id: string; url: string }) => {
     if (isOpen && dropdownRef.current) {
       const dropdown = dropdownRef.current;
       const dropdownRect = dropdown.getBoundingClientRect();
-      const parent = dropdown.parentElement;
-      const parentRect = parent?.getBoundingClientRect();
 
       const menuHeight = dropdown.scrollHeight;
       const spaceAbove = dropdownRect.top;
-      const spaceBelow = parentRect!.bottom - dropdownRect.bottom;
+      const spaceBelow = window.innerHeight - dropdownRect.bottom;
 
       const threshold = 10; // Small margin to avoid tight fits
 
@@ -145,7 +151,7 @@ const BlogOptions = ({ id, url }: { id: string; url: string }) => {
         onClick={handleClick}
         className='grid place-items-center'
       >
-        <EllipsisHorizontalIcon className='w-5 text-stone-950' />
+        <SlOptions className='w-5 text-stone-950' />
       </button>
       {isOpen && (
         <div
@@ -158,10 +164,16 @@ const BlogOptions = ({ id, url }: { id: string; url: string }) => {
           )}
         >
           <Link
+            href={`blog/${encodeURIComponent(`${title}__${id}`)}`}
+            className='flex w-full items-center gap-1.5 py-2 text-left text-sm transition-transform duration-500 will-change-transform hover:scale-[103%] hover:font-medium'
+          >
+            <PiEyesFill className='size-4' /> View post
+          </Link>
+          <Link
             href={`/edit-blog/${id}`}
             className='flex w-full items-center gap-1.5 py-2 text-left text-sm transition-transform duration-500 will-change-transform hover:scale-[103%] hover:font-medium'
           >
-            <PencilSquareIcon className='w-4' /> Edit blog
+            <MdOutlineEditNote className='size-4' /> Edit blog
           </Link>
           <button
             onClick={() => {
@@ -170,7 +182,7 @@ const BlogOptions = ({ id, url }: { id: string; url: string }) => {
             }}
             className='flex w-full items-center gap-1.5 py-2 text-left text-sm text-red-600 transition-transform duration-500 will-change-transform hover:scale-[103%] hover:font-medium'
           >
-            <TrashIcon className='w-4' /> Delete blog
+            <RiDeleteBin2Line className='w-4' /> Delete blog
           </button>
         </div>
       )}

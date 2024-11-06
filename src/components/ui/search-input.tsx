@@ -1,5 +1,5 @@
 'use client';
-import { MagnifyingGlassIcon } from '@heroicons/react/16/solid';
+import { CiSearch } from "react-icons/ci";
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
@@ -20,7 +20,7 @@ const SearchInput = () => {
     <div className='flex items-center justify-between gap-2 sm:justify-start sm:gap-4'>
       <div className='relative'>
         <span className='absolute left-0 h-full content-center'>
-          <MagnifyingGlassIcon className='text-[#B0B0B0] ~w-5/6' />
+          <CiSearch className='text-[#B0B0B0] ~w-5/6' />
         </span>
 
         <input
