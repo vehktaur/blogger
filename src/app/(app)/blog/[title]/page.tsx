@@ -32,6 +32,10 @@ export const generateMetadata = async ({
       title: `${blog?.title} | Blogger`,
       description: blog?.description,
     };
+  } else {
+    return {
+      title: 'Blog | Blogger',
+    };
   }
 };
 
