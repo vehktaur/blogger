@@ -3,8 +3,12 @@ import { HiOutlinePlusCircle, HiListBullet } from 'react-icons/hi2';
 import { PiUser } from 'react-icons/pi';
 import Image from 'next/image';
 import NavLink from '../ui/nav-link';
+import { auth } from '@/auth';
 
-const Sidebar = () => {
+const Sidebar = async () => {
+
+  const session = await auth()
+
   const navLinks = [
     {
       name: 'Profile',
@@ -22,6 +26,7 @@ const Sidebar = () => {
       path: '/blogs',
     },
   ];
+
   return (
     <aside className='full-screen sticky left-0 top-0 w-16 border-r border-black bg-stone-50 sm:~w-40/80'>
       <div className='flex h-full flex-col'>
@@ -75,9 +80,9 @@ const Sidebar = () => {
               />
             </div>
             <div className='hidden sm:grid'>
-              <span className='font-medium ~text-sm/base'>Kurapika</span>
+              <span className='font-medium ~text-sm/base'>{session?.user?.name}</span>
               <span className='text-[#666] ~text-xs/sm'>
-                victorakhihiero@gmail.com
+                {session?.user?.email}
               </span>
             </div>
           </div>

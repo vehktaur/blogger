@@ -1,6 +1,6 @@
 'use client';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Autoplay, Keyboard, Mousewheel, Pagination } from 'swiper/modules';
+import { Autoplay, Keyboard, Pagination } from 'swiper/modules';
 
 const HomeIntro = () => {
   const slidesContent = [
@@ -34,10 +34,6 @@ const HomeIntro = () => {
         speed={777}
         spaceBetween={30}
         autoHeight={true}
-        mousewheel={{
-          enabled: true,
-          releaseOnEdges: true,
-        }}
         centeredSlides={true}
         autoplay={{
           delay: 10000,
@@ -51,7 +47,7 @@ const HomeIntro = () => {
           clickable: true,
           dynamicBullets: true,
         }}
-        modules={[Autoplay, Keyboard, Mousewheel, Pagination]}
+        modules={[Autoplay, Keyboard, Pagination]}
       >
         {slidesContent.map(({ title, content }, index) => (
           <SwiperSlide className='content-center px-5' key={index}>
