@@ -1,4 +1,4 @@
-Reroute to homepage after blog creation
+Reroute to homepage/post after blog creation
 
 Add option to hide blog post from homepage
 
