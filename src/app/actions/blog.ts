@@ -12,7 +12,9 @@ export const getAllBlogs = async (query = {}) => {
     await ConnectDB();
 
     // Fetch blogs based on the provided query
-    const blogs = await BlogModel.find<PopulatedBlog>(query).populate('author');
+    const blogs = await BlogModel.find(query)
+      .populate('author')
+      .lean<PopulatedBlog[]>();
 
     return blogs;
   } catch (error) {
@@ -26,7 +28,9 @@ export const getBlog = async (id: string) => {
     await ConnectDB();
 
     // Fetch blogs based on the provided query
-    const blog = await BlogModel.findById<PopulatedBlog>(id).populate('author');
+    const blog = await BlogModel.findById(id)
+      .populate('author')
+      .lean<PopulatedBlog>();
 
     return blog;
   } catch (error) {

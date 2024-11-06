@@ -1,4 +1,4 @@
-import UserModel from './models/UserModel';
+import UserModel, { User } from './models/UserModel';
 import { getPlaiceholder } from 'plaiceholder';
 
 export const getBlurData = async (url: string) => {
@@ -23,14 +23,12 @@ export const getBlurData = async (url: string) => {
 export const getUser = async (query: { email?: string; id?: string }) => {
   const { email, id } = query;
 
-  let user = null;
+  let user: User | null = null;
 
   if (email) {
-    user = await UserModel.findOne({ email: email.toLowerCase() })
-      .lean()
-      .exec();
+    user = await UserModel.findOne({ email: email.toLowerCase() }).lean<User>();
   } else if (id) {
-    user = await UserModel.findById(id).lean().exec();
+    user = await UserModel.findById(id).lean<User>();
   }
 
   return user;
