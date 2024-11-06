@@ -17,6 +17,7 @@ export const getAllBlogs = async (query = {}) => {
     return blogs;
   } catch (error) {
     console.error('Error fetching blogs:', error);
+    return [];
   }
 };
 

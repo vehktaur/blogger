@@ -10,14 +10,14 @@ const BlogList = async ({ category }: { category: string }) => {
   const filteredBlogs =
     category === ''
       ? blogs
-      : blogs?.filter((blog) =>
+      : blogs.filter((blog) =>
           blog.categories.includes(capitalizeString(category)),
         );
 
   return (
     <section className='padding-inline pt-10 ~pb-12/20'>
       <div className='mx-auto max-w-7xl'>
-        {!filteredBlogs ? (
+        {blogs.length === 0 ? (
           <p className='text-center font-medium'>Could Not Load Blogs</p>
         ) : filteredBlogs.length === 0 ? (
           <p className='text-center font-medium'>No Blogs In This Category</p>
