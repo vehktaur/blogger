@@ -16,10 +16,13 @@ const Error = ({
 
   return (
     <div className='grid min-h-[85vh] w-full place-items-center'>
-      <div>
+      <div className='text-center'>
         <h1 className='text-lg font-semibold'>Error</h1>
         <p className='my-10'> {error.message}</p>
-        <button onClick={() => reset()} className='border px-4 py-2'>
+        <button
+          onClick={() => reset()}
+          className='rounded-full border px-4 py-2'
+        >
           Please try again
         </button>
       </div>
