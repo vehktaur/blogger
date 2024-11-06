@@ -6,13 +6,13 @@ import BlogModel, { Blog, PopulatedBlog } from '@/lib/models/BlogModel';
 import { revalidateTag } from 'next/cache';
 
 //Get All Blogs from the Database
-export const getAllBlogs = async (query = {}) => {
+export const getAllBlogs = async () => {
   try {
     // Connect to MongoDB
     await ConnectDB();
 
     // Fetch blogs based on the provided query
-    const blogs = await BlogModel.find(query)
+    const blogs = await BlogModel.find()
       .populate('author')
       .lean<PopulatedBlog[]>();
 
