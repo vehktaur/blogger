@@ -1,6 +1,6 @@
 import BlogForm from '@/components/blogs/blog-form';
 import UseFormContextProvider from '@/context/UseFormContextProvider';
-import { getBlog } from '@/app/actions/blog';
+import { getBlog } from '@/lib/blog-data';
 import { redirect } from 'next/navigation';
 
 const EditBlog = async ({ params }: { params: { id: string } }) => {

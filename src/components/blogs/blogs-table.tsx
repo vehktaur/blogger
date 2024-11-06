@@ -1,7 +1,7 @@
 import { assets } from '@/assets/assets';
 import BlogOptions from './blog-options';
 import Image from 'next/image';
-import { getAllBlogs } from '@/app/actions/blog';
+import { getAllBlogs } from '@/lib/blog-data';
 
 const BlogsTable = async ({ title }: { title: string }) => {
   const blogs = await getAllBlogs();

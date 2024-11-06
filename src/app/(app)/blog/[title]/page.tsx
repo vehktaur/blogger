@@ -1,6 +1,6 @@
 import BlurImage from '@/components/ui/blur-image';
 import { assets } from '@/assets/assets';
-import { getAllBlogs, getBlog } from '@/app/actions/blog';
+import { getAllBlogs, getBlog } from '@/lib/blog-data';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import Image from 'next/image';
 import { redirect } from 'next/navigation';
