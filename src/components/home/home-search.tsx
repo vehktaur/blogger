@@ -10,6 +10,7 @@ const HomeSearch = () => {
   const [categories, setCategories] = useState<Category[]>([
     { category: 'All', active: true },
     { category: 'Tech', active: false },
+    { category: 'Lifestyle', active: false },
     { category: 'Finance', active: false },
     { category: 'Entertainment', active: false },
     { category: 'Culinary', active: false },
@@ -60,8 +61,8 @@ const HomeSearch = () => {
 
   return (
     <section className='padding-inline ~py-3/6'>
-      <div className='mx-auto flex max-w-7xl flex-col items-center ~mt-8/12 ~gap-6/10 sm:justify-between md:flex-row md:~gap-1/10'>
-        <form onSubmit={handleSubmit(onSubmit)} noValidate>
+      <div className='mx-auto flex max-w-7xl flex-col items-center ~mt-8/12 ~gap-6/10 sm:justify-between md:flex-row'>
+        <form className='flex-shrink-0' onSubmit={handleSubmit(onSubmit)} noValidate>
           <div className='flex items-stretch shadow-offset'>
             <input
               className='input-base border-black py-2 ~text-sm/base'
@@ -81,7 +82,7 @@ const HomeSearch = () => {
           )}
         </form>
 
-        <div className='flex max-w-[95%] items-center gap-1 overflow-x-auto scrollbar-none xs:justify-center md:px-0'>
+        <div className='flex max-w-[95%] items-center gap-1 overflow-x-auto scrollbar-none md:px-0'>
           {categories?.map(({ category }) => (
             <button
               key={category}

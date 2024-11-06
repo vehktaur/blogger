@@ -6,8 +6,7 @@ import NavLink from '../ui/nav-link';
 import { auth } from '@/auth';
 
 const Sidebar = async () => {
-
-  const session = await auth()
+  const session = await auth();
 
   const navLinks = [
     {
@@ -72,16 +71,20 @@ const Sidebar = async () => {
         <div className='mt-auto px-1'>
           <hr className='mx-auto block max-w-[90%] rounded-full border border-stone-900 sm:border-[1.5px]' />
           <div className='flex items-center px-1 py-3 ~gap-1/4 sm:~px-2/5'>
-            <div className='mx-auto flex-shrink-0 overflow-hidden rounded-full ~w-10/12 sm:mx-0'>
+            <div className='mx-auto flex-shrink-0 overflow-hidden rounded-full border ~w-10/12 sm:mx-0'>
               <Image
-                className='object-cover'
-                src={assets.profile_img}
+                className='size-full object-cover'
+                src={session?.user?.image || assets.profile_img}
                 alt='Profile Image'
+                width={1280}
+                height={720}
               />
             </div>
             <div className='hidden sm:grid'>
-              <span className='font-medium ~text-sm/base'>{session?.user?.name}</span>
-              <span className='text-[#666] ~text-xs/sm'>
+              <span className='truncate font-medium ~text-sm/base'>
+                {session?.user?.name}
+              </span>
+              <span className='truncate text-[#666] ~text-xs/sm'>
                 {session?.user?.email}
               </span>
             </div>
