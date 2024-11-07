@@ -1,10 +1,10 @@
 import { assets } from '@/assets/assets';
 import BlogOptions from './blog-options';
 import Image from 'next/image';
-import { getAllBlogs } from '@/lib/blog-data';
+import { getCachedBlogs } from '@/lib/blog-data';
 
 const BlogsTable = async ({ title }: { title: string }) => {
-  const blogs = await getAllBlogs();
+  const blogs = await getCachedBlogs();
 
   const filteredBlogs = blogs?.filter((blog) =>
     blog.title.toLowerCase().includes(title.toLowerCase()),

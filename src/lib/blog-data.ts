@@ -1,6 +1,7 @@
 import 'server-only';
 import { ConnectDB } from './config/db';
 import BlogModel, { PopulatedBlog } from './models/BlogModel';
+import { unstable_cache } from 'next/cache';
 
 //Get All Blogs from the Database
 export const getAllBlogs = async () => {
@@ -34,3 +35,11 @@ export const getBlog = async (id: string) => {
     console.error('Error fetching blog:', error);
   }
 };
+
+export const getCachedBlogs = unstable_cache(
+  async () => await getAllBlogs(),
+  ['blogs'],
+  {
+    tags: ['blogs'],
+  },
+);
