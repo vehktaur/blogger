@@ -4,7 +4,7 @@ import Google from 'next-auth/providers/google';
 import Credentials from 'next-auth/providers/credentials';
 import bcrypt from 'bcryptjs';
 import { User } from './lib/models/UserModel';
-import { getUser } from './lib/utils';
+import { getFakeUser, getUser } from './lib/utils';
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
@@ -17,7 +17,9 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         try {
           const { email, password } = credentials;
 
-          const user = (await getUser({ email: String(email) })) as User;
+          // const user = (await getUser({ email: String(email) })) as User;
+
+          const user = getFakeUser()
 
           if (!user) {
             throw new Error('User not found');
