@@ -47,10 +47,16 @@ const blogSchema = new Schema(
   },
 );
 
-const BlogModel = models.Blog || model('Blog', blogSchema);
+// const BlogModel = models.Blog || model('Blog', blogSchema);
+
+if (models?.Blog) {
+  delete models.Blog;
+}
+
+const BlogModel = model('Blog', blogSchema);
 
 export type Blog = InferSchemaType<typeof blogSchema> & { _id: string };
 export type PopulatedBlog = Omit<Blog, 'author'> & { author: User };
-
+export type BlogDocument = ReturnType<(typeof BlogModel)['hydrate']>;
 
 export default BlogModel;

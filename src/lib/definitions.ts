@@ -55,6 +55,7 @@ export interface SignUpSchema extends PersonalInfo {
 export interface LoginSchema {
   email: string;
   password: string;
+  [key: string]: unknown;
 }
 
 export interface Input {

@@ -2,7 +2,7 @@
 
 import { ConnectDB } from '@/lib/config/db';
 import { backendClient } from '@/lib/edgestore-server';
-import BlogModel, { Blog } from '@/lib/models/BlogModel';
+import BlogModel, { Blog, BlogDocument } from '@/lib/models/BlogModel';
 import { revalidateTag } from 'next/cache';
 
 //Save Blogs to the Database

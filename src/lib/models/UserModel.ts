@@ -1,5 +1,6 @@
 import mongoose, { InferSchemaType } from 'mongoose';
 import { emailPattern } from '../definitions';
+import mongooseLeanVirtuals from 'mongoose-lean-virtuals';
 
 const { Schema, models, model } = mongoose;
 
@@ -45,8 +46,20 @@ const userSchema = new Schema(
       default: 'user',
     },
   },
-  { timestamps: true },
+  {
+    timestamps: true,
+    toJSON: { virtuals: true }, // Include virtuals in JSON output
+    toObject: { virtuals: true }, // Include virtuals in object output
+  },
 );
+
+// Define the virtual field 'name'
+userSchema.virtual('name').get(function () {
+  return `${this.firstName} ${this.lastName}`.trim();
+});
+
+//enable virtuals on lean
+userSchema.plugin(mongooseLeanVirtuals);
 
 userSchema.index({ username: 1 });
 userSchema.index({ email: 1 });
@@ -54,6 +67,11 @@ userSchema.index({ email: 1 });
 // Model initialization
 const UserModel = models?.User || model('User', userSchema);
 
-export type User = InferSchemaType<typeof userSchema> & { _id: string };
+export type User = InferSchemaType<typeof userSchema> & {
+  _id: string;
+  name: string;
+};
+
+export type UserDocument = ReturnType<(typeof UserModel)['hydrate']>;
 
 export default UserModel;
