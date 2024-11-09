@@ -10,14 +10,14 @@ import { unstable_cache } from 'next/cache';
 export const revalidate = 60;
 
 // Generate Static Blog Pages at build time
-export const generateStaticParams = async () => {
-  const blogs = await getCachedBlogs();
-  const staticBlogs = blogs?.map((blog) => {
-    title: `${blog.title}__${blog._id}`;
-  });
+// export const generateStaticParams = async () => {
+//   const blogs = await getCachedBlogs();
+//   const staticBlogs = blogs?.map((blog) => {
+//     title: `${blog.title}__${blog._id}`;
+//   });
 
-  return staticBlogs ? staticBlogs : [{ title: 'Blog | Blogger' }];
-};
+//   return staticBlogs ? staticBlogs : [{ title: 'Blog | Blogger' }];
+// };
 
 export const generateMetadata = async ({
   params,
