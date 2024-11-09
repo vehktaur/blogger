@@ -7,15 +7,15 @@ import { redirect } from 'next/navigation';
 const EditBlog = async ({ params }: { params: { id: string } }) => {
   const id = params.id;
 
-  const getCachedBlog = unstable_cache(
-    async (id: string) => await getBlog(id),
-    [`blog-${id}`],
-    {
-      tags: [`blog-${id}`],
-    },
-  );
+  // const getCachedBlog = unstable_cache(
+  //   async (id: string) => await getBlog(id),
+  //   [`blog-${id}`],
+  //   {
+  //     tags: [`blog-${id}`],
+  //   },
+  // );
 
-  const blog = await getCachedBlog(id);
+  const blog = await getBlog(id);
 
   // Go back to blogs page if blog doesn't exist
   if (!blog) {
