@@ -28,7 +28,7 @@ export default function RootLayout({
   return (
     <html className='scroll-smooth' lang='en'>
       <SessionProvider>
-        <body className={`min-full-screen grid ${barlow.className}`}>
+        <body className={`min-full-screen flex flex-col ${barlow.className}`}>
           {children}
 
           {/* Toast Container */}

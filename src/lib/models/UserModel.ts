@@ -65,7 +65,7 @@ userSchema.index({ username: 1 });
 userSchema.index({ email: 1 });
 
 // Model initialization
-const UserModel = models?.User || model('User', userSchema);
+const UserModel = models.User || model('User', userSchema);
 
 export type User = InferSchemaType<typeof userSchema> & {
   _id: string;

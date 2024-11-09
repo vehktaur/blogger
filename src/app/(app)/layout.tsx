@@ -13,12 +13,12 @@ export default function AppLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className=''>
+    <>
       <Navbar />
 
       <main>{children}</main>
 
       <Footer />
-    </div>
+    </>
   );
 }

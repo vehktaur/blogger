@@ -24,7 +24,7 @@ const BlogsTable = async ({ title }: { title: string }) => {
       </div>
 
       <div className='w-max text-sm'>
-        {filteredBlogs.map((blog: any) => (
+        {filteredBlogs.map((blog) => (
           <div
             key={blog._id}
             className='grid w-full grid-cols-table items-center border-b border-stone-600 px-5 py-3'
@@ -59,7 +59,7 @@ const BlogsTable = async ({ title }: { title: string }) => {
             <div>
               <div className='w-fit'>
                 <BlogOptions
-                  id={String(blog._id)}
+                  id={blog._id}
                   url={blog.image.url}
                   title={blog.title}
                 />
