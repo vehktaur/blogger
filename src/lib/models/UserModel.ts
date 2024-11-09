@@ -8,7 +8,7 @@ const userSchema = new Schema(
   {
     firstName: {
       type: String,
-      required: [true, 'First name is required'],
+      required: true,
       trim: true,
     },
     lastName: {
@@ -17,19 +17,19 @@ const userSchema = new Schema(
     },
     username: {
       type: String,
-      required: [true, 'Username is required'],
+      required: true,
       lowercase: true,
       unique: true,
       trim: true,
     },
     email: {
       type: String,
-      required: [true, 'Email is required'],
+      required: true,
       unique: true,
       minLength: 10,
       trim: true,
       lowercase: true,
-      match: [emailPattern, 'Please provide a valid email address'],
+      match: emailPattern,
     },
     emailVerified: {
       type: Date,

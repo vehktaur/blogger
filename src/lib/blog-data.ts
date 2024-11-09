@@ -11,7 +11,6 @@ export const getAllBlogs = async () => {
 
     // Fetch blogs based on the provided query
     const blogs = await BlogModel.find()
-      .populate('author')
       .lean<PopulatedBlog[]>();
     return blogs;
   } catch (error) {
@@ -26,7 +25,6 @@ export const getBlog = async (id: string) => {
 
     // Fetch blogs based on the provided query
     const blog = await BlogModel.findById(id)
-      .populate('author')
       .lean<PopulatedBlog>();
     return blog;
   } catch (error) {
