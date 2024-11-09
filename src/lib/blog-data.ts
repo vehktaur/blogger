@@ -11,9 +11,8 @@ export const getAllBlogs = async () => {
 
     // Fetch blogs based on the provided query
     const blogs = await BlogModel.find()
-      .lean<PopulatedBlog[]>()
-      .populate('author');
-
+      .populate('author')
+      .lean<PopulatedBlog[]>();
     return blogs;
   } catch (error) {
     console.error('Error fetching blogs:', error);
@@ -27,9 +26,8 @@ export const getBlog = async (id: string) => {
 
     // Fetch blogs based on the provided query
     const blog = await BlogModel.findById(id)
-      .lean<PopulatedBlog>()
-      .populate('author');
-
+      .populate('author')
+      .lean<PopulatedBlog>();
     return blog;
   } catch (error) {
     console.error('Error fetching blog:', error);
