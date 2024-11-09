@@ -3,14 +3,6 @@ import mongoose from 'mongoose';
 const apiUrl = process.env.MONGODB_URI;
 let isConnected = false;
 
-// export const ConnectDB = async () => {
-//   try {
-//     await mongoose.connect(apiUrl!);
-//     console.log('Connected to DB')
-//   } catch (error) {
-//     console.log(error);
-//   }
-// };
 
 export const ConnectDB = async () => {
   try {

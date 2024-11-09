@@ -43,7 +43,7 @@ const EditBlog = async ({ params }: { params: { id: string } }) => {
 
   return (
     <UseFormContextProvider defaultValues={defaultValues.formData}>
-      <BlogForm defaultImage={defaultValues.image} edit={true} id={blog._id} />
+      <BlogForm defaultImage={defaultValues.image} edit={true} id={String(blog._id)} />
     </UseFormContextProvider>
   );
 };

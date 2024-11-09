@@ -53,7 +53,7 @@ const userSchema = new Schema(
   },
 );
 
-userSchema.plugin(mongooseLeanVirtuals)
+userSchema.plugin(mongooseLeanVirtuals);
 
 // Define the virtual field 'name'
 userSchema.virtual('name').get(function () {

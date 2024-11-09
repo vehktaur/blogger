@@ -1,5 +1,6 @@
 import mongoose, { InferSchemaType } from 'mongoose';
 import { User } from './UserModel';
+import mongooseLeanVirtuals from 'mongoose-lean-virtuals';
 
 const {
   Schema,
@@ -51,9 +52,13 @@ const blogSchema = new Schema(
   },
   {
     timestamps: true,
+    toJSON: { virtuals: true }, // Include virtuals in JSON output
+    toObject: { virtuals: true }, // Include virtuals in object output
   },
 );
 
+blogSchema.plugin(mongooseLeanVirtuals);
+blogSchema.index({ author: 1 });
 
 const BlogModel = models.Blog || model('Blog', blogSchema);
 

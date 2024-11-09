@@ -1,6 +1,6 @@
 import 'server-only';
 
-import { getBlurData } from '@/lib/server-utils';
+import { getBlurData } from '@/lib/get-blur-data';
 import Image, { type ImageProps } from 'next/image';
 
 const BlurImage = async ({ src, alt, ...rest }: ImageProps) => {

@@ -3,6 +3,8 @@ import GitHub from 'next-auth/providers/github';
 import Google from 'next-auth/providers/google';
 import Credentials from 'next-auth/providers/credentials';
 import bcrypt from 'bcryptjs';
+import { getUser } from './lib/server-utils';
+import { User } from './lib/models/UserModel';
 
 const getFakeUser = () => {
   let user = {
@@ -32,9 +34,9 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         try {
           const { email, password } = credentials;
 
-          // const user = (await getUser({ email: String(email) })) as User;
+          const user = (await getUser({ email: String(email) })) as User;
 
-          const user = getFakeUser();
+          // const user = getFakeUser();
 
           if (!user) {
             throw new Error('User not found');
