@@ -14,7 +14,7 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className='flex'>
+    <div className='flex w-full'>
       <Sidebar />
 
       {/* Actual Admin Section */}
