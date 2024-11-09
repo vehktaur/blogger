@@ -1,5 +1,5 @@
 import mongoose, { InferSchemaType } from 'mongoose';
-import { User } from './UserModel';
+import { User } from '@/lib/models/UserModel';
 
 const { Schema, models, model } = mongoose;
 
@@ -47,13 +47,7 @@ const blogSchema = new Schema(
   },
 );
 
-// const BlogModel = models.Blog || model('Blog', blogSchema);
-
-if (models?.Blog) {
-  delete models.Blog;
-}
-
-const BlogModel = model('Blog', blogSchema);
+const BlogModel = models.Blog || model('Blog', blogSchema);
 
 export type Blog = InferSchemaType<typeof blogSchema> & { _id: string };
 export type PopulatedBlog = Omit<Blog, 'author'> & { author: User };

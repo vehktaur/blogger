@@ -1,6 +1,6 @@
 import { StaticImageData } from 'next/image';
 import { ConnectDB } from './config/db';
-import UserModel, { User } from './models/UserModel';
+import UserModel, { User } from '@/lib/models/UserModel';
 
 export const getRandomImages = (
   array: StaticImageData[],
