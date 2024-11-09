@@ -16,23 +16,30 @@ export const getRandomImages = (
   return Array.from(selectedImages);
 };
 
-export const getUser = async (query: { email?: string; id?: string }) => {
-  const { email, id } = query;
-  await ConnectDB();
+// export const getUser = async (query: { email?: string; id?: string }) => {
+//   const { email, id } = query;
+//   //Connect to the DB
 
-  let user: User | null = null;
+//   try {
+//     await ConnectDB();
 
-  if (email) {
-    user = await UserModel.findOne({ email: email.toLowerCase() }).lean<User>({
-      virtuals: true,
-    });
-  } else if (id) {
-    user = await UserModel.findById(id).lean<User>({ virtuals: true });
-  }
+//     let user: User | null = null;
 
-  return user;
-};
+//     if (email) {
+//       user = await UserModel.findOne({ email: email.toLowerCase() }).lean<User>(
+//         {
+//           virtuals: true,
+//         },
+//       );
+//     } else if (id) {
+//       user = await UserModel.findById(id).lean<User>({ virtuals: true });
+//     }
 
+//     return user;
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };
 
 export const getFakeUser = () => {
   let user = {

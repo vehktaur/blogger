@@ -1,6 +1,6 @@
+import mongooseLeanVirtuals from 'mongoose-lean-virtuals';
 import mongoose, { InferSchemaType } from 'mongoose';
 import { emailPattern } from '../definitions';
-import mongooseLeanVirtuals from 'mongoose-lean-virtuals';
 
 const { Schema, models, model } = mongoose;
 
@@ -53,13 +53,12 @@ const userSchema = new Schema(
   },
 );
 
+userSchema.plugin(mongooseLeanVirtuals)
+
 // Define the virtual field 'name'
 userSchema.virtual('name').get(function () {
   return `${this.firstName} ${this.lastName}`.trim();
 });
-
-//enable virtuals on lean
-userSchema.plugin(mongooseLeanVirtuals);
 
 userSchema.index({ username: 1 });
 userSchema.index({ email: 1 });

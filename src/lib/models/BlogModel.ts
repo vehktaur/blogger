@@ -1,7 +1,14 @@
 import mongoose, { InferSchemaType } from 'mongoose';
 import { User } from '@/lib/models/UserModel';
 
-const { Schema, models, model } = mongoose;
+const {
+  Schema,
+  Schema: {
+    Types: { ObjectId },
+  },
+  models,
+  model,
+} = mongoose;
 
 const blogSchema = new Schema(
   {
@@ -18,7 +25,7 @@ const blogSchema = new Schema(
       required: true,
     },
     author: {
-      type: Schema.Types.ObjectId,
+      type: ObjectId,
       ref: 'User',
       required: true,
     },
@@ -46,6 +53,7 @@ const blogSchema = new Schema(
     timestamps: true,
   },
 );
+
 
 const BlogModel = models.Blog || model('Blog', blogSchema);
 
