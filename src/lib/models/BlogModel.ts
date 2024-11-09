@@ -1,5 +1,5 @@
 import mongoose, { InferSchemaType } from 'mongoose';
-import { User } from '@/lib/models/UserModel';
+import { User } from './UserModel';
 
 const {
   Schema,

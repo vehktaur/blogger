@@ -1,6 +1,4 @@
 import { StaticImageData } from 'next/image';
-import { ConnectDB } from './config/db';
-import UserModel, { User } from '@/lib/models/UserModel';
 
 export const getRandomImages = (
   array: StaticImageData[],
@@ -15,31 +13,6 @@ export const getRandomImages = (
 
   return Array.from(selectedImages);
 };
-
-// export const getUser = async (query: { email?: string; id?: string }) => {
-//   const { email, id } = query;
-//   //Connect to the DB
-
-//   try {
-//     await ConnectDB();
-
-//     let user: User | null = null;
-
-//     if (email) {
-//       user = await UserModel.findOne({ email: email.toLowerCase() }).lean<User>(
-//         {
-//           virtuals: true,
-//         },
-//       );
-//     } else if (id) {
-//       user = await UserModel.findById(id).lean<User>({ virtuals: true });
-//     }
-
-//     return user;
-//   } catch (error) {
-//     console.log(error);
-//   }
-// };
 
 export const getFakeUser = () => {
   let user = {
