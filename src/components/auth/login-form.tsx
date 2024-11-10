@@ -14,7 +14,7 @@ const LoginForm = () => {
 
   const onSubmit: SubmitHandler<LoginSchema> = (data) => {
     console.log(data);
-    signIn('credentials', data)
+    signIn('credentials', {...data, callbackUrl: '/' });
   };
 
   return (

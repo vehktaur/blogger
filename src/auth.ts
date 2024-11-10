@@ -6,7 +6,6 @@ import bcrypt from 'bcryptjs';
 import { getUser } from './lib/server-utils';
 import { User } from './lib/models/UserModel';
 
-
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
     Credentials({
@@ -36,8 +35,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
               throw new Error('Invalid credentials');
             }
 
-            console.log('worked');
-            console.log(user.name);
+            console.log(`${user.name} logged in successfully`);
           }
 
           return user;
