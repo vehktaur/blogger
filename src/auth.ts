@@ -6,22 +6,6 @@ import bcrypt from 'bcryptjs';
 import { getUser } from './lib/server-utils';
 import { User } from './lib/models/UserModel';
 
-const getFakeUser = () => {
-  let user = {
-    firstName: 'Victor',
-    lastName: 'Akhihiero',
-    name: 'Victor Akhihiero',
-    email: 'victorakhihiero@gmail.com',
-    username: 'vehktaur',
-    _id: '',
-    role: 'user',
-    password: '$2a$10$IUq8yxxA/NlCeNZs08pSg.khLNob9KLA6eTLM3j.uaqRA5SaKRAgi',
-    createdAt: new Date('2024-11-02T10:49:26.345+00:00'),
-    updatedAt: new Date('2024-11-02T10:49:26.345+00:00'),
-  };
-
-  return user;
-};
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
