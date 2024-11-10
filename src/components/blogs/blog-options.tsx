@@ -11,6 +11,7 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { RefObject, useEffect, useRef, useState } from 'react';
 import { toast } from 'react-toastify';
+import { findAncestor } from '@/lib/utils';
 
 const BlogOptions = ({
   id,
@@ -55,13 +56,17 @@ const BlogOptions = ({
 
   //Check for vertical space
   useEffect(() => {
-    if (isOpen && dropdownRef.current) {
-      const dropdown = dropdownRef.current;
+    const dropdown = dropdownRef.current;
+
+    if (isOpen && dropdown) {
+      const blogTable = findAncestor(dropdown, 5);
       const dropdownRect = dropdown.getBoundingClientRect();
+      const blogTableRect = blogTable?.getBoundingClientRect();
 
       const menuHeight = dropdown.scrollHeight;
       const spaceAbove = dropdownRect.top;
-      const spaceBelow = window.innerHeight - dropdownRect.bottom;
+      const spaceBelow =
+        (blogTableRect?.bottom || window.innerHeight) - dropdownRect.bottom;
 
       const threshold = 10; // Small margin to avoid tight fits
 

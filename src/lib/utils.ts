@@ -14,6 +14,19 @@ export const getRandomImages = (
   return Array.from(selectedImages);
 };
 
+export const findAncestor = (element: Element, level: number): Element | null => {
+  let ancestor: Element | null = element;
+  for (let i = 0; i < level; i++) {
+    if (ancestor) {
+      ancestor = ancestor.parentElement;
+    } else {
+      return null;
+    }
+  }
+
+  return ancestor;
+};
+
 export const getFakeUser = () => {
   let user = {
     firstName: 'Victor',
