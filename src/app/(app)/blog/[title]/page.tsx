@@ -82,12 +82,12 @@ const Blog = async ({ params }: { params: { title: string } }) => {
             <BlurImage
               className='mx-auto rounded-full border border-white ~w-16/20'
               src={assets.profile_img}
-              alt={`${blog.author?.username}`}
+              alt={`${blog.author.username}`}
               width={960}
               height={480}
             />
             <p className='mt-1 pb-2 font-medium italic text-[#333] ~text-sm/base'>
-              {blog.author?.username}
+              {blog.author.username}
             </p>
           </div>
         </div>
