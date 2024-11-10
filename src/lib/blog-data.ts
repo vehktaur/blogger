@@ -2,6 +2,7 @@ import 'server-only';
 import { ConnectDB } from './config/db';
 import BlogModel, { PopulatedBlog } from './models/BlogModel';
 import { unstable_cache } from 'next/cache';
+import UserModel from './models/UserModel';
 
 //Get All Blogs from the Database
 export const getAllBlogs = async () => {
@@ -11,6 +12,7 @@ export const getAllBlogs = async () => {
 
     // Fetch blogs based on the provided query
     const blogs = await BlogModel.find()
+      .populate({ path: 'author', model: UserModel })
       .lean<PopulatedBlog[]>();
     return blogs;
   } catch (error) {
@@ -25,6 +27,7 @@ export const getBlog = async (id: string) => {
 
     // Fetch blogs based on the provided query
     const blog = await BlogModel.findById(id)
+      .populate({ path: 'author', model: UserModel })
       .lean<PopulatedBlog>();
     return blog;
   } catch (error) {
