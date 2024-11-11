@@ -72,8 +72,9 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           const image = profile.avatar_url;
           const username = profile.login || 'unknown';
           let newUser = { firstName, lastName, email, image, username };
-          const res = await signUp(newUser as CustomUser);
-          user = res.user;
+          await signUp(newUser as CustomUser);
+
+          user = await getUser({ email });
         }
 
         if (user && !user.image) user!.image = profile.avatar_url;
