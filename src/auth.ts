@@ -8,6 +8,7 @@ import { getUser } from './lib/server-utils';
 import { User as CustomUser } from './lib/models/users';
 import { DefaultSession } from 'next-auth';
 import { signUp } from './app/actions/auth';
+import SignUp from './app/auth/sign-up/page';
 
 declare module 'next-auth' {
   interface Session {
@@ -65,12 +66,14 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         let user = await getUser({ email: profile.email! });
         if (!user) {
           const name = profile.name?.split(' ');
-          const firstName = name?.[0] || 'Unknown';
+          const firstName = name?.[0] || 'unknown';
           const lastName = name?.[1];
-          const email = profile.email;
+          const email = profile.email || 'unknown@gmail.com';
           const image = profile.avatar_url;
-          let newUser = { firstName, lastName, email, image };
-          user = (await signUp(newUser as CustomUser)).user;
+          const username = profile.login || 'unknown';
+          let newUser = { firstName, lastName, email, image, username };
+          const res = await signUp(newUser as CustomUser);
+          user = res.user;
         }
 
         if (user && !user.image) user!.image = profile.avatar_url;
