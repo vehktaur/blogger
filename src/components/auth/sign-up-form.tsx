@@ -6,7 +6,7 @@ import Input from '../ui/input';
 import clsx from 'clsx';
 import { signUp } from '@/app/actions/auth';
 import { toast } from 'react-toastify';
-import { User } from '@/lib/models/UserModel';
+import { User } from '@/lib/models/users';
 
 const SignUpForm = () => {
   const {

@@ -67,6 +67,10 @@ const Navbar = () => {
   }, []);
 
   useEffect(() => {
+    console.log(session?.user);
+  }, [session]);
+
+  useEffect(() => {
     const handleOutsideClick = (event: MouseEvent) => {
       if (
         dropdownRef.current &&

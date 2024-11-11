@@ -30,8 +30,7 @@ import {
   TechIcon,
 } from '@/assets/svgs';
 import { HiMiniXCircle } from 'react-icons/hi2';
-import { Blog } from '@/lib/models/BlogModel';
-import { Types } from 'mongoose';
+import { Blog } from '@/lib/models/blogs';
 
 const BlogForm = ({
   defaultImage,
@@ -169,10 +168,7 @@ const BlogForm = ({
       if (edit && id) {
         responseData = await editBlog(data, id);
       } else {
-        responseData = await addBlog({
-          ...data,
-          author: new Types.ObjectId('672603b69bb965d1dd286215'), // Add author info
-        });
+        responseData = await addBlog(data);
       }
 
       if (responseData?.success) {

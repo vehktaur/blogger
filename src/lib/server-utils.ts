@@ -1,6 +1,6 @@
 import 'server-only';
 import { ConnectDB } from './config/db';
-import UserModel, { User } from './models/UserModel';
+import Users, { User } from './models/users';
 import { getPlaiceholder } from 'plaiceholder';
 
 export const getBlurData = async (url: string) => {
@@ -32,11 +32,11 @@ export const getUser = async (query: { email?: string; id?: string }) => {
     let user: User | null = null;
 
     if (email) {
-      user = await UserModel.findOne({ email: email.toLowerCase() }).lean<User>(
-        { virtuals: true },
-      );
+      user = await Users.findOne({ email: email.toLowerCase() }).lean<User>({
+        virtuals: true,
+      });
     } else if (id) {
-      user = await UserModel.findById(id).lean<User>({ virtuals: true });
+      user = await Users.findById(id).lean<User>({ virtuals: true });
     }
 
     return user;

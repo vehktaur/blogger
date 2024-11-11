@@ -1,8 +1,6 @@
 import mongooseLeanVirtuals from 'mongoose-lean-virtuals';
-import mongoose, { InferSchemaType } from 'mongoose';
+import { InferSchemaType, model, models, Schema } from 'mongoose';
 import { emailPattern } from '../definitions';
-
-const { Schema, models, model } = mongoose;
 
 const userSchema = new Schema(
   {
@@ -64,13 +62,13 @@ userSchema.index({ username: 1 });
 userSchema.index({ email: 1 });
 
 // Model initialization
-const UserModel = models.User || model('User', userSchema);
+const Users = models.User || model('User', userSchema);
 
+//Export user document and object types
 export type User = InferSchemaType<typeof userSchema> & {
   _id: string;
   name: string;
 };
+export type UserDocument = ReturnType<(typeof Users)['hydrate']>;
 
-export type UserDocument = ReturnType<(typeof UserModel)['hydrate']>;
-
-export default UserModel;
+export default Users;

@@ -1,5 +1,5 @@
-import { PopulatedBlog } from "@/lib/models/BlogModel";
-import { RxDoubleArrowRight } from "react-icons/rx";
+import { PopulatedBlog } from '@/lib/models/blogs';
+import { RxDoubleArrowRight } from 'react-icons/rx';
 import Link from 'next/link';
 import BlurImage from '../ui/blur-image';
 

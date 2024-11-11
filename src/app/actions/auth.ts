@@ -1,7 +1,7 @@
 'use server';
 
 import { ConnectDB } from '@/lib/config/db';
-import UserModel, { User } from '@/lib/models/UserModel';
+import Users, { User } from '@/lib/models/users';
 import bcrypt from 'bcryptjs';
 
 export const signUp = async (user: User) => {
@@ -10,10 +10,11 @@ export const signUp = async (user: User) => {
 
     if (user.password) user.password = await bcrypt.hash(user.password, 10);
 
-    await UserModel.create(user);
+    const newUser = await Users.create(user);
     return {
       success: true,
       msg: 'User created',
+      user: newUser,
     };
   } catch (error) {
     return {

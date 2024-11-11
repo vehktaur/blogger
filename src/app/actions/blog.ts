@@ -1,12 +1,22 @@
 'use server';
 
+import { auth } from '@/auth';
 import { ConnectDB } from '@/lib/config/db';
 import { backendClient } from '@/lib/edgestore-server';
-import BlogModel, { Blog, BlogDocument } from '@/lib/models/BlogModel';
+import Blogs, { Blog } from '@/lib/models/blogs';
+import { Types } from 'mongoose';
 import { revalidateTag } from 'next/cache';
 
 //Save Blogs to the Database
 export const addBlog = async (blogData: Blog) => {
+  const session = await auth();
+
+  if (!session || !session.user)
+    return {
+      success: false,
+      msg: 'User must be logged in',
+    };
+
   try {
     //Connect to MongoDB
     await ConnectDB();
@@ -15,7 +25,11 @@ export const addBlog = async (blogData: Blog) => {
       url: blogData.image.url,
     });
 
-    await BlogModel.create(blogData);
+    blogData.author = new Types.ObjectId(
+      session.user._id || '672603b69bb965d1dd286215',
+    );
+
+    await Blogs.create(blogData);
     revalidateTag('blogs');
     return {
       success: true,
@@ -40,7 +54,7 @@ export const deleteBlog = async (id: string, url: string) => {
     await ConnectDB();
 
     await backendClient.blogPostImages.deleteFile({ url });
-    await BlogModel.deleteOne({ _id: id });
+    await Blogs.deleteOne({ _id: id });
 
     revalidateTag('blogs');
     return {
@@ -63,7 +77,7 @@ export const editBlog = async (updatedData: Blog, id: string) => {
     //Connect to DB
     await ConnectDB();
 
-    const blog = await BlogModel.findById(id); //Get the blog TBU from to the DB
+    const blog = await Blogs.findById(id); //Get the blog TBU from to the DB
 
     if (!blog) {
       throw new Error('Blog does not exist');

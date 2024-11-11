@@ -1,15 +1,6 @@
-import mongoose, { InferSchemaType } from 'mongoose';
-import { User } from './UserModel';
+import { InferSchemaType, model, models, Schema } from 'mongoose';
+import { User } from './users';
 import mongooseLeanVirtuals from 'mongoose-lean-virtuals';
-
-const {
-  Schema,
-  Schema: {
-    Types: { ObjectId },
-  },
-  models,
-  model,
-} = mongoose;
 
 const blogSchema = new Schema(
   {
@@ -26,7 +17,7 @@ const blogSchema = new Schema(
       required: true,
     },
     author: {
-      type: ObjectId,
+      type: Schema.Types.ObjectId,
       ref: 'User',
       required: true,
     },
@@ -60,10 +51,11 @@ const blogSchema = new Schema(
 blogSchema.plugin(mongooseLeanVirtuals);
 blogSchema.index({ author: 1 });
 
-const BlogModel = models.Blog || model('Blog', blogSchema);
+const Blogs = models.Blog || model('Blog', blogSchema);
 
+//Export blog document and object types
 export type Blog = InferSchemaType<typeof blogSchema> & { _id: string };
 export type PopulatedBlog = Omit<Blog, 'author'> & { author: User };
-export type BlogDocument = ReturnType<(typeof BlogModel)['hydrate']>;
+export type BlogDocument = ReturnType<(typeof Blogs)['hydrate']>;
 
-export default BlogModel;
+export default Blogs;
