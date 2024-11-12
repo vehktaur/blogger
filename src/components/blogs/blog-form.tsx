@@ -6,7 +6,7 @@ import Image from 'next/image';
 
 //Component Imports
 import { ImageFile, maxSize, minSize } from '@/lib/definitions';
-import { addBlog, editBlog } from '@/app/actions/blog';
+import { addBlog, editBlog } from '@/app/actions/blog-actions';
 import Input from '../ui/input';
 
 //Library Imports

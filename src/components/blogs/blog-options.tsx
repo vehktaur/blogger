@@ -1,6 +1,6 @@
 'use client';
 
-import { deleteBlog } from '@/app/actions/blog';
+import { deleteBlog } from '@/app/actions/blog-actions';
 
 import { RiDeleteBin2Line } from 'react-icons/ri';
 import { SlOptions } from 'react-icons/sl';

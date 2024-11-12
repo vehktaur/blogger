@@ -4,7 +4,7 @@ import { ConnectDB } from '@/lib/config/db';
 import Users, { User } from '@/lib/models/users';
 import bcrypt from 'bcryptjs';
 
-export const signUp = async (user: User) => {
+export const createUser = async (user: User) => {
   try {
     await ConnectDB();
 
