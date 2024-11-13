@@ -4,7 +4,7 @@ import { getBlurData } from '@/lib/server-utils';
 import Image, { type ImageProps } from 'next/image';
 
 const BlurImage = async ({ src, alt, ...rest }: ImageProps) => {
-  if (typeof src !== 'string') return <Image src={src} {...rest} alt={alt} />;
+  if (typeof src !== 'string') return <Image src={src} {...rest} alt={alt} placeholder='blur' />;
 
   const { base64 } = await getBlurData(src);
 

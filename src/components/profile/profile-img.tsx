@@ -1,5 +1,6 @@
 import { auth } from '@/auth';
 import BlurImage from '../ui/blur-image';
+import { assets } from '@/assets/assets';
 
 const ProfileImg = async () => {
   const session = await auth();
@@ -9,20 +10,15 @@ const ProfileImg = async () => {
       <form noValidate>
         <div className='flex items-center ~gap-3/6'>
           <div className='flex flex-col items-center gap-4'>
-            <div className='relative flex-shrink-0 rounded-full border bg-user bg-contain bg-center bg-no-repeat ~size-20/24'>
-              <input hidden type='file' name='profile-img' id='profile-img' />
-
-              {session?.user?.image && (
-                <div className='absoulte inset-0 overflow-hidden rounded-full'>
+            <div className='relative flex-shrink-0 rounded-full border overflow-hidden ~size-20/24'>
+              <input hidden type='file' name='profile-img' id='profile-img' />       
                   <BlurImage
                     className='size-full object-cover'
-                    src={session.user.image}
+                    src={assets.profile_img || session?.user.image}
                     width={1280}
                     height={720}
-                    alt={session.user.name || 'user profile image'}
+                    alt={session?.user.username || 'user profile image'}
                   />
-                </div>
-              )}
             </div>
             <button
               disabled
