@@ -49,7 +49,7 @@ export const generateMetadata = async ({
 };
 
 const Blog = async ({ params }: { params: { title: string } }) => {
-  const url = decodeURIComponent(params.title);
+  const url = params.title;
   const id = url.split('__').pop();
 
   if (!id) {
@@ -57,15 +57,15 @@ const Blog = async ({ params }: { params: { title: string } }) => {
     redirect('/');
   }
 
-  // const getCachedBlog = unstable_cache(
-  //   async (id: string) => await getBlog(id),
-  //   [`blog-${id}`],
-  //   {
-  //     tags: [`blog-${id}`],
-  //   },
-  // );
+  const getCachedBlog = unstable_cache(
+    async (id: string) => await getBlog(id),
+    [`blog-${id}`],
+    {
+      tags: [`blog-${id}`],
+    },
+  );
 
-  const blog = await getBlog(id);
+  const blog = await getCachedBlog(id);
 
   if (!blog) {
     console.log('id', id)
@@ -85,13 +85,13 @@ const Blog = async ({ params }: { params: { title: string } }) => {
 
             <BlurImage
               className='mx-auto rounded-full border border-white ~w-16/20'
-              src={blog.author.image || assets.profile_img}
-              alt={blog.author.username}
+              src={ assets.profile_img}
+              alt={''}
               width={960}
               height={480}
             />
             <p className='mt-1 pb-2 font-medium italic text-[#333] ~text-sm/base'>
-              {blog.author.username}
+              {''}
             </p>
           </div>
         </div>
