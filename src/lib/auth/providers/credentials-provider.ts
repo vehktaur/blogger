@@ -11,14 +11,18 @@ const credentialsProvider = Credentials({
   },
   authorize: async (credentials) => {
     try {
+      // Get email and password from login credentials
       const { email, password } = credentials;
 
+      // Get user details from the DB
       const user = (await getUser({ email: String(email) })) as User;
 
+      // Check if user actually exists
       if (!user) {
         throw new Error('User not found');
       }
 
+      // Confirm user password is correct
       if (user.password) {
         const validPassword = await bcrypt.compare(
           password as string,
@@ -32,6 +36,7 @@ const credentialsProvider = Credentials({
         console.log(`${user.name} logged in successfully`);
       }
 
+      //return user details
       return user;
     } catch (error) {
       console.log(error);

@@ -33,12 +33,14 @@ const BlogsTable = async ({ title }: { title: string }) => {
               <span className='overflow-hidden rounded-full border border-stone-500 ~size-8/10'>
                 <Image
                   className='size-full object-cover'
-                  src={assets.profile_img}
-                  alt='user name'
+                  src={blog.author.image || assets.profile_img}
+                  width={960}
+                  height={480}
+                  alt={blog.author.username}
                 />
               </span>
               <span className='font-medium'>
-                {blog.author?.name || 'Kurapika'}
+                {blog.author?.username || 'Kurapika'}
               </span>
             </div>
             <div className='flex items-center gap-2 pe-4'>

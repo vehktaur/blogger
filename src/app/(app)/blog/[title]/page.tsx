@@ -35,7 +35,7 @@ export const generateMetadata = async ({
         tags: [`blog-${id}`],
       },
     );
-  
+
     const blog = await getCachedBlog(id);
     return {
       title: `${blog?.title} | Blogger`,
@@ -81,8 +81,8 @@ const Blog = async ({ params }: { params: { title: string } }) => {
 
             <BlurImage
               className='mx-auto rounded-full border border-white ~w-16/20'
-              src={assets.profile_img}
-              alt={`${blog.author.username}`}
+              src={blog.author.image || assets.profile_img}
+              alt={blog.author.username}
               width={960}
               height={480}
             />

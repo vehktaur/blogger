@@ -5,7 +5,10 @@ import GitHub, { GitHubProfile } from 'next-auth/providers/github';
 
 const githubProvider = GitHub({
   async profile(profile: GitHubProfile) {
+    // Get user details from the DB
     let user = await getUser({ email: profile.email! });
+
+    //Create a new user if the user doesn't already exist (in the DB)
     if (!user) {
       const name = profile.name?.split(' ');
       const firstName = name?.[0] || 'unknown';
@@ -25,16 +28,13 @@ const githubProvider = GitHub({
       user = await getUser({ email });
     }
 
+    // Update the users image if no image in the DB
     if (user && !user.image) {
       user!.image = profile.avatar_url;
-      const res = await Users.findByIdAndUpdate(
-        user._id,
-        { image: profile.avatar_url },
-        { new: true },
-      );
-      console.log('updated image: ', res);
+      await Users.findByIdAndUpdate(user._id, { image: profile.avatar_url });
     }
 
+    // Add user name
     if (user && !user.name) user.name = profile.name || 'unknown';
 
     return user!;

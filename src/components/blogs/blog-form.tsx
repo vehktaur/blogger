@@ -31,6 +31,7 @@ import {
 } from '@/assets/svgs';
 import { HiMiniXCircle } from 'react-icons/hi2';
 import { Blog } from '@/lib/models/blogs';
+import Button from '../ui/button';
 
 const BlogForm = ({
   defaultImage,
@@ -426,22 +427,11 @@ const BlogForm = ({
             </div>
           </div>
           <div className='mt-10 flex items-center gap-4'>
-            <button
+            <Button
               disabled={isSubmitting}
               type='submit'
-              className={clsx(
-                isSubmitting && 'text-white',
-                'group relative z-[1] inline-block overflow-hidden rounded-3xl border border-black px-6 py-2 font-medium transition-all duration-300 ~text-sm/base hover:text-white',
-              )}
+              isSubmitting={isSubmitting}
             >
-              <span
-                className={clsx(
-                  isSubmitting
-                    ? 'w-[calc(100%+2px)]'
-                    : 'group-hover:w-[calc(100%+2px)]',
-                  'absolute -left-[1px] -top-[1px] z-[-1] block h-[calc(100%+2px)] w-0 rounded-3xl bg-black transition-all duration-300',
-                )}
-              />
               {isSubmitting
                 ? edit
                   ? 'SAVING...'
@@ -449,17 +439,17 @@ const BlogForm = ({
                 : edit
                   ? 'SAVE'
                   : 'CREATE'}
-            </button>
+            </Button>
 
-            <button
+            <Button
               disabled={isSubmitting}
               onClick={() => resetForm()}
               type='button'
-              className='group relative z-[1] inline-block overflow-hidden rounded-3xl border border-red-500 px-6 py-2 font-medium text-red-500 transition-all duration-300 ~text-sm/base hover:text-white'
+              className='border-red-500 text-red-500'
+              overlay='bg-red-500'
             >
-              <span className='absolute -left-[1px] -top-[1px] z-[-1] block h-[calc(100%+2px)] w-0 rounded-3xl bg-red-500 transition-all duration-300 group-hover:w-[calc(100%+2px)]' />
               {edit ? 'RESET' : 'CLEAR'}
-            </button>
+            </Button>
           </div>
         </form>
       </div>
