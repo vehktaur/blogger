@@ -53,20 +53,23 @@ const Blog = async ({ params }: { params: { title: string } }) => {
   const id = url.split('__').pop();
 
   if (!id) {
+    console.log('id', id)
     redirect('/');
   }
 
-  const getCachedBlog = unstable_cache(
-    async (id: string) => await getBlog(id),
-    [`blog-${id}`],
-    {
-      tags: [`blog-${id}`],
-    },
-  );
+  // const getCachedBlog = unstable_cache(
+  //   async (id: string) => await getBlog(id),
+  //   [`blog-${id}`],
+  //   {
+  //     tags: [`blog-${id}`],
+  //   },
+  // );
 
-  const blog = await getCachedBlog(id);
+  const blog = await getBlog(id);
 
   if (!blog) {
+    console.log('id', id)
+    console.log('blog',blog)
     redirect('/');
   }
 

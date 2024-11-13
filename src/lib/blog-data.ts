@@ -30,14 +30,11 @@ export const getBlog = async (id: string) => {
     // Connect to MongoDB
     await ConnectDB();
 
-    // Fetch blogs based on the provided query
+    // Fetch blog
     const blog = await Blogs.findById(id)
       .populate({ path: 'author', model: Users })
       .lean<PopulatedBlog>();
-
-    if (blog?._id) {
-      blog._id = blog._id.toString();
-    }
+    if (blog?._id) blog._id = blog._id.toString();
     return blog;
   } catch (error) {
     console.error('Error fetching blog:', error);
