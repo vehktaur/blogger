@@ -89,7 +89,12 @@ const SignUpForm = () => {
         </div>
       </div>
 
-      <Button disabled={isSubmitting} type='submit' isSubmitting={isSubmitting}>
+      <Button
+        className='mx-auto mt-10 w-full max-w-md'
+        disabled={isSubmitting}
+        type='submit'
+        isSubmitting={isSubmitting}
+      >
         {isSubmitting ? 'Sign Up...' : 'Sign Up'}
       </Button>
     </form>

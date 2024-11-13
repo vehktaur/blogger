@@ -1,4 +1,4 @@
-import profile_img from './images/profile.webp';
+import profile_img from './images/profile.png';
 
 import ill0 from './images/everthine-0.jpg';
 import ill1 from './images/everthine-1.jpg';

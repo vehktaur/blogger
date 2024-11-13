@@ -24,12 +24,12 @@ const credentialsProvider = Credentials({
 
       // Confirm user password is correct
       if (user.password) {
-        const validPassword = await bcrypt.compare(
+        const passwordsMatch = await bcrypt.compare(
           password as string,
           user.password,
         );
 
-        if (!validPassword) {
+        if (!passwordsMatch) {
           throw new Error('Invalid credentials');
         }
 

@@ -15,6 +15,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { signOut } from 'next-auth/react';
 import { useSession } from 'next-auth/react';
 import clsx from 'clsx';
+import { assets } from '@/assets/assets';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -114,19 +115,15 @@ const Navbar = () => {
               <div className='relative'>
                 <button
                   onClick={() => toggleDropdown((prev) => !prev)}
-                  className='relative block rounded-full border bg-slate-500 ~size-10/12'
+                  className='relative block rounded-full border ~size-10/12'
                 >
-                  {session?.user?.image && (
-                    <div className='absolute inset-0 overflow-hidden rounded-full'>
-                      <Image
-                        className='size-full object-cover'
-                        src={session.user.image}
-                        width={1280}
-                        height={720}
-                        alt={session.user.name || 'user profile image'}
-                      />
-                    </div>
-                  )}
+                  <Image
+                    className='size-full object-cover'
+                    src={assets.profile_img || session?.user.image}
+                    width={1280}
+                    height={720}
+                    alt={session?.user.name || 'user profile image'}
+                  />
                 </button>
                 <AnimatePresence>
                   {dropdown && (
