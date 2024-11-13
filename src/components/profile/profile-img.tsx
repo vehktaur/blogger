@@ -24,7 +24,6 @@ const ProfileImg = ({ user }: { user: User | null }) => {
 
     const preview = URL.createObjectURL(image);
 
-
     const uploadedImg = await edgestore.userImages.upload({
       file: image,
       options: {
@@ -32,16 +31,23 @@ const ProfileImg = ({ user }: { user: User | null }) => {
       },
     });
 
-    setImage((prev) => ({ ...prev, name: image.name, image, url: uploadedImg.url, preview }));
+    setImage((prev) => ({
+      ...prev,
+      name: image.name,
+      image,
+      url: uploadedImg.url,
+      preview,
+    }));
   };
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if(!image.url) return
+    if (!image.url) return;
     const res = await changeProfilePic(image.url, user?._id);
 
     if (res.success) {
       toast.success(res.msg);
+      window.location.reload();
     } else {
       toast.error(res.msg);
     }

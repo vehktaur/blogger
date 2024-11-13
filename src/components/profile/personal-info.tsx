@@ -18,10 +18,13 @@ const PersonalInfo = ({ user }: { user: User }) => {
     console.log(data);
     const res = await updateUser(data, user._id);
 
-    if(res.success){
-      toast.success(res.msg)
-    }else{
-      toast.error(res.msg)
+    if (res.success) {
+      toast.success(res.msg);
+      if (res.redirect) {
+        window.location.reload();
+      }
+    } else {
+      toast.error(res.msg);
     }
   };
 

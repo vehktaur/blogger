@@ -36,16 +36,16 @@ export const updateUser = async (updatedData: Partial<User>, id: string) => {
     if (!user) {
       throw new Error('User does not exist');
     }
+    const newUsername = user.username !== updatedData.username;
 
     Object.assign(user, updatedData); //Update the blog with the values from the updatedData
-
-    // Check if the image in the DB and the image in the new (updated) data are different
 
     await user.save();
 
     return {
       success: true,
       msg: 'User Updated',
+      redirect: newUsername,
     };
   } catch (error) {
     if (error instanceof Error) console.log(error.message);
@@ -108,7 +108,7 @@ export const changeProfilePic = async (url: string, id?: string) => {
     // connect to the DB
     await ConnectDB();
 
-    // Get user 
+    // Get user
     const user = await Users.findById(id);
     if (!user) {
       throw new Error('User does not exist');

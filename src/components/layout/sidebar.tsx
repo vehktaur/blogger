@@ -71,7 +71,7 @@ const Sidebar = async ({ user }: { user?: User | null }) => {
         <div className='mt-auto px-1'>
           <hr className='mx-auto block max-w-[90%] rounded-full border border-stone-900 sm:border-[1.5px]' />
           <div className='flex items-center px-1 py-3 ~gap-1/4 sm:~px-2/5'>
-            <div className='mx-auto flex-shrink-0 overflow-hidden rounded-full border ~w-10/12 sm:mx-0'>
+            <div className='mx-auto flex-shrink-0 overflow-hidden rounded-full border ~size-10/12 sm:mx-0'>
               <BlurImage
                 className='size-full object-cover'
                 src={user?.image || assets.profile_img}
