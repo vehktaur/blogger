@@ -1,11 +1,11 @@
 import Password from '@/components/profile/password';
 import UseFormContextProvider from '@/context/UseFormContextProvider';
 
-const PasswordPage = () => {
+const PasswordPage = async ({ params }: { params: { username: string } }) => {
   return (
     <div>
       <UseFormContextProvider>
-        <Password />
+        <Password username={params.username} />
       </UseFormContextProvider>
     </div>
   );

@@ -5,15 +5,14 @@ import Image from 'next/image';
 import NavLink from '../ui/nav-link';
 import { auth } from '@/auth';
 import BlurImage from '../ui/blur-image';
+import { User } from '@/lib/models/users';
 
-const Sidebar = async () => {
-  const session = await auth();
-
+const Sidebar = async ({ user }: { user?: User | null }) => {
   const navLinks = [
     {
       name: 'Profile',
       icon: <PiUser className='size-7' />,
-      path: '/profile',
+      path: `/${user?.username}`,
     },
     {
       name: 'Create Post',
@@ -75,7 +74,7 @@ const Sidebar = async () => {
             <div className='mx-auto flex-shrink-0 overflow-hidden rounded-full border ~w-10/12 sm:mx-0'>
               <BlurImage
                 className='size-full object-cover'
-                src={session?.user?.image || assets.profile_img}
+                src={user?.image || assets.profile_img}
                 alt='Profile Image'
                 width={1280}
                 height={720}
@@ -83,10 +82,10 @@ const Sidebar = async () => {
             </div>
             <div className='hidden sm:grid'>
               <span className='truncate font-medium ~text-sm/base'>
-                {session?.user?.name}
+                {user?.name}
               </span>
               <span className='truncate text-[#666] ~text-xs/sm'>
-                {session?.user?.email}
+                {user?.email}
               </span>
             </div>
           </div>

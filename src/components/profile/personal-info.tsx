@@ -4,18 +4,26 @@ import { SubmitHandler, useFormContext } from 'react-hook-form';
 import Input from '../ui/input';
 import { PersonalInfo as PersonalInfoProps } from '@/lib/definitions';
 import Button from '../ui/button';
-import { useSession } from 'next-auth/react';
+import { User } from '@/lib/models/users';
+import { updateUser } from '@/app/actions/user-actions';
+import { toast } from 'react-toastify';
 
-const PersonalInfo = () => {
-  const { data: session } = useSession();
-
+const PersonalInfo = ({ user }: { user: User }) => {
   const {
     handleSubmit,
     formState: { isSubmitting },
   } = useFormContext<PersonalInfoProps>();
 
-  const onSubmit: SubmitHandler<PersonalInfoProps> = (data) =>
+  const onSubmit: SubmitHandler<PersonalInfoProps> = async (data) => {
     console.log(data);
+    const res = await updateUser(data, user._id);
+
+    if(res.success){
+      toast.success(res.msg)
+    }else{
+      toast.error(res.msg)
+    }
+  };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} noValidate>
@@ -43,7 +51,7 @@ const PersonalInfo = () => {
             type='email'
             required={true}
             disabled
-            placeholder={session?.user.email}
+            placeholder={user.email}
           />
         </div>
 

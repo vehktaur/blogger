@@ -11,7 +11,16 @@ const es = initEdgeStore.create();
 const edgeStoreRouter = es.router({
   blogPostImages: es
     .imageBucket({
-      maxSize: maxSize,
+      maxSize,
+    })
+    .beforeDelete(({ ctx, fileInfo }) => {
+      console.log(`Deleted: ${fileInfo} \n With ctx: ${ctx}`);
+      return true;
+    }),
+
+  userImages: es
+    .imageBucket({
+      maxSize,
     })
     .beforeDelete(({ ctx, fileInfo }) => {
       console.log(`Deleted: ${fileInfo} \n With ctx: ${ctx}`);

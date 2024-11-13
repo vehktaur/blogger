@@ -13,13 +13,19 @@ import { PiUser } from 'react-icons/pi';
 import { LuLogOut } from 'react-icons/lu';
 import { motion, AnimatePresence } from 'framer-motion';
 import { signOut } from 'next-auth/react';
-import { useSession } from 'next-auth/react';
 import clsx from 'clsx';
 import { assets } from '@/assets/assets';
+import { User } from '@/lib/models/users';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const Navbar = () => {
+const Navbar = ({
+  isLoggedIn,
+  user,
+}: {
+  isLoggedIn: boolean;
+  user: User | null;
+}) => {
   const navbar = useRef(null);
   const dropdownRef: RefObject<HTMLDivElement> = useRef<HTMLDivElement>(null);
   const [dropdown, toggleDropdown] = useState(false);
@@ -28,7 +34,7 @@ const Navbar = () => {
     {
       name: 'My Profile',
       icon: <PiUser className='size-4' />,
-      path: '/profile',
+      path: `/${user?.username}`,
     },
     {
       name: 'Create Post',
@@ -47,10 +53,6 @@ const Navbar = () => {
     },
   ];
 
-  const { data: session } = useSession();
-
-  const isLoggedIn = Boolean(session?.user);
-
   useGSAP(() => {
     gsap.to(navbar.current, {
       backgroundColor: 'rgb(255 255 255 / 0.45)',
@@ -66,10 +68,6 @@ const Navbar = () => {
       ease: 'power1.inOut',
     });
   }, []);
-
-  useEffect(() => {
-    console.log(session?.user);
-  }, [session]);
 
   useEffect(() => {
     const handleOutsideClick = (event: MouseEvent) => {
@@ -119,10 +117,10 @@ const Navbar = () => {
                 >
                   <Image
                     className='size-full object-cover'
-                    src={session?.user.image || assets.profile_img}
+                    src={user?.image || assets.profile_img}
                     width={1280}
                     height={720}
-                    alt={session?.user.name || 'user profile image'}
+                    alt={user?.name || 'user profile image'}
                   />
                 </button>
                 <AnimatePresence>
@@ -136,10 +134,10 @@ const Navbar = () => {
                       className='absolute right-0 top-[calc(100%+0.7rem)] rounded-lg bg-white px-4 pb-4 pt-3 shadow-md ~w-52/64'
                     >
                       <p className='truncate'>
-                        <strong>{session?.user?.name}</strong>
+                        <strong>{user?.name}</strong>
                       </p>
                       <p className='leading-none text-gray-700'>
-                        <small>{session?.user?.email}</small>
+                        <small>{user?.email}</small>
                       </p>
 
                       <ul className='mt-4 space-y-2 px-1 text-sm font-medium'>

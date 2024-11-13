@@ -15,7 +15,7 @@ const config: Config = {
     fontSize,
     extend: {
       backgroundImage: {
-        user: 'url("../assets/images/user.png")',
+        profile: 'url("../assets/images/profile.png")',
       },
       boxShadow: {
         offset: '-7px 7px 0 #000000',

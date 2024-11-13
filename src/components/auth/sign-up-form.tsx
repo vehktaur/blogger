@@ -4,7 +4,7 @@ import { SubmitHandler, useFormContext } from 'react-hook-form';
 import { emailPattern, SignUpSchema } from '@/lib/definitions';
 import Input from '../ui/input';
 import clsx from 'clsx';
-import { createUser } from '@/app/actions/auth-actions';
+import { createUser } from '@/app/actions/user-actions';
 import { toast } from 'react-toastify';
 import { User } from '@/lib/models/users';
 import Button from '../ui/button';

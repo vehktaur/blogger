@@ -22,9 +22,14 @@ export const getBlurData = async (url: string) => {
   }
 };
 
-export const getUser = async (query: { email?: string; id?: string }) => {
-  const { email, id } = query;
+export const getUser = async (query: {
+  email?: string;
+  id?: string;
+  username?: string;
+}) => {
   //Connect to the DB
+
+  const { email, id, username } = query;
 
   try {
     await ConnectDB();
@@ -37,6 +42,10 @@ export const getUser = async (query: { email?: string; id?: string }) => {
       });
     } else if (id) {
       user = await Users.findById(id).lean<User>({ virtuals: true });
+    } else if (username) {
+      user = await Users.findOne({
+        username: username.toLowerCase(),
+      }).lean<User>({ virtuals: true });
     }
 
     return user;

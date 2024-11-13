@@ -2,20 +2,36 @@ import NavLink from '@/components/ui/nav-link';
 import ProfileImg from '@/components/profile/profile-img';
 import UseFormContextProvider from '@/context/UseFormContextProvider';
 import { PiUser } from 'react-icons/pi';
-import { GoShieldLock } from "react-icons/go";
+import { GoShieldLock } from 'react-icons/go';
+import { getUser } from '@/lib/server-utils';
+import { redirect } from 'next/navigation';
 
-const ProfileLayout = ({ children }: { children: React.ReactNode }) => {
+const ProfileLayout = async ({
+  children,
+  params,
+}: {
+  children: React.ReactNode;
+  params: { username: string };
+}) => {
+  const { username } = params;
+
+  const user = await getUser({ username });
+
+  if (!user) {
+    redirect('/');
+  }
+
   //NavLinks for different profile sections
   const navLinks = [
     {
       name: 'Personal Info',
       icon: <PiUser className='mt-[0.1rem] w-[1.1rem]' />,
-      path: '/profile',
+      path: `/${user.username}`,
     },
     {
       name: 'Security',
       icon: <GoShieldLock className='w-4' />,
-      path: '/profile/password',
+      path: `/${user.username}/password`,
     },
   ];
 
@@ -24,7 +40,7 @@ const ProfileLayout = ({ children }: { children: React.ReactNode }) => {
       <div className='mx-auto max-w-6xl'>
         {/* Profile picture section */}
         <UseFormContextProvider>
-          <ProfileImg />
+          <ProfileImg user={{ ...user, _id: user._id.toString() }} />
         </UseFormContextProvider>
 
         {/* Link and header for different profile sections */}
@@ -44,7 +60,7 @@ const ProfileLayout = ({ children }: { children: React.ReactNode }) => {
         </h1>
 
         {/* Different profile sections */}
-        <section className='max-w-xl w-4/5'> {children}</section>
+        <section className='w-4/5 max-w-xl'> {children}</section>
       </div>
     </div>
   );

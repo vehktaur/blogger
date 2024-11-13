@@ -2,20 +2,21 @@ import { Metadata } from 'next';
 //Components Import
 import Sidebar from '@/components/layout/sidebar';
 import { EdgeStoreProvider } from '@/lib/edgestore';
+import { auth } from '@/auth';
+import { getUser } from '@/lib/server-utils';
 
 export const metadata: Metadata = {
   title: 'Blogger - Admin',
   description: 'Blog Admin Page',
 };
 
-export default function DashboardLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+const DashboardLayout = async ({ children }: { children: React.ReactNode }) => {
+  const session = await auth();
+  const user = await getUser({ id: session?.user._id });
+
   return (
     <div className='flex w-full'>
-      <Sidebar />
+      <Sidebar user={user} />
 
       {/* Actual Admin Section */}
       <div className='grid h-full flex-1 content-start'>
@@ -30,4 +31,6 @@ export default function DashboardLayout({
       </div>
     </div>
   );
-}
+};
+
+export default DashboardLayout;

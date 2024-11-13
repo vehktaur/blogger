@@ -1,4 +1,4 @@
-import { createUser } from '@/app/actions/auth-actions';
+import { createUser } from '@/app/actions/user-actions';
 import Users, { User } from '@/lib/models/users';
 import { getUser } from '@/lib/server-utils';
 import GitHub, { GitHubProfile } from 'next-auth/providers/github';
