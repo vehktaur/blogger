@@ -19,10 +19,7 @@ const AppLayout = async ({
 
   return (
     <>
-      <Navbar
-        isLoggedIn={!!session}
-        user={user}
-      />
+      <Navbar isLoggedIn={!!session} user={user} />
 
       <main>{children}</main>
 

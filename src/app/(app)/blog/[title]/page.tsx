@@ -70,7 +70,6 @@ const Blog = async ({ params }: { params: { title: string } }) => {
     redirect('/');
   }
 
-  console.log(blog);
 
   return (
     <>
