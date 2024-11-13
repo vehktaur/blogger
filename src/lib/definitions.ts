@@ -69,6 +69,7 @@ export interface Input {
   placeholder?: string;
   minLength?: ValidationRule<number>;
   pattern?: ValidationRule<RegExp>;
+  value?:string;
   validations?:
     | Validate<any, FieldValues>
     | Record<string, Validate<any, FieldValues>>;

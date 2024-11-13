@@ -16,6 +16,7 @@ const Input = ({
   placeholder,
   pattern,
   minLength,
+  value,
   validations,
 }: InputProps) => {
   const {
@@ -72,6 +73,7 @@ const Input = ({
             minLength,
             pattern,
             validate: validations,
+            value,
           })}
         />
       </div>

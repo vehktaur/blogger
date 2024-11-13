@@ -115,11 +115,11 @@ const Navbar = () => {
               <div className='relative'>
                 <button
                   onClick={() => toggleDropdown((prev) => !prev)}
-                  className='relative block rounded-full border ~size-10/12'
+                  className='block overflow-hidden rounded-full border ~size-10/12'
                 >
                   <Image
                     className='size-full object-cover'
-                    src={assets.profile_img || session?.user.image}
+                    src={session?.user.image || assets.profile_img}
                     width={1280}
                     height={720}
                     alt={session?.user.name || 'user profile image'}

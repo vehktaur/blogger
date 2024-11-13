@@ -14,7 +14,7 @@ const ProfileImg = async () => {
               <input hidden type='file' name='profile-img' id='profile-img' />       
                   <BlurImage
                     className='size-full object-cover'
-                    src={assets.profile_img || session?.user.image}
+                    src={ session?.user.image || assets.profile_img}
                     width={1280}
                     height={720}
                     alt={session?.user.username || 'user profile image'}

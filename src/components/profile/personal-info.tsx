@@ -3,10 +3,12 @@
 import { SubmitHandler, useFormContext } from 'react-hook-form';
 import Input from '../ui/input';
 import { PersonalInfo as PersonalInfoProps } from '@/lib/definitions';
-import clsx from 'clsx';
 import Button from '../ui/button';
+import { useSession } from 'next-auth/react';
 
 const PersonalInfo = () => {
+  const { data: session } = useSession();
+
   const {
     handleSubmit,
     formState: { isSubmitting },
@@ -40,8 +42,8 @@ const PersonalInfo = () => {
             name='email'
             type='email'
             required={true}
-            disabled={true}
-            placeholder='user@email.com'
+            disabled
+            placeholder={session?.user.email}
           />
         </div>
 

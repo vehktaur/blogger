@@ -4,6 +4,7 @@ import { PiUser } from 'react-icons/pi';
 import Image from 'next/image';
 import NavLink from '../ui/nav-link';
 import { auth } from '@/auth';
+import BlurImage from '../ui/blur-image';
 
 const Sidebar = async () => {
   const session = await auth();
@@ -72,7 +73,7 @@ const Sidebar = async () => {
           <hr className='mx-auto block max-w-[90%] rounded-full border border-stone-900 sm:border-[1.5px]' />
           <div className='flex items-center px-1 py-3 ~gap-1/4 sm:~px-2/5'>
             <div className='mx-auto flex-shrink-0 overflow-hidden rounded-full border ~w-10/12 sm:mx-0'>
-              <Image
+              <BlurImage
                 className='size-full object-cover'
                 src={session?.user?.image || assets.profile_img}
                 alt='Profile Image'
