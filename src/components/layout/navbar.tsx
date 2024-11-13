@@ -24,7 +24,7 @@ const Navbar = ({
   user,
 }: {
   isLoggedIn: boolean;
-  user: User | null;
+  user?: User | null;
 }) => {
   const navbar = useRef(null);
   const dropdownRef: RefObject<HTMLDivElement> = useRef<HTMLDivElement>(null);

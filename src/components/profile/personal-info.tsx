@@ -16,7 +16,7 @@ const PersonalInfo = ({ user }: { user: User }) => {
 
   const onSubmit: SubmitHandler<PersonalInfoProps> = async (data) => {
     console.log(data);
-    const res = await updateUser(data, user._id);
+    const res = await updateUser(data, user?._id);
 
     if (res.success) {
       toast.success(res.msg);

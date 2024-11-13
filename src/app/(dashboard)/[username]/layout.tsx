@@ -40,7 +40,7 @@ const ProfileLayout = async ({
       <div className='mx-auto max-w-6xl'>
         {/* Profile picture section */}
         <UseFormContextProvider>
-          <ProfileImg user={{ ...user, _id: user._id.toString() }} />
+          <ProfileImg user={user} />
         </UseFormContextProvider>
 
         {/* Link and header for different profile sections */}

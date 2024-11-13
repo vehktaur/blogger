@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 
 const DashboardLayout = async ({ children }: { children: React.ReactNode }) => {
   const session = await auth();
-  const user = await getUser({ id: session?.user._id });
+  const user = await getUser({ id: session?.user?._id });
 
   return (
     <div className='flex w-full'>

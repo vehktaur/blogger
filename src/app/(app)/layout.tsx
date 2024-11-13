@@ -15,13 +15,13 @@ const AppLayout = async ({
   children: React.ReactNode;
 }>) => {
   const session = await auth();
-  const user = await getUser({ id: session?.user._id });
+  const user = await getUser({ id: session?.user?._id });
 
   return (
     <>
       <Navbar
         isLoggedIn={!!session}
-        user={user ? { ...user, _id: user._id.toString() } : null}
+        user={user}
       />
 
       <main>{children}</main>

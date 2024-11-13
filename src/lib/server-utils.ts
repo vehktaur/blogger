@@ -39,13 +39,29 @@ export const getUser = async (query: {
     if (email) {
       user = await Users.findOne({ email: email.toLowerCase() }).lean<User>({
         virtuals: true,
+        transform: (_: null, ret: User) => {
+          if (ret && ret._id) ret._id = ret._id.toString();
+          return ret;
+        },
       });
     } else if (id) {
-      user = await Users.findById(id).lean<User>({ virtuals: true });
+      user = await Users.findById(id).lean<User>({
+        virtuals: true,
+        transform: (_: null, ret: User) => {
+          if (ret && ret._id) ret._id = ret._id.toString();
+          return ret;
+        },
+      });
     } else if (username) {
       user = await Users.findOne({
         username: username.toLowerCase(),
-      }).lean<User>({ virtuals: true });
+      }).lean<User>({
+        virtuals: true,
+        transform: (_: null, ret: User) => {
+          if (ret && ret._id) ret._id = ret._id.toString();
+          return ret;
+        },
+      });
     }
 
     return user;

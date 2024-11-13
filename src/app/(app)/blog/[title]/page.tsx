@@ -70,6 +70,8 @@ const Blog = async ({ params }: { params: { title: string } }) => {
     redirect('/');
   }
 
+  console.log(blog);
+
   return (
     <>
       <div className='bg-gray-200 pt-20'>

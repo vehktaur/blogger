@@ -19,7 +19,7 @@ const ProfilePage = async ({ params }: { params: { username: string } }) => {
 
   return (
     <UseFormContextProvider defaultValues={usersPersonalInfo}>
-      <PersonalInfo user={{ ...user, _id: user._id.toString() }} />
+      <PersonalInfo user={user} />
     </UseFormContextProvider>
   );
 };
