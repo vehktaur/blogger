@@ -34,7 +34,7 @@ export const getBlog = async (id: string) => {
     const blog = await Blogs.findById(id)
       .populate({ path: 'author', model: Users })
       .lean<PopulatedBlog>();
-    if (blog?._id) blog._id = blog._id.toString();
+    if (blog && blog._id) blog._id = blog._id.toString();
     return blog;
   } catch (error) {
     console.error('Error fetching blog:', error);
