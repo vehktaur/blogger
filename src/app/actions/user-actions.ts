@@ -117,7 +117,8 @@ export const changeProfilePic = async (url: string, id?: string) => {
     // Confirm new image upload
     await backendClient.userImages.confirmUpload({ url });
     // Delete old image from edgestore
-    await backendClient.userImages.deleteFile({ url: user.image });
+    if (user.image)
+      await backendClient.userImages.deleteFile({ url: user.image });
 
     // Add new image to DB
     user.image = url;
