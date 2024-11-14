@@ -42,7 +42,7 @@ export const getUser = async (query: {
       });
     } else if (id) {
       user = await Users.findById(id).lean<User>({
-        virtuals: true
+        virtuals: true,
       });
     } else if (username) {
       user = await Users.findOne({

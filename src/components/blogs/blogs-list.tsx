@@ -1,12 +1,10 @@
+import { capitalizeString } from '@/lib/utils';
 import BlogCard from './blog-card';
 import { getCachedBlogs } from '@/lib/blog-data';
 
 const BlogList = async ({ category }: { category: string }) => {
   const blogs = await getCachedBlogs();
 
-  const capitalizeString = (str: string) => {
-    return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
-  };
   const filteredBlogs =
     category === ''
       ? blogs

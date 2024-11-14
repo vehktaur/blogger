@@ -6,9 +6,6 @@ import Image from 'next/image';
 import { redirect } from 'next/navigation';
 import { unstable_cache } from 'next/cache';
 
-// Revalidate blog posts after 1 minute
-export const revalidate = 60;
-
 // Generate Static Blog Pages at build time
 export const generateStaticParams = async () => {
   const blogs = await getCachedBlogs();
@@ -83,7 +80,7 @@ const Blog = async ({ params }: { params: { title: string } }) => {
             </h1>
 
             <BlurImage
-              className='mx-auto rounded-full object-cover border border-white ~size-16/20'
+              className='mx-auto rounded-full border border-white object-cover ~size-16/20'
               src={blog.author.image || assets.profile_img}
               alt={blog.author.username}
               width={960}

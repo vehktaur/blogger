@@ -14,7 +14,10 @@ export const getRandomImages = (
   return Array.from(selectedImages);
 };
 
-export const findAncestor = (element: Element, level: number): Element | null => {
+export const findAncestor = (
+  element: Element,
+  level: number,
+): Element | null => {
   let ancestor: Element | null = element;
   for (let i = 0; i < level; i++) {
     if (ancestor) {
@@ -42,4 +45,9 @@ export const getFakeUser = () => {
   };
 
   return user;
+};
+
+export const capitalizeString = (str: string) => {
+  if (!str || str.length === 0) return '';
+  return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
 };
