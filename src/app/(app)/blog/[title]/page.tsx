@@ -1,4 +1,4 @@
-
+import BlurImage from '@/components/ui/blur-image';
 import { assets } from '@/assets/assets';
 import { getCachedBlogs, getBlog } from '@/lib/blog-data';
 import { MDXRemote } from 'next-mdx-remote/rsc';
@@ -10,43 +10,43 @@ import { unstable_cache } from 'next/cache';
 export const revalidate = 60;
 
 // Generate Static Blog Pages at build time
-export const generateStaticParams = async () => {
-  const blogs = await getCachedBlogs();
-  const staticBlogs = blogs?.map((blog) => {
-    title: `${blog.title}__${blog._id}`;
-  });
+// export const generateStaticParams = async () => {
+//   const blogs = await getCachedBlogs();
+//   const staticBlogs = blogs?.map((blog) => {
+//     title: `${blog.title}__${blog._id}`;
+//   });
 
-  return staticBlogs ? staticBlogs : [{ title: 'Blog | Blogger' }];
-};
+//   return staticBlogs ? staticBlogs : [{ title: 'Blog | Blogger' }];
+// };
 
-export const generateMetadata = async ({
-  params,
-}: {
-  params: { title: string };
-}) => {
-  const url = decodeURIComponent(params.title);
-  const id = url.split('__').pop();
+// export const generateMetadata = async ({
+//   params,
+// }: {
+//   params: { title: string };
+// }) => {
+//   const url = decodeURIComponent(params.title);
+//   const id = url.split('__').pop();
 
-  if (id) {
-    const getCachedBlog = unstable_cache(
-      async (id: string) => await getBlog(id),
-      [`blog-${id}`],
-      {
-        tags: [`blog-${id}`],
-      },
-    );
+//   if (id) {
+//     const getCachedBlog = unstable_cache(
+//       async (id: string) => await getBlog(id),
+//       [`blog-${id}`],
+//       {
+//         tags: [`blog-${id}`],
+//       },
+//     );
 
-    const blog = await getCachedBlog(id);
-    return {
-      title: `${blog?.title} | Blogger`,
-      description: blog?.description,
-    };
-  } else {
-    return {
-      title: 'Blog | Blogger',
-    };
-  }
-};
+//     const blog = await getCachedBlog(id);
+//     return {
+//       title: `${blog?.title} | Blogger`,
+//       description: blog?.description,
+//     };
+//   } else {
+//     return {
+//       title: 'Blog | Blogger',
+//     };
+//   }
+// };
 
 const Blog = async ({ params }: { params: { title: string } }) => {
   const url = params.title;
@@ -83,7 +83,7 @@ const Blog = async ({ params }: { params: { title: string } }) => {
               {blog.title}
             </h1>
 
-            <Image
+            <BlurImage
               className='mx-auto rounded-full border border-white ~w-16/20'
               src={blog.author.image || assets.profile_img}
               alt={blog.author.username}
@@ -98,7 +98,7 @@ const Blog = async ({ params }: { params: { title: string } }) => {
       </div>
       <div className='px-5 sm:~px-8/20'>
         <div className='mx-auto max-w-[50rem]'>
-          <Image
+          <BlurImage
             className='mx-auto -mt-[6.25rem] mb-10 w-full border-4 border-white'
             src={blog.image.url}
             alt={blog.image.name || 'Blog cover image'}
