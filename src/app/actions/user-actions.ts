@@ -51,8 +51,7 @@ export const updateUser = async (updatedData: Partial<User>, id: string) => {
     if (error instanceof Error) console.log(error.message);
     return {
       success: false,
-      msg: 'Could not update',
-      error,
+      msg: error instanceof Error ? error.message : 'Something went wrong',
     };
   }
 };

@@ -83,7 +83,7 @@ const Blog = async ({ params }: { params: { title: string } }) => {
             </h1>
 
             <BlurImage
-              className='mx-auto rounded-full border border-white ~w-16/20'
+              className='mx-auto rounded-full object-cover border border-white ~size-16/20'
               src={blog.author.image || assets.profile_img}
               alt={blog.author.username}
               width={960}
