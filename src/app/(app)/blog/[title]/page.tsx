@@ -10,50 +10,50 @@ import { unstable_cache } from 'next/cache';
 export const revalidate = 60;
 
 // Generate Static Blog Pages at build time
-// export const generateStaticParams = async () => {
-//   const blogs = await getCachedBlogs();
-//   const staticBlogs = blogs?.map((blog) => {
-//     title: `${blog.title}__${blog._id}`;
-//   });
+export const generateStaticParams = async () => {
+  const blogs = await getCachedBlogs();
+  const staticBlogs = blogs?.map((blog) => ({
+    title: `${blog.title}__${blog._id}`,
+  }));
 
-//   return staticBlogs ? staticBlogs : [{ title: 'Blog | Blogger' }];
-// };
+  return staticBlogs ? staticBlogs : [{ title: 'Blog | Blogger' }];
+};
 
-// export const generateMetadata = async ({
-//   params,
-// }: {
-//   params: { title: string };
-// }) => {
-//   const url = decodeURIComponent(params.title);
-//   const id = url.split('__').pop();
+export const generateMetadata = async ({
+  params,
+}: {
+  params: { title: string };
+}) => {
+  const url = decodeURIComponent(params.title);
+  const id = url.split('__').pop();
 
-//   if (id) {
-//     const getCachedBlog = unstable_cache(
-//       async (id: string) => await getBlog(id),
-//       [`blog-${id}`],
-//       {
-//         tags: [`blog-${id}`],
-//       },
-//     );
+  if (id) {
+    const getCachedBlog = unstable_cache(
+      async (id: string) => await getBlog(id),
+      [`blog-${id}`],
+      {
+        tags: [`blog-${id}`],
+      },
+    );
 
-//     const blog = await getCachedBlog(id);
-//     return {
-//       title: `${blog?.title} | Blogger`,
-//       description: blog?.description,
-//     };
-//   } else {
-//     return {
-//       title: 'Blog | Blogger',
-//     };
-//   }
-// };
+    const blog = await getCachedBlog(id);
+    return {
+      title: `${blog?.title} | Blogger`,
+      description: blog?.description,
+    };
+  } else {
+    return {
+      title: 'Blog | Blogger',
+    };
+  }
+};
 
 const Blog = async ({ params }: { params: { title: string } }) => {
   const url = params.title;
   const id = url.split('__').pop();
 
   if (!id) {
-    console.log('id', id)
+    console.log('id', id);
     redirect('/');
   }
 
@@ -68,11 +68,10 @@ const Blog = async ({ params }: { params: { title: string } }) => {
   const blog = await getCachedBlog(id);
 
   if (!blog) {
-    console.log('id', id)
-    console.log('blog',blog)
+    console.log('id', id);
+    console.log('blog', blog);
     redirect('/');
   }
-
 
   return (
     <>
