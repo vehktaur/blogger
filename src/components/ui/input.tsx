@@ -35,6 +35,25 @@ const Input = ({
         )}
       </label>
       <div className='relative'>
+        <input
+          className='input-base rounded-3xl ~text-sm/base'
+          placeholder={placeholder}
+          id={id || name}
+          type={inputType}
+          {...register(name, {
+            disabled,
+            required: {
+              value: Boolean(required) || false,
+              message: errorMsg || 'This field is required',
+            },
+            minLength,
+            pattern,
+            validate: validations,
+            value,
+          })}
+        />
+
+        {/* Button to show or hide password input value */}
         {type === 'password' && (
           <span className='absolute inset-y-0 right-[8%] content-center'>
             <button
@@ -59,23 +78,6 @@ const Input = ({
             </button>
           </span>
         )}
-        <input
-          className='input-base rounded-3xl ~text-sm/base'
-          placeholder={placeholder}
-          id={id || name}
-          type={inputType}
-          {...register(name, {
-            disabled,
-            required: {
-              value: Boolean(required) || false,
-              message: errorMsg || 'This field is required',
-            },
-            minLength,
-            pattern,
-            validate: validations,
-            value,
-          })}
-        />
       </div>
 
       {errors?.[name]?.message && (

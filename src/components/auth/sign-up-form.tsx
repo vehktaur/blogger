@@ -3,11 +3,11 @@
 import { SubmitHandler, useFormContext } from 'react-hook-form';
 import { emailPattern, SignUpSchema } from '@/lib/definitions';
 import Input from '../ui/input';
-import clsx from 'clsx';
 import { createUser } from '@/app/actions/user-actions';
 import { toast } from 'react-toastify';
 import { User } from '@/lib/models/users';
 import Button from '../ui/button';
+import { useRouter } from 'next/navigation';
 
 const SignUpForm = () => {
   const {
@@ -16,6 +16,8 @@ const SignUpForm = () => {
     formState: { isSubmitting },
   } = useFormContext<SignUpSchema>();
 
+  const router = useRouter();
+
   const onSubmit: SubmitHandler<SignUpSchema> = async (data) => {
     const { confirmPassword, ...user } = data;
 
@@ -23,6 +25,7 @@ const SignUpForm = () => {
 
     if (response.success) {
       toast.success(response.msg);
+      router.push('/auth/login');
     } else {
       toast.error(response.msg);
     }
