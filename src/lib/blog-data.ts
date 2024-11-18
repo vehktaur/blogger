@@ -25,6 +25,27 @@ export const getAllBlogs = async () => {
   }
 };
 
+//Get User's Blogs from the Database
+export const getUserBlogs = async (id: string) => {
+  try {
+    // Connect to MongoDB
+    await ConnectDB();
+
+    // Fetch blogs based on the provided query
+    const blogs = await Blogs.find({ author: id })
+      .populate({ path: 'author', model: Users })
+      .lean<PopulatedBlog[]>({
+        transform: (_: null, ret: PopulatedBlog) => {
+          if (ret && ret._id) ret._id = ret._id.toString();
+          return ret;
+        },
+      });
+    return blogs;
+  } catch (error) {
+    console.error("Error fetching user's blogs:", error);
+  }
+};
+
 export const getBlog = async (id: string) => {
   try {
     // Connect to MongoDB
@@ -43,6 +64,14 @@ export const getBlog = async (id: string) => {
 
 export const getCachedBlogs = unstable_cache(
   async () => await getAllBlogs(),
+  ['blogs'],
+  {
+    tags: ['blogs'],
+  },
+);
+
+export const getCachedUserBlogs = unstable_cache(
+  async (id) => await getUserBlogs(id),
   ['blogs'],
   {
     tags: ['blogs'],
