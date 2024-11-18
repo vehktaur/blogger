@@ -25,9 +25,6 @@ const config: Config = {
           500: '#E7E7E7',
         },
       },
-      gridTemplateColumns: {
-        table: '15rem 20rem 15rem 3rem',
-      },
       screens: {
         xxs: '20rem',
         xs: '30rem',

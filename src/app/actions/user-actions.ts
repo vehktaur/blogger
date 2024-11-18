@@ -4,6 +4,7 @@ import { ConnectDB } from '@/lib/config/db';
 import { Password } from '@/lib/definitions';
 import { backendClient } from '@/lib/edgestore-server';
 import Users, { User } from '@/lib/models/users';
+import { getUser } from '@/lib/server-utils';
 import bcrypt from 'bcryptjs';
 
 export const createUser = async (user: User) => {
@@ -12,7 +13,8 @@ export const createUser = async (user: User) => {
 
     if (user.password) user.password = await bcrypt.hash(user.password, 10);
 
-    const newUser = await Users.create(user);
+    let newUser = await Users.create(user);
+    newUser = await getUser({ id: newUser._id });
     return {
       success: true,
       msg: 'User created',
@@ -126,6 +128,40 @@ export const changeProfilePic = async (url: string, id?: string) => {
     return {
       success: true,
       msg: 'Profile pic updated',
+    };
+  } catch (error) {
+    if (error instanceof Error) console.log(error.message);
+    return {
+      success: false,
+      msg: error instanceof Error ? error.message : 'Something went wrong',
+    };
+  }
+};
+
+export const deleteProfilePic = async (id: string, url?: string | null) => {
+  try {
+    // connect to the DB
+    await ConnectDB();
+
+    // Get user
+    const user = await Users.findById(id);
+    if (!user) {
+      throw new Error('User does not exist');
+    }
+
+    // Delete picture from edgestore
+    if (url) await backendClient.userImages.deleteFile({ url });
+    // Delete old image from edgestore
+    if (user.image)
+      await backendClient.userImages.deleteFile({ url: user.image });
+
+    user.image = undefined;
+
+    await user.save();
+
+    return {
+      success: true,
+      msg: 'Profile pic deleted',
     };
   } catch (error) {
     if (error instanceof Error) console.log(error.message);

@@ -2,9 +2,13 @@ import { assets } from '@/assets/assets';
 import BlogOptions from './blog-options';
 import Image from 'next/image';
 import { getCachedBlogs } from '@/lib/blog-data';
+import { auth } from '@/auth';
 
 const BlogsTable = async ({ title }: { title: string }) => {
   const blogs = await getCachedBlogs();
+
+  const session = await auth();
+  const isAdmin = session?.user.role === 'admin';
 
   const filteredBlogs = blogs?.filter((blog) =>
     blog.title.toLowerCase().includes(title.toLowerCase()),
@@ -16,60 +20,67 @@ const BlogsTable = async ({ title }: { title: string }) => {
 
   return (
     <section className='mt-4 min-h-[70svh] max-w-fit overflow-x-auto overflow-y-hidden rounded border border-black pb-0.5 scrollbar scrollbar-track-rounded scrollbar-thumb-rounded scrollbar-h-2'>
-      <div className='grid w-max grid-cols-table border-b border-stone-500 bg-stone-200 px-5 py-2 text-base font-medium text-stone-800'>
-        <h3>AUTHOR</h3>
-        <h3>TITLE</h3>
-        <h3>DATE</h3>
-        <h3></h3>
-      </div>
-
-      <div className='w-max text-sm'>
-        {filteredBlogs.map((blog) => (
-          <div
-            key={blog._id}
-            className='grid w-full grid-cols-table items-center border-b border-stone-600 px-5 py-3'
-          >
-            <div className='flex items-center gap-2'>
-              <span className='overflow-hidden rounded-full border border-stone-500 ~size-8/10'>
-                <Image
-                  className='size-full object-cover'
-                  src={blog.author.image || assets.profile_img}
-                  width={960}
-                  height={480}
-                  alt={blog.author.username}
-                />
-              </span>
-              <span className='font-medium'>
-                {blog.author?.username || 'Kurapika'}
-              </span>
-            </div>
-            <div className='flex items-center gap-2 pe-4'>
-              <span className='flex-shrink-0 cursor-pointer overflow-hidden rounded-full border border-stone-500 transition-all duration-500 ~size-8/10 hover:z-10 hover:scale-[3]'>
-                <Image
-                  className='size-full object-cover object-center'
-                  src={blog.image.url}
-                  width={840}
-                  height={480}
-                  alt='user name'
-                />
-              </span>
-              <p className='truncate' title={blog.title}>
-                {blog.title}
-              </p>
-            </div>
-            <p>{new Date(blog.createdAt).toDateString()}</p>
-            <div>
-              <div className='w-fit'>
-                <BlogOptions
-                  id={String(blog._id)}
-                  url={blog.image.url}
-                  title={blog.title}
-                />
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
+      <table>
+        <thead>
+          <tr className='block w-full border-b border-stone-500 bg-stone-200 px-5 py-2 text-left text-base font-medium text-stone-800'>
+            {isAdmin && <th className='w-48'>AUTHOR</th>}
+            <th className='w-96 ps-8'>TITLE</th>
+            <th className='w-64'>DATE</th>
+            <th className='w-12'></th>
+          </tr>
+        </thead>
+        <tbody className='text-sm'>
+          {filteredBlogs.map((blog) => (
+            <tr
+              key={blog._id}
+              className='flex items-center border-b border-stone-600 px-5 py-3'
+            >
+              {isAdmin && (
+                <td className='flex w-48 items-center gap-2'>
+                  <span className='overflow-hidden rounded-full border border-stone-500 ~size-8/10'>
+                    <Image
+                      className='size-full object-cover'
+                      src={blog.author.image || assets.profile_img}
+                      width={960}
+                      height={480}
+                      alt={blog.author.username}
+                    />
+                  </span>
+                  <span className='font-medium'>
+                    {blog.author?.username || 'Kurapika'}
+                  </span>
+                </td>
+              )}
+              <td className='flex w-96 items-center gap-2 px-8'>
+                <span className='flex-shrink-0 cursor-pointer overflow-hidden rounded-full border border-stone-500 transition-all duration-500 ~size-8/10 hover:z-10 hover:scale-[3]'>
+                  <Image
+                    className='size-full object-cover object-center'
+                    src={blog.image.url}
+                    width={840}
+                    height={480}
+                    alt='user name'
+                  />
+                </span>
+                <p className='truncate' title={blog.title}>
+                  {blog.title}
+                </p>
+              </td>
+              <td className='w-64'>
+                {new Date(blog.createdAt).toDateString()}
+              </td>
+              <td className='w-16 pe-4'>
+                <div className='ms-auto w-fit'>
+                  <BlogOptions
+                    id={String(blog._id)}
+                    url={blog.image.url}
+                    title={blog.title}
+                  />
+                </div>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </section>
   );
 };

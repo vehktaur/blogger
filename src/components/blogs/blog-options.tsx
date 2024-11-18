@@ -12,6 +12,8 @@ import Link from 'next/link';
 import { RefObject, useEffect, useRef, useState } from 'react';
 import { toast } from 'react-toastify';
 import { findAncestor } from '@/lib/utils';
+import Modal from '../ui/modal';
+import Button from '../ui/button';
 
 const BlogOptions = ({
   id,
@@ -109,46 +111,36 @@ const BlogOptions = ({
   return (
     <div className='relative' ref={dropdownRef}>
       {showConfirmation && (
-        <div
-          title=''
-          className='bg fixed inset-0 z-50 grid place-items-center bg-[#00000046]'
-        >
-          <motion.div
-            initial={{ opacity: 0, scale: 0.5 }}
-            animate={{ opacity: 1, scale: 1 }}
-            className='max-w-[20rem] rounded-3xl bg-white px-6 py-8 text-center text-sm shadow-md ring-1 ring-stone-100'
-          >
-            <p>
-              Are you sure you want to{' '}
-              <span className='font-medium text-red-700'>delete</span> this
-              blog?
-            </p>
-            <p className='mt-2'>
-              <strong className='font-medium'>
-                This action cannot be undone
-              </strong>
-            </p>
+        <Modal>
+          <p>
+            Are you sure you want to{' '}
+            <span className='font-medium text-red-700'>delete this blog?</span>
+          </p>
+          <p className='mt-2'>
+            <strong className='font-medium'>
+              This action cannot be undone
+            </strong>
+          </p>
 
-            <div className='mt-4 flex items-center justify-center gap-4'>
-              <button
-                disabled={isDisabled}
-                onClick={() => handleDelete(id, url)}
-                className='group relative z-[1] overflow-hidden rounded-3xl border border-red-300 px-4 py-2 font-medium hover:text-white'
-              >
-                <span className='absolute -left-[1px] -top-[1px] z-[-1] block h-[calc(100%+2px)] w-0 rounded-3xl bg-red-500 transition-all duration-300 group-hover:w-[calc(100%+2px)]' />
-                Yes
-              </button>
-              <button
-                disabled={isDisabled}
-                onClick={() => setShowConfirmation(false)}
-                className='group relative z-[1] overflow-hidden rounded-3xl border border-green-300 px-4 py-2 font-medium hover:text-white'
-              >
-                <span className='absolute -left-[1px] -top-[1px] z-[-1] block h-[calc(100%+2px)] w-0 rounded-3xl bg-green-500 transition-all duration-300 group-hover:w-[calc(100%+2px)]' />
-                No
-              </button>
-            </div>
-          </motion.div>
-        </div>
+          <div className='mt-6 flex items-center justify-center gap-4'>
+            <Button
+              disabled={isDisabled}
+              onClick={() => handleDelete(id, url)}
+              className={`border-red-300 !text-sm`}
+              overlay={`bg-red-500`}
+            >
+              Yes
+            </Button>
+            <Button
+              disabled={isDisabled}
+              onClick={() => setShowConfirmation(false)}
+              className={`border-green-300 !text-sm`}
+              overlay={`bg-green-300`}
+            >
+              No
+            </Button>
+          </div>
+        </Modal>
       )}
 
       <button
