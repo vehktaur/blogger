@@ -61,7 +61,7 @@ const BlogOptions = ({
     const dropdown = dropdownRef.current;
 
     if (isOpen && dropdown) {
-      const blogTable = findAncestor(dropdown, 5);
+      const blogTable = findAncestor(dropdown, 6);
       const dropdownRect = dropdown.getBoundingClientRect();
       const blogTableRect = blogTable?.getBoundingClientRect();
 

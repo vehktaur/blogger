@@ -29,12 +29,12 @@ const BlogsTable = async ({ title }: { title: string }) => {
   }
 
   return (
-    <section className='mt-4 min-h-[70svh] max-w-fit overflow-x-auto overflow-y-hidden rounded border border-black pb-0.5 scrollbar scrollbar-track-rounded scrollbar-thumb-rounded scrollbar-h-2'>
+    <section className='mt-4 min-h-[70svh] max-w-fit overflow-x-auto overflow-y-hidden border border-black pb-0.5 scrollbar scrollbar-track-rounded scrollbar-thumb-rounded scrollbar-h-2'>
       <table>
         <thead>
           <tr className='block w-full border-b border-stone-500 bg-stone-200 px-5 py-2 text-left text-base font-medium text-stone-800'>
             {isAdmin && <th className='w-48'>AUTHOR</th>}
-            <th className='w-96 ps-8'>TITLE</th>
+            <th className='w-96 ps-6'>TITLE</th>
             <th className='w-64'>DATE</th>
             <th className='w-12'></th>
           </tr>
@@ -61,7 +61,7 @@ const BlogsTable = async ({ title }: { title: string }) => {
                   </span>
                 </td>
               )}
-              <td className='flex w-96 items-center gap-2 px-8'>
+              <td className='flex w-96 items-center gap-2 ps-6 px-8'>
                 <span className='flex-shrink-0 cursor-pointer overflow-hidden rounded-full border border-stone-500 transition-all duration-500 ~size-8/10 hover:z-10 hover:scale-[3]'>
                   <Image
                     className='size-full object-cover object-center'
