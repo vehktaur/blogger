@@ -8,10 +8,10 @@ import { useFormContext } from 'react-hook-form';
 const Input = ({
   label,
   name,
-  type,
+  type = 'text',
   id,
   disabled,
-  required,
+  required = true,
   errorMsg,
   placeholder,
   pattern,
@@ -24,7 +24,7 @@ const Input = ({
     formState: { errors },
   } = useFormContext();
 
-  const [inputType, toggleInputType] = useState(type || 'text');
+  const [inputType, toggleInputType] = useState(type);
 
   return (
     <div className='grid w-full items-start'>

@@ -1,7 +1,7 @@
 import { FcGoogle } from 'react-icons/fc';
 import { FaGithub } from 'react-icons/fa';
-import clsx from 'clsx';
 import { signIn } from '@/auth';
+import { cn } from '@/lib/utils';
 
 const ButtonAuth = ({
   className,
@@ -21,7 +21,7 @@ const ButtonAuth = ({
     >
       <button
         type='submit'
-        className={clsx(
+        className={cn(
           'flex w-full items-center justify-center gap-2 rounded-full border border-[#999] px-4 font-medium transition-colors duration-300 ~py-2/2.5 hover:bg-gray-200',
           className,
         )}

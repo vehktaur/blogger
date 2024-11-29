@@ -1,6 +1,6 @@
 'use client';
 
-import clsx from 'clsx';
+import { cn } from '@/lib/utils';
 import Link, { LinkProps } from 'next/link';
 import { usePathname } from 'next/navigation';
 import { ReactNode } from 'react';
@@ -25,7 +25,7 @@ const NavLink = ({
     : pathname.startsWith(String(props.href));
 
   return (
-    <Link {...props} className={clsx(isActive && activeClassName, className)}>
+    <Link {...props} className={cn(className, isActive && activeClassName)}>
       {children}
     </Link>
   );

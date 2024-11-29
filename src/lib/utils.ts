@@ -1,4 +1,8 @@
+import clsx, { ClassValue } from 'clsx';
+import { twMerge } from 'tailwind-merge';
 import { StaticImageData } from 'next/image';
+
+export const cn = (...inputs: ClassValue[]) => twMerge(clsx(inputs));
 
 export const getRandomImages = (
   array: StaticImageData[],

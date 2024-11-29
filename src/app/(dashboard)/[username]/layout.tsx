@@ -48,8 +48,8 @@ const ProfileLayout = async ({
           {navLinks.map(({ name, icon, path }) => (
             <NavLink
               key={path}
-              activeClassName='!text-black !border-black !border-b-[3px]'
-              className='flex items-center gap-1.5 border-gray-500 pe-2.5 font-semibold text-stone-400 transition duration-100 ~pb-1/2 hover:border-b-2 hover:text-black'
+              activeClassName='text-black border-black border-b-[3px]'
+              className='flex items-center gap-1.5 border-gray-500 pe-2.5 font-semibold text-stone-400 transition duration-100 ~pb-1/2 hover:text-black'
               href={path}
               exact
             >

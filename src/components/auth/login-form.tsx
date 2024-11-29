@@ -1,6 +1,5 @@
 'use client';
 
-import clsx from 'clsx';
 import Input from '../ui/input';
 import { emailPattern, LoginSchema } from '@/lib/definitions';
 import { SubmitHandler, useFormContext } from 'react-hook-form';
@@ -29,7 +28,6 @@ const LoginForm = () => {
           label='Email Address'
           name='email'
           type='email'
-          required={true}
           placeholder='user@email.com'
           pattern={{
             value: emailPattern,
@@ -41,7 +39,6 @@ const LoginForm = () => {
           label='Password'
           name='password'
           type='password'
-          required={true}
           placeholder='password'
         />
       </div>

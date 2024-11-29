@@ -1,4 +1,5 @@
-import clsx, { ClassValue } from 'clsx';
+import { cn } from '@/lib/utils';
+import { ClassValue } from 'clsx';
 import { MouseEventHandler } from 'react';
 
 const Button = ({
@@ -23,14 +24,14 @@ const Button = ({
       disabled={disabled}
       onClick={onClick}
       type={type}
-      className={clsx(
+      className={cn(
         'group relative z-[1] block overflow-hidden rounded-3xl border border-black px-6 py-2 font-medium transition-all duration-300 ~text-sm/base hover:text-white',
         { 'text-white': isSubmitting },
         className,
       )}
     >
       <span
-        className={clsx(
+        className={cn(
           'absolute -left-[1px] -top-[1px] z-[-1] block h-[calc(100%+2px)] w-0 rounded-3xl bg-black transition-all duration-300 group-hover:w-[calc(100%+2px)]',
           {
             'w-[calc(100%+2px)]': isSubmitting,

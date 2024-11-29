@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
+import { cn } from '@/lib/utils';
 
 //Component Imports
 import { ImageFile, maxSize, minSize } from '@/lib/definitions';
@@ -16,7 +17,6 @@ import { useDropzone } from 'react-dropzone';
 import { toast } from 'react-toastify';
 import { AnimatePresence, motion } from 'framer-motion';
 import Markdown from 'react-markdown';
-import clsx from 'clsx';
 
 //Icon Imports
 import {
@@ -206,7 +206,7 @@ const BlogForm = ({
               <h3 className='form-label'>{edit ? 'Edit' : 'Upload'} Image</h3>
               <div
                 {...getRootProps({
-                  className: clsx(
+                  className: cn(
                     !image?.image && 'border cursor-pointer',
                     '~px-4/8 block border-dashed rounded-3xl flex flex-col items-center ~gap-3/4 ~h-48/60 justify-center relative',
                     isDragActive ? 'border-[#000]' : 'border-[#aaa]',
@@ -295,7 +295,6 @@ const BlogForm = ({
             <Input
               label='Title'
               name='title'
-              required={true}
               errorMsg='Enter a title'
               placeholder='Enter your captivating title here...'
             />

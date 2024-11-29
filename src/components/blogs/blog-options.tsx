@@ -6,12 +6,10 @@ import { RiDeleteBin2Line } from 'react-icons/ri';
 import { SlOptions } from 'react-icons/sl';
 import { PiEyesFill } from 'react-icons/pi';
 import { MdOutlineEditNote } from 'react-icons/md';
-import clsx from 'clsx';
-import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { RefObject, useEffect, useRef, useState } from 'react';
 import { toast } from 'react-toastify';
-import { findAncestor } from '@/lib/utils';
+import { cn, findAncestor } from '@/lib/utils';
 import Modal from '../ui/modal';
 import Button from '../ui/button';
 
@@ -126,7 +124,7 @@ const BlogOptions = ({
             <Button
               disabled={isDisabled}
               onClick={() => handleDelete(id, url)}
-              className={`border-red-300 !text-sm`}
+              className={`border-red-300 text-sm`}
               overlay={`bg-red-500`}
             >
               Yes
@@ -134,7 +132,7 @@ const BlogOptions = ({
             <Button
               disabled={isDisabled}
               onClick={() => setShowConfirmation(false)}
-              className={`border-green-300 !text-sm`}
+              className={`border-green-300 text-sm`}
               overlay={`bg-green-300`}
             >
               No
@@ -152,7 +150,7 @@ const BlogOptions = ({
       </button>
       {isOpen && (
         <div
-          className={clsx(
+          className={cn(
             'absolute right-0 z-[2] grid w-[7.5rem] justify-items-start divide-y rounded-lg border border-gray-200 bg-white px-3 py-1',
             {
               'top-full mt-2': spaceDown,

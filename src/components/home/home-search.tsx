@@ -3,8 +3,8 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { Category, Query } from '@/lib/definitions';
 import { useEffect, useState } from 'react';
-import clsx from 'clsx';
 import { useRouter, useSearchParams } from 'next/navigation';
+import { cn } from '@/lib/utils';
 
 const HomeSearch = () => {
   const [categories, setCategories] = useState<Category[]>([
@@ -62,7 +62,11 @@ const HomeSearch = () => {
   return (
     <section className='padding-inline ~py-3/6'>
       <div className='mx-auto flex max-w-7xl flex-col items-center ~mt-8/12 ~gap-6/10 sm:justify-between md:flex-row'>
-        <form className='flex-shrink-0' onSubmit={handleSubmit(onSubmit)} noValidate>
+        <form
+          className='flex-shrink-0'
+          onSubmit={handleSubmit(onSubmit)}
+          noValidate
+        >
           <div className='flex items-stretch shadow-offset'>
             <input
               className='input-base border-black py-2 ~text-sm/base'
@@ -87,10 +91,10 @@ const HomeSearch = () => {
             <button
               key={category}
               onClick={() => filterBlogs(category)}
-              className={clsx(
+              className={cn(
                 'rounded-sm py-1 transition-colors duration-300 ~text-sm/base ~px-2/3 hover:bg-[#444] hover:text-white',
                 {
-                  'bg-black text-white hover:!bg-black':
+                  'bg-black text-white hover:bg-black':
                     category.toLowerCase() === activeCategory ||
                     (category === 'All' && !activeCategory),
                 },

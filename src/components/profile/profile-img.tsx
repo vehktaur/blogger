@@ -94,14 +94,14 @@ const ProfileImg = ({ user }: { user: User | null }) => {
           <div className='mt-6 flex items-center justify-center gap-4'>
             <Button
               onClick={() => handleDelete()}
-              className={`border-red-300 !text-sm`}
+              className={`border-red-300 text-sm`}
               overlay={`bg-red-500`}
             >
               Yes
             </Button>
             <Button
               onClick={() => setShowConfirmation(false)}
-              className={`border-green-300 !text-sm`}
+              className={`border-green-300 text-sm`}
               overlay={`bg-green-300`}
             >
               No

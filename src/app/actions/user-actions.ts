@@ -9,12 +9,21 @@ import bcrypt from 'bcryptjs';
 
 export const createUser = async (user: User) => {
   try {
+    //Connect to the DB
     await ConnectDB();
 
-    if (user.password) user.password = await bcrypt.hash(user.password, 10);
+    //Check whether user already exists
+    const userExists = await getUser({ email: user.email });
+    if (userExists) {
+      throw new Error('Email already in use');
+    }
 
-    let newUser = await Users.create(user);
-    newUser = await getUser({ id: newUser._id });
+    // Hash password and create user
+    if (user.password) user.password = await bcrypt.hash(user.password, 10);
+    await Users.create(user);
+
+    // Return new user and success msg
+    const newUser = await getUser({ email: user.email });
     return {
       success: true,
       msg: 'User created',
@@ -33,17 +42,22 @@ export const updateUser = async (updatedData: Partial<User>, id: string) => {
     //Connect to DB
     await ConnectDB();
 
-    const user = await Users.findById(id); //Get the blog TBU from to the DB
+    //Get the user TBU from to the DB
+    const user = await Users.findById(id);
 
+    //Confirm user exists
     if (!user) {
       throw new Error('User does not exist');
     }
+
+    //Check if username is being changed in order to redirect to the home page
     const newUsername = user.username !== updatedData.username;
 
-    Object.assign(user, updatedData); //Update the blog with the values from the updatedData
-
+    //Update the blog with the values from the updatedData
+    Object.assign(user, updatedData);
     await user.save();
 
+    //return success msg and redirect boolean
     return {
       success: true,
       msg: 'User Updated',
@@ -63,32 +77,32 @@ export const changePassword = async (data: Password, username: string) => {
     // Connect to the DB
     await ConnectDB();
 
+    //Confirm user exists
     const user = await Users.findOne({ username });
-
     if (!user) {
       throw new Error('User does not exist');
     }
 
+    //Confirm user has an existing password
     if (!user.password) {
       throw new Error('No password credentials found');
     }
 
+    // Confirm the old password matches DB password
     const passwordsMatch = await bcrypt.compare(data.password, user.password);
-
     if (!passwordsMatch) {
-      const log = await bcrypt.hash(data.newPassword!, 10);
-      console.log(log);
       throw new Error('Invalid credentials');
     }
 
+    // Confirm new password was submitted
     if (data.newPassword) {
       data.newPassword = await bcrypt.hash(data.newPassword, 10);
     } else {
       throw new Error('New password required');
     }
 
+    // Save new password in the DB
     user.password = data.newPassword;
-
     await user.save();
 
     return {
@@ -109,7 +123,7 @@ export const changeProfilePic = async (url: string, id?: string) => {
     // connect to the DB
     await ConnectDB();
 
-    // Get user
+    // Confirm user exists
     const user = await Users.findById(id);
     if (!user) {
       throw new Error('User does not exist');
@@ -143,7 +157,7 @@ export const deleteProfilePic = async (id: string, url?: string | null) => {
     // connect to the DB
     await ConnectDB();
 
-    // Get user
+    // Confirm user exists
     const user = await Users.findById(id);
     if (!user) {
       throw new Error('User does not exist');
@@ -155,8 +169,8 @@ export const deleteProfilePic = async (id: string, url?: string | null) => {
     if (user.image)
       await backendClient.userImages.deleteFile({ url: user.image });
 
+    // Remove image from the user profile
     user.image = undefined;
-
     await user.save();
 
     return {

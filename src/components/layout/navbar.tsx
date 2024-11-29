@@ -13,9 +13,9 @@ import { PiUser } from 'react-icons/pi';
 import { LuLogOut } from 'react-icons/lu';
 import { motion, AnimatePresence } from 'framer-motion';
 import { signOut } from 'next-auth/react';
-import clsx from 'clsx';
 import { assets } from '@/assets/assets';
 import { User } from '@/lib/models/users';
+import { cn } from '@/lib/utils';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -202,13 +202,13 @@ const MenuItem = ({
         signOut();
         onClick();
       }}
-      className={clsx(className, 'text-red-600')}
+      className={cn(className, 'text-red-600')}
       type='button'
     >
       {icon} {name}
     </button>
   ) : (
-    <Link onClick={() => onClick()} className={clsx(className)} href={path}>
+    <Link onClick={() => onClick()} className={cn(className)} href={path}>
       {icon} {name}
     </Link>
   );
