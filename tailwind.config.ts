@@ -1,7 +1,11 @@
 import type { Config } from 'tailwindcss';
 import fluid, { extract, screens, fontSize } from 'fluid-tailwind';
+import scrollbar from 'tailwind-scrollbar';
+import animate from 'tailwindcss-animate';
+import typography from '@tailwindcss/typography';
 
 const config: Config = {
+  darkMode: ['class'],
   content: {
     files: [
       './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
@@ -11,8 +15,8 @@ const config: Config = {
     extract,
   },
   theme: {
-    screens,
     fontSize,
+    screens,
     extend: {
       backgroundImage: {
         profile: 'url("../assets/images/profile.png")',
@@ -22,7 +26,7 @@ const config: Config = {
       },
       colors: {
         grey: {
-          500: '#E7E7E7',
+          '500': '#E7E7E7',
         },
       },
       screens: {
@@ -32,12 +36,13 @@ const config: Config = {
     },
   },
   plugins: [
+    animate,
     fluid,
-    require('tailwind-scrollbar')({
+    scrollbar({
       nocompatible: true,
       preferredStrategy: 'pseudoelements',
     }),
-    require('@tailwindcss/typography'),
+    typography,
   ],
 };
 export default config;
