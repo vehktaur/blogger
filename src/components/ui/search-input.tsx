@@ -1,14 +1,17 @@
 'use client';
-import { CiSearch } from "react-icons/ci";
+import { CiSearch } from 'react-icons/ci';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 const SearchInput = () => {
+  // State to hold the search query
   const [search, setSearch] = useState('');
 
+  // router to push/set the query params
   const router = useRouter();
 
   useEffect(() => {
+    // Side effect to handle setting and clearing the searchParams
     if (search !== '') {
       router.push(`/blogs?title=${search}`);
     } else {
@@ -24,7 +27,7 @@ const SearchInput = () => {
         </span>
 
         <input
-          className='h-full border-b border-grey-500 border-b-stone-500 py-2 text-sm outline-none ~ps-6/8 ~pe-1/2'
+          className='h-full border-b border-b-stone-500 py-2 text-sm outline-none ~ps-6/8 ~pe-1/2'
           type='search'
           name='search'
           value={search}

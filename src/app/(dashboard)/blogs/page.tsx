@@ -13,6 +13,7 @@ const Blogs = ({
 }: {
   searchParams: { [key: string]: string | string[] | undefined };
 }) => {
+  // Get title from search params and pass to blog table for querying
   const title =
     typeof searchParams.title === 'string' ? searchParams.title : '';
 
@@ -20,10 +21,14 @@ const Blogs = ({
     <div className='h-full px-5 pb-4 ~pt-5/8'>
       <div className='mx-auto min-h-full max-w-6xl'>
         <header>
+          {/* Search input for querying the blog table (Sets the search params)*/}
           <SearchInput />
+
+          {/* Page heading */}
           <h1 className='font-medium ~text-lg/xl ~mt-4/6'>All Blogs</h1>
         </header>
 
+        {/* Blog Table to Display User's blogs */}
         <Suspense key={title} fallback={<Loading />}>
           <BlogsTable title={title} />
         </Suspense>

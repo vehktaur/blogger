@@ -4,7 +4,6 @@ import { changeProfilePic, deleteProfilePic } from '@/app/actions/user-actions';
 import { ImageFile } from '@/lib/definitions';
 import { useEdgeStore } from '@/lib/edgestore';
 import { User } from '@/lib/models/users';
-import clsx from 'clsx';
 import Image from 'next/image';
 import { FormEvent, useState } from 'react';
 import { toast } from 'react-toastify';
