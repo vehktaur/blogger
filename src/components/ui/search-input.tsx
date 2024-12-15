@@ -1,23 +1,32 @@
 'use client';
 import { CiSearch } from 'react-icons/ci';
-import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { useCallback, useState } from 'react';
 
 const SearchInput = () => {
-  // State to hold the search query
-  const [search, setSearch] = useState('');
+  const router = useRouter(); // router to push/set the query params
+  const pathname = usePathname();
+  const searchParams = useSearchParams(); // get current searchParams
+  const [search, setSearch] = useState(() => searchParams.get('title') ?? ''); // state to hold title searchParam
 
-  // router to push/set the query params
-  const router = useRouter();
+  const createQueryString = useCallback(
+    (title: string) => {
+      const params = new URLSearchParams(searchParams.toString());
+      if (title === '') {
+        params.delete('title');
+      } else {
+        params.set('title', title);
+      }
 
-  useEffect(() => {
-    // Side effect to handle setting and clearing the searchParams
-    if (search !== '') {
-      router.push(`/blogs?title=${search}`);
-    } else {
-      router.push('/blogs');
-    }
-  }, [search, router]);
+      return params.toString();
+    },
+    [searchParams],
+  );
+
+  const updateTitleParam = (title: string) => {
+    setSearch(title);
+    router.push(`${pathname}?${createQueryString(title)}`);
+  };
 
   return (
     <div className='flex items-center justify-between gap-2 sm:justify-start sm:gap-4'>
@@ -31,7 +40,7 @@ const SearchInput = () => {
           type='search'
           name='search'
           value={search}
-          onChange={(e) => setSearch(e.target.value)}
+          onChange={(e) => updateTitleParam(e.target.value)}
           placeholder='Search...'
         />
       </div>

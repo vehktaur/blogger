@@ -1,44 +1,61 @@
 'use client';
 
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { Category, Query } from '@/lib/definitions';
-import { useEffect, useState } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { Query } from '@/lib/definitions';
+import { useCallback, useEffect } from 'react';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { cn } from '@/lib/utils';
 
 const HomeSearch = () => {
-  const [categories, setCategories] = useState<Category[]>([
-    { category: 'All', active: true },
-    { category: 'Tech', active: false },
-    { category: 'Lifestyle', active: false },
-    { category: 'Finance', active: false },
-    { category: 'Entertainment', active: false },
-    { category: 'Culinary', active: false },
-    { category: 'Others', active: false },
-  ]);
+  const pathname = usePathname(); // get current path
+  const router = useRouter(); // router to push the search params
+  const searchParams = useSearchParams(); // get current search params
+  const activeCategory = searchParams.get('category') ?? 'all'; // get the category searchParam (defaults to "all")
 
-  const searchParams = useSearchParams();
-  const activeCategory = searchParams.get('category');
+  // Declare list of categories to show and toggle between
+  const categories = [
+    'All',
+    'Tech',
+    'Lifestyle',
+    'Finance',
+    'Entertainment',
+    'Culinary',
+    'Others',
+  ];
 
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors, isSubmitSuccessful },
-  } = useForm<Query>();
+  } = useForm<Query>(); // Set up RHF for Search function
 
   const onSubmit: SubmitHandler<Query> = (data) => {
     console.log(data);
   };
 
-  const filterBlogs = (category: string) => {
-    setCategories(
-      categories.map((currentCategory) =>
-        currentCategory.category === category
-          ? { ...currentCategory, active: true }
-          : { ...currentCategory, active: false },
-      ),
-    );
+  // This function takes a category and updates the searchParams with it
+  const createQueryString = useCallback(
+    (category: string) => {
+      // get current query params
+      const params = new URLSearchParams(searchParams.toString());
+
+      // update category in searchParams as required
+      if (category === 'all') {
+        params.delete('category');
+      } else {
+        params.set('category', category);
+      }
+
+      // return the updated searchParams
+      return params.toString();
+    },
+    [searchParams],
+  );
+
+  const updateCategoryParam = (category: string) => {
+    // update the URL with the search params
+    router.push(`${pathname}?${createQueryString(category)}`);
   };
 
   useEffect(() => {
@@ -46,18 +63,6 @@ const HomeSearch = () => {
       reset();
     }
   }, [isSubmitSuccessful, reset]);
-
-  const router = useRouter();
-  useEffect(() => {
-    const activeCategory = categories
-      .find((category) => category.active)
-      ?.category.toLowerCase();
-    if (activeCategory === 'all') {
-      router.push('/');
-    } else {
-      router.push(`/?category=${activeCategory}`);
-    }
-  }, [categories, router]);
 
   return (
     <section className='padding-inline ~py-3/6'>
@@ -87,16 +92,15 @@ const HomeSearch = () => {
         </form>
 
         <div className='flex max-w-[95%] items-center gap-1 overflow-x-auto scrollbar-none md:px-0'>
-          {categories?.map(({ category }) => (
+          {categories?.map((category) => (
             <button
               key={category}
-              onClick={() => filterBlogs(category)}
+              onClick={() => updateCategoryParam(category.toLowerCase())}
               className={cn(
                 'rounded-sm py-1 transition-colors duration-300 ~text-sm/base ~px-2/3 hover:bg-[#444] hover:text-white',
                 {
                   'bg-black text-white hover:bg-black':
-                    category.toLowerCase() === activeCategory ||
-                    (category === 'All' && !activeCategory),
+                    category.toLowerCase() === activeCategory,
                 },
               )}
             >
