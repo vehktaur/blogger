@@ -9,7 +9,7 @@ const LoadingSkeleton = () => {
           {skeletonArray.map((_, index) => (
             <div
               key={index}
-              className='w-full min-w-full max-w-80 rounded sm:max-w-[18.75rem]'
+              className='w-full max-w-80 rounded sm:max-w-[18.75rem]'
             >
               {/* Card image Skeleton */}
               <Skeleton className='aspect-[16/11] w-full sm:aspect-[3/2]' />
