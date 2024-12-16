@@ -20,7 +20,7 @@ const BlogList = async ({ category }: { category: string }) => {
         ) : filteredBlogs.length === 0 ? (
           <p className='text-center font-medium'>No Blogs In This Category</p>
         ) : (
-          <div className='grid items-stretch justify-items-center ~gap-x-5/8 ~gap-y-7/10 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4'>
+          <div className='grid justify-items-center ~gap-x-5/8 ~gap-y-7/10 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4'>
             {filteredBlogs.map((blog) => (
               <BlogCard key={blog._id} blog={blog} />
             ))}
