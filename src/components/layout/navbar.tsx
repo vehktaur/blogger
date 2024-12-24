@@ -16,6 +16,7 @@ import { signOut } from 'next-auth/react';
 import { assets } from '@/assets/assets';
 import { User } from '@/lib/models/users';
 import { cn } from '@/lib/utils';
+import Logo from '../ui/logo';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -30,6 +31,7 @@ const Navbar = ({
   const dropdownRef: RefObject<HTMLDivElement> = useRef<HTMLDivElement>(null);
   const [dropdown, toggleDropdown] = useState(false);
 
+  // Links for profile dropdown menu
   const Links = [
     {
       name: 'My Profile',
@@ -53,6 +55,7 @@ const Navbar = ({
     },
   ];
 
+  // Animation to change navbar background color on scroll
   useGSAP(() => {
     gsap.to(navbar.current, {
       backgroundColor: 'rgb(255 255 255 / 0.45)',
@@ -69,6 +72,7 @@ const Navbar = ({
     });
   }, []);
 
+  // Handle dropdown menu close on outside click
   useEffect(() => {
     const handleOutsideClick = (event: MouseEvent) => {
       if (
@@ -89,15 +93,8 @@ const Navbar = ({
   return (
     <div ref={navbar} className='padding-inline fixed left-0 top-0 z-10 w-full'>
       <nav className='mx-auto flex max-w-7xl items-center justify-between gap-4 pb-3 pt-4'>
-        <Link className='block' href='/'>
-          <Image
-            src='/icons/logo.png'
-            width={180}
-            height={100}
-            alt='app logo'
-            className='h-auto ~xxs/lg:~w-[7.25rem]/[8.625rem] sm:w-[11.625rem]'
-          />
-        </Link>
+        {/* Site logo */}
+        <Logo />
 
         {/* Profile | Login Links */}
         <div className='mb-2 flex items-center ~gap-4/6'>

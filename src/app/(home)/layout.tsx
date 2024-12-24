@@ -1,8 +1,9 @@
 import Navbar from '@/components/layout/navbar';
 import Footer from '@/components/layout/footer';
 import { Metadata } from 'next';
-import { auth } from '@/auth';
-import { getUser } from '@/lib/server-utils';
+import NavbarWrapper from '@/components/wrappers/navbar-wrapper';
+import { Suspense } from 'react';
+import NavbarSkeleton from '@/components/ui/skeletons/navbar-skeleton';
 
 export const metadata: Metadata = {
   title: 'Blogger',
@@ -14,12 +15,11 @@ const AppLayout = async ({
 }: Readonly<{
   children: React.ReactNode;
 }>) => {
-  const session = await auth();
-  const user = await getUser({ id: session?.user?._id });
-
   return (
     <>
-      <Navbar isLoggedIn={!!session} user={user} />
+      <Suspense fallback={<NavbarSkeleton />}>
+        <NavbarWrapper />
+      </Suspense>
 
       <main>{children}</main>
 

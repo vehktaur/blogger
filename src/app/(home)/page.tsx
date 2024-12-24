@@ -1,4 +1,4 @@
-import LoadingSkeleton from '@/components/blogs/blog-list-skeleton';
+import BlogListSkeleton from '@/components/ui/skeletons/blog-list-skeleton';
 import BlogList from '@/components/blogs/blogs-list';
 import HomeIntro from '@/components/home/home-intro';
 import HomeSearch from '@/components/home/home-search';
@@ -21,7 +21,7 @@ const Home = async ({
       <HomeSearch />
 
       {/* List of all the blogs */}
-      <Suspense key={category} fallback={<LoadingSkeleton />}>
+      <Suspense key={category} fallback={<BlogListSkeleton />}>
         <BlogList category={category} />
       </Suspense>
     </div>

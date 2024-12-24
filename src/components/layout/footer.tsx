@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import { FaGithub, FaLinkedin, FaXTwitter } from 'react-icons/fa6';
 
 const Footer = () => {
   return (
@@ -16,30 +17,15 @@ const Footer = () => {
           All rights reserved. Copyright @vehktaur. Inspired by GreatStack
         </small>
 
-        <div className='flex items-center gap-1'>
+        <div className='flex items-center gap-3'>
           <a href='https://x.com/vehktaur' target='_blank'>
-            <Image
-              src='/icons/x_icon.png'
-              width={40}
-              height={40}
-              alt='X Profile'
-            />
+            <FaXTwitter className='size-6' />
           </a>
           <a href='https://github.com/vehktaur' target='_blank'>
-            <Image
-              src='/icons/facebook_icon.png'
-              width={40}
-              height={40}
-              alt='Github Profile'
-            />
+            <FaGithub className='size-6' />
           </a>
           <a href='https://linkedin.com/in/victor-akhihiero' target='_blank'>
-            <Image
-              src='/icons/googleplus_icon.png'
-              width={40}
-              height={40}
-              alt='LinkedIn Profile'
-            />
+            <FaLinkedin className='size-6' />
           </a>
         </div>
       </div>

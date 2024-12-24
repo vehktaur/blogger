@@ -1,6 +1,6 @@
-import { Skeleton } from '../ui/skeleton';
+import { Skeleton } from '../skeleton';
 
-const LoadingSkeleton = () => {
+const BlogListSkeleton = () => {
   const skeletonArray = Array.from({ length: 4 });
   return (
     <section className='padding-inline pt-10 ~pb-12/20'>
@@ -38,4 +38,4 @@ const LoadingSkeleton = () => {
     </section>
   );
 };
-export default LoadingSkeleton;
+export default BlogListSkeleton;

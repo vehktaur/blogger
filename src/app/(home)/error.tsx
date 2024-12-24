@@ -10,7 +10,6 @@ const Error = ({
   reset: () => void;
 }) => {
   useEffect(() => {
-    // Log the error to an error reporting service
     console.error(error);
   }, [error]);
 
@@ -20,7 +19,10 @@ const Error = ({
         <h1 className='text-lg font-semibold'>Error</h1>
         <p className='my-10'> {error.message}</p>
         <button
-          onClick={() => reset()}
+          onClick={() => {
+            reset();
+            location.reload();
+          }}
           className='rounded-full border px-4 py-2'
         >
           Please try again

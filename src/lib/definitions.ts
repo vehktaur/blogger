@@ -3,6 +3,9 @@ import { FieldValues, Validate, ValidationRule } from 'react-hook-form';
 export interface Query {
   query: string;
 }
+
+export const SITE_URL = process.env.SITE_URL || 'http://localhost:3000';
+
 export const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
 export interface ImageFile {

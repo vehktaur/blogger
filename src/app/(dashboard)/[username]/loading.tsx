@@ -1,6 +1,6 @@
-import LoadingComponent from '@/components/layout/loading';
+import PersonalInfoSkeleton from '@/components/ui/skeletons/personal-info-skeleton';
 
 const Loading = () => {
-  return <LoadingComponent className='!min-h-16' />;
+  return <PersonalInfoSkeleton />;
 };
 export default Loading;

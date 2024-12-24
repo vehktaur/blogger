@@ -2,9 +2,10 @@ import BlurImage from '@/components/ui/blur-image';
 import { assets } from '@/assets/assets';
 import { getCachedBlogs, getBlog } from '@/lib/blog-data';
 import { MDXRemote } from 'next-mdx-remote/rsc';
-import Image from 'next/image';
 import { redirect } from 'next/navigation';
 import { unstable_cache } from 'next/cache';
+import { FaWhatsapp, FaXTwitter } from 'react-icons/fa6';
+import { SITE_URL } from '@/lib/definitions';
 
 // Generate Static Blog Pages at build time
 export const generateStaticParams = async () => {
@@ -107,32 +108,10 @@ const Blog = async ({ params }: { params: { title: string } }) => {
           </div>
 
           <div className='my-24'>
-            <p className='font-semibold'>Share this article on:</p>
-            <div className='mt-4 flex items-center gap-1'>
-              <a href='#'>
-                <Image
-                  src='/icons/x_icon.png'
-                  width={50}
-                  height={50}
-                  alt='X Profile'
-                />
-              </a>
-              <a href='#'>
-                <Image
-                  src='/icons/facebook_icon.png'
-                  width={50}
-                  height={50}
-                  alt='Github Profile'
-                />
-              </a>
-              <a href='#'>
-                <Image
-                  src='/icons/googleplus_icon.png'
-                  width={50}
-                  height={50}
-                  alt='LinkedIn Profile'
-                />
-              </a>
+            <p className='font-semibold'>Share this post on:</p>
+            <div className='mt-4 flex items-center gap-3'>
+                <FaWhatsapp className='~size-6/7' />
+                <FaXTwitter className='~size-5/6' />
             </div>
           </div>
         </div>

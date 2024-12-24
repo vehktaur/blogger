@@ -8,7 +8,7 @@ import { cn } from '@/lib/utils';
 
 const HomeSearch = () => {
   const pathname = usePathname(); // get current path
-  const router = useRouter(); // router to push the search params
+  const { replace } = useRouter(); // replace to update the search params
   const searchParams = useSearchParams(); // get current search params
   const activeCategory = searchParams.get('category') ?? 'all'; // get the category searchParam (defaults to "all")
 
@@ -55,7 +55,7 @@ const HomeSearch = () => {
 
   const updateCategoryParam = (category: string) => {
     // update the URL with the search params
-    router.push(`${pathname}?${createQueryString(category)}`);
+    replace(`${pathname}?${createQueryString(category)}`, { scroll: false });
   };
 
   useEffect(() => {
