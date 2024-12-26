@@ -38,6 +38,16 @@
 }
 
 @layer utilities {
+  .dark-hidden {
+    #dark {
+      clip-path: polygon(0 0, 0 0, 0 100%, 0% 100%);
+    }
+
+    #_logs {
+      translate: -10rem 0;
+    }
+  }
+
   .full-screen {
     height: 100vh;
     height: 100dvh;

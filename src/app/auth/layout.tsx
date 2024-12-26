@@ -5,7 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
-  title: 'Get Started | Blogger',
+  title: 'Get Started | Logs',
 };
 
 export default function AuthLayout({

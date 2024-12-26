@@ -14,7 +14,7 @@ export const generateStaticParams = async () => {
     title: `${blog.title}__${blog._id}`,
   }));
 
-  return staticBlogs ? staticBlogs : [{ title: 'Blog | Blogger' }];
+  return staticBlogs ? staticBlogs : [{ title: 'Blog | Logs' }];
 };
 
 export const generateMetadata = async ({
@@ -36,12 +36,12 @@ export const generateMetadata = async ({
 
     const blog = await getCachedBlog(id);
     return {
-      title: `${blog?.title} | Blogger`,
+      title: `${blog?.title} | Logs`,
       description: blog?.description,
     };
   } else {
     return {
-      title: 'Blog | Blogger',
+      title: 'Blog | Logs',
     };
   }
 };
@@ -110,8 +110,8 @@ const Blog = async ({ params }: { params: { title: string } }) => {
           <div className='my-24'>
             <p className='font-semibold'>Share this post on:</p>
             <div className='mt-4 flex items-center gap-3'>
-                <FaWhatsapp className='~size-6/7' />
-                <FaXTwitter className='~size-5/6' />
+              <FaWhatsapp className='~size-6/7' />
+              <FaXTwitter className='~size-5/6' />
             </div>
           </div>
         </div>

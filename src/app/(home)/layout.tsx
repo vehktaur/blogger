@@ -6,7 +6,7 @@ import { Suspense } from 'react';
 import NavbarSkeleton from '@/components/ui/skeletons/navbar-skeleton';
 
 export const metadata: Metadata = {
-  title: 'Blogger',
+  title: 'Logs',
   description: 'Blog App from GreatStack',
 };
 

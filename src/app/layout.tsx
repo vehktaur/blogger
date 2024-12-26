@@ -12,7 +12,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { SessionProvider } from 'next-auth/react';
 
 export const metadata: Metadata = {
-  title: 'Blogger',
+  title: 'Logs',
 };
 
 const barlow = Barlow({

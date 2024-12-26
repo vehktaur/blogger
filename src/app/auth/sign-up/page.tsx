@@ -5,8 +5,8 @@ import Link from 'next/link';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Sign Up | Blogger',
-  description: 'Get started with Blogger',
+  title: 'Sign Up | Logs',
+  description: 'Get started with Logs',
 };
 
 const SignUp = () => {

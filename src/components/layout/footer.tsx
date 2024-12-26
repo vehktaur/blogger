@@ -1,17 +1,11 @@
-import Image from 'next/image';
+import { Logo } from '@/assets/svgs';
 import { FaGithub, FaLinkedin, FaXTwitter } from 'react-icons/fa6';
 
 const Footer = () => {
   return (
     <footer className='mt-auto bg-black px-5 text-white'>
       <div className='mx-auto flex max-w-7xl flex-col items-center justify-around gap-6 ~py-8/12 sm:flex-row'>
-        <Image
-          src='/icons/logo_light.png'
-          width={120}
-          height={100}
-          alt='app logo'
-          className='h-auto w-auto'
-        />
+        <Logo className='fill-white ~max-w-32/48 dark-hidden' />
 
         <small className='text-center text-gray-200 sm:text-sm'>
           All rights reserved. Copyright @vehktaur. Inspired by GreatStack

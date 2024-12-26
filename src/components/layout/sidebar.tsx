@@ -1,11 +1,11 @@
 import { assets } from '@/assets/assets';
 import { HiOutlinePlusCircle, HiListBullet } from 'react-icons/hi2';
 import { PiUser } from 'react-icons/pi';
-import Image from 'next/image';
+import Link from 'next/link';
 import NavLink from '../ui/nav-link';
-import { auth } from '@/auth';
 import BlurImage from '../ui/blur-image';
 import { User } from '@/lib/models/users';
+import { Logo, LogoIcon } from '@/assets/svgs';
 
 const Sidebar = async ({ user }: { user?: User | null }) => {
   const navLinks = [
@@ -31,24 +31,12 @@ const Sidebar = async ({ user }: { user?: User | null }) => {
       <div className='flex h-full flex-col'>
         <div className='h-[3.75rem] border-b border-black sm:py-3'>
           <div className='h-full w-full content-center sm:px-8 md:px-12'>
-            <NavLink className='mx-auto block w-full sm:w-auto' href='/'>
-              <Image
-                src='/icons/logo.png'
-                width={180}
-                height={100}
-                alt='app logo'
-                className='hidden h-auto w-full ~xxs/lg:~max-w-[7.25rem]/[9rem] sm:block'
-              />
-              <div className='mx-auto size-10 rounded-lg bg-stone-200 px-1 sm:hidden'>
-                <Image
-                  src='/icons/blogger_logo.png'
-                  width={180}
-                  height={100}
-                  alt='app logo'
-                  className='size-full object-contain sm:hidden'
-                />
+            <Link className='mx-auto block w-full sm:w-auto' href='/'>
+              <Logo className='dark-hidden hidden h-auto w-full ~xxs/lg:~max-w-32/40 sm:block' />
+              <div className='mx-auto size-10 rounded-lg border border-stone-200 px-1 sm:hidden'>
+                <LogoIcon className='size-full object-contain sm:hidden' />
               </div>
-            </NavLink>
+            </Link>
           </div>
         </div>
 

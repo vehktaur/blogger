@@ -10,7 +10,7 @@ export const generateMetadata = async () => {
   const user = await getUser({ id: session?.user?._id });
 
   return {
-    title: `${user?.username} | Blogger`,
+    title: `${user?.username} | Logs`,
   };
 };
 

@@ -5,24 +5,24 @@ import { Autoplay, Keyboard, Pagination } from 'swiper/modules';
 const HomeIntro = () => {
   const slidesContent = [
     {
-      title: 'Welcome to Blogger',
+      title: 'Welcome to Logs',
       content:
-        "At Blogger, we believe in the power of sharing stories, ideas, and knowledge. Our platform is designed to provide a seamless blogging experience, allowing you to focus on creating content that matters. Whether you're a seasoned writer or just starting, Blogger offers all the tools you need to publish and promote your blog.",
+        "At Logs, we make it easy to share your stories, ideas, and insights. This simple blog app lets you create, style, and manage posts effortlessly. Whether you're new to blogging or an experienced writer, Logs gives you the tools to focus on what matters most — your content.",
     },
     {
-      title: 'Join Our Diverse Community',
+      title: 'Create and Style with Ease',
       content:
-        "Blogger is home to a vibrant and diverse community of bloggers from around the world. Here, you can connect with like-minded individuals, share your unique perspective, and gain insights from a variety of topics. From technology and startups to lifestyle and personal growth, there's a place for everyone at Blogger.",
+        'Logs features a powerful markdown editor, allowing you to create and style posts with ease. Share your unique voice and make your content stand out, all while enjoying a seamless and intuitive experience.',
     },
     {
-      title: 'Powerful Tools for Every Blogger',
+      title: 'Manage and Share Your Posts',
       content:
-        'Our platform provides a range of powerful tools to help you create, customize, and manage your blog. With intuitive design options, robust analytics, and seamless social media integration, Blogger makes it easy to grow your audience and reach your blogging goals. Start blogging with confidence today!',
+        'With Logs, you can update, edit, or delete your posts anytime. Plus, share your creations across social media platforms effortlessly to connect with a wider audience and grow your reach.',
     },
     {
-      title: 'Latest Blogs',
+      title: 'Latest Logs',
       content:
-        "Stay updated with the latest blogs from our community. Discover fresh perspectives, insightful articles, and trending topics. Whether you're interested in technology, lifestyle, or personal growth, our latest blogs section has something for everyone.",
+        'Discover fresh content from our vibrant community of bloggers. From trending tech insights to lifestyle tips and personal growth stories, the latest logs section has something to inspire everyone.',
     },
   ];
 
@@ -54,7 +54,7 @@ const HomeIntro = () => {
             <h1 className='font-semibold ~text-2xl/3xl ~mb-4/8 sm:text-5xl'>
               {title}
             </h1>
-            <p className='mx-auto max-w-5xl'>{content}</p>
+            <p className='mx-auto max-w-4xl'>{content}</p>
           </SwiperSlide>
         ))}
       </Swiper>
