@@ -4,7 +4,7 @@ import { Logo as SVGLogo } from '@/assets/svgs';
 const Logo = () => {
   return (
     <Link className='block' href='/'>
-      <SVGLogo className='dark-hidden ~max-w-32/48' />
+      <SVGLogo className='dark-hidden ~max-w-36/52' />
     </Link>
   );
 };

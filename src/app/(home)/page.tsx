@@ -13,7 +13,7 @@ const Home = async ({
     typeof searchParams.category === 'string' ? searchParams.category : '';
 
   return (
-    <div className='~text-sm/lg ~pt-12/20'>
+    <div className='pt-20'>
       {/* Swiper intro on homepage*/}
       <HomeIntro />
 

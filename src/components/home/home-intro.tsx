@@ -27,7 +27,7 @@ const HomeIntro = () => {
   ];
 
   return (
-    <section className='sm:padding-inline mx-auto max-w-7xl text-center ~pt-4/6'>
+    <section className='sm:padding-inline mx-auto max-w-7xl text-center sm:~pt-4/6'>
       <Swiper
         className='max-h-[15rem]'
         direction={'vertical'}
@@ -54,7 +54,7 @@ const HomeIntro = () => {
             <h1 className='font-semibold ~text-2xl/3xl ~mb-4/8 sm:text-5xl'>
               {title}
             </h1>
-            <p className='mx-auto max-w-4xl'>{content}</p>
+            <p className='mx-auto max-w-4xl ~text-sm/lg'>{content}</p>
           </SwiperSlide>
         ))}
       </Swiper>

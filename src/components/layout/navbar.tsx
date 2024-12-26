@@ -91,13 +91,13 @@ const Navbar = ({
   }, [dropdown]);
 
   return (
-    <div ref={navbar} className='padding-inline fixed left-0 top-0 z-10 w-full'>
-      <nav className='mx-auto flex max-w-7xl items-center justify-between gap-4 pb-3 pt-4'>
+    <nav ref={navbar} className='padding-inline fixed left-0 top-0 z-10 w-full'>
+      <div className='mx-auto flex max-w-7xl items-center justify-between gap-4 pb-3 pt-4'>
         {/* Site logo */}
         <Logo />
 
         {/* Profile | Login Links */}
-        <div className='mb-2 flex items-center ~gap-4/6'>
+        <div className='mb-2 flex items-center ~text-sm/base ~gap-4/6'>
           {isLoggedIn ? (
             <>
               <Link
@@ -139,15 +139,14 @@ const Navbar = ({
 
                       <ul className='mt-4 space-y-2 px-1 text-sm font-medium'>
                         {Links.map(({ name, icon, path }) => (
-                          <li key={path}>
-                            <MenuItem
-                              name={name}
-                              icon={icon}
-                              path={path}
-                              className='flex w-full items-center gap-2 rounded-md border px-3 transition-colors duration-150 ~py-2/3 hover:bg-gray-200'
-                              onClick={() => toggleDropdown((prev) => !prev)}
-                            />
-                          </li>
+                          <MenuItem
+                            key={path}
+                            name={name}
+                            icon={icon}
+                            path={path}
+                            className='flex w-full items-center gap-2 rounded-md border px-3 transition-colors duration-150 ~py-2/3 hover:bg-gray-200'
+                            onClick={() => toggleDropdown((prev) => !prev)}
+                          />
                         ))}
                       </ul>
                     </motion.div>
@@ -174,8 +173,8 @@ const Navbar = ({
             </>
           )}
         </div>
-      </nav>
-    </div>
+      </div>
+    </nav>
   );
 };
 export default Navbar;
@@ -193,20 +192,24 @@ const MenuItem = ({
   className: string;
   onClick: () => void;
 }) => {
-  return name === 'Logout' ? (
-    <button
-      onClick={() => {
-        signOut();
-        onClick();
-      }}
-      className={cn(className, 'text-red-600')}
-      type='button'
-    >
-      {icon} {name}
-    </button>
-  ) : (
-    <Link onClick={() => onClick()} className={cn(className)} href={path}>
-      {icon} {name}
-    </Link>
+  return (
+    <li>
+      {name === 'Logout' ? (
+        <button
+          onClick={() => {
+            signOut();
+            onClick();
+          }}
+          className={cn(className, 'text-red-600')}
+          type='button'
+        >
+          {icon} {name}
+        </button>
+      ) : (
+        <Link onClick={() => onClick()} className={cn(className)} href={path}>
+          {icon} {name}
+        </Link>
+      )}
+    </li>
   );
 };
