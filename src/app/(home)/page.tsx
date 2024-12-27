@@ -9,8 +9,7 @@ const Home = async ({
 }: {
   searchParams: { [key: string]: string | string[] | undefined };
 }) => {
-  const category =
-    typeof searchParams.category === 'string' ? searchParams.category : '';
+  const category = searchParams?.category?.toString() || '';
 
   return (
     <div className='pt-20'>
