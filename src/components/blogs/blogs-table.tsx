@@ -25,7 +25,7 @@ const BlogsTable = async ({ title }: { title: string }) => {
   );
 
   if (!filteredBlogs || filteredBlogs.length === 0) {
-    return <p className='mt-4'>No Blogs Found</p>;
+    return <p className='mt-4'>No Blog Found</p>;
   }
 
   return (
