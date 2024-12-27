@@ -8,10 +8,10 @@ const BlogCard = ({ blog }: { blog: PopulatedBlog }) => {
   return (
     <Link
       prefetch={true}
-      className='grid w-full'
+      className='grid w-full max-w-80 sm:max-w-[18.75rem]'
       href={`/blog/${encodeURIComponent(url)}`}
     >
-      <div className='group flex w-full min-w-56 max-w-80 flex-col overflow-hidden rounded border border-black shadow transition-shadow duration-500 hover:shadow-offset sm:max-w-[18.75rem]'>
+      <div className='group flex w-full flex-col overflow-hidden rounded border border-black shadow transition-shadow duration-500 hover:shadow-offset'>
         <div className='border-b border-black'>
           <BlurImage
             className='aspect-[16/11] object-cover sm:aspect-[3/2]'
