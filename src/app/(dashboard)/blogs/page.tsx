@@ -14,8 +14,7 @@ const Blogs = ({
   searchParams: { [key: string]: string | string[] | undefined };
 }) => {
   // Get title from search params and pass to blog table for querying
-  const title =
-    typeof searchParams.title === 'string' ? searchParams.title : '';
+  const title = searchParams.title?.toString() || '';
 
   return (
     <div className='h-full px-5 pb-4 ~pt-5/8'>
