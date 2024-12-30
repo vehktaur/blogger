@@ -2,7 +2,8 @@ import PersonalInfo from '@/components/profile/personal-info';
 import UseFormContextProvider from '@/context/UseFormContextProvider';
 import { getUser } from '@/lib/server-utils';
 
-const ProfilePage = async ({ params }: { params: { username: string } }) => {
+const ProfilePage = async (props: { params: Promise<{ username: string }> }) => {
+  const params = await props.params;
   const { username } = params;
   const user = await getUser({ username });
 

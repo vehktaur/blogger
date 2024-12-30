@@ -8,11 +8,12 @@ export const metadata: Metadata = {
   title: 'All Blogs - User Dashboard',
 };
 
-const Blogs = ({
-  searchParams,
-}: {
-  searchParams: { [key: string]: string | string[] | undefined };
-}) => {
+const Blogs = async (
+  props: {
+    searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+  }
+) => {
+  const searchParams = await props.searchParams;
   // Get title from search params and pass to blog table for querying
   const title = searchParams.title?.toString() || '';
 

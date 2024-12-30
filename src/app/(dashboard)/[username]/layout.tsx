@@ -6,13 +6,18 @@ import { GoShieldLock } from 'react-icons/go';
 import { getUser } from '@/lib/server-utils';
 import { redirect } from 'next/navigation';
 
-const ProfileLayout = async ({
-  children,
-  params,
-}: {
-  children: React.ReactNode;
-  params: { username: string };
-}) => {
+const ProfileLayout = async (
+  props: {
+    children: React.ReactNode;
+    params: Promise<{ username: string }>;
+  }
+) => {
+  const params = await props.params;
+
+  const {
+    children
+  } = props;
+
   const { username } = params;
 
   const user = await getUser({ username });

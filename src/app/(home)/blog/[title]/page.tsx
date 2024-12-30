@@ -17,11 +17,12 @@ export const generateStaticParams = async () => {
   return staticBlogs ? staticBlogs : [{ title: 'Blog | Logs' }];
 };
 
-export const generateMetadata = async ({
-  params,
-}: {
-  params: { title: string };
-}) => {
+export const generateMetadata = async (
+  props: {
+    params: Promise<{ title: string }>;
+  }
+) => {
+  const params = await props.params;
   const url = decodeURIComponent(params.title);
   const id = url.split('__').pop();
 
@@ -46,7 +47,8 @@ export const generateMetadata = async ({
   }
 };
 
-const Blog = async ({ params }: { params: { title: string } }) => {
+const Blog = async (props: { params: Promise<{ title: string }> }) => {
+  const params = await props.params;
   const url = params.title;
   const id = url.split('__').pop();
 

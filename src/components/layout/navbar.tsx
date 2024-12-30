@@ -6,17 +6,22 @@ import Link from 'next/link';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
-import { RefObject, useEffect, useRef, useState } from 'react';
+import { useRef } from 'react';
 import { FiArrowRight, FiLogIn } from 'react-icons/fi';
 import { HiPlus, HiListBullet } from 'react-icons/hi2';
 import { PiUser } from 'react-icons/pi';
 import { LuLogOut } from 'react-icons/lu';
-import { motion, AnimatePresence } from 'framer-motion';
 import { signOut } from 'next-auth/react';
 import { assets } from '@/assets/assets';
 import { User } from '@/lib/models/users';
 import { cn } from '@/lib/utils';
 import Logo from '../ui/logo';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuTrigger,
+  DropdownMenuItem,
+} from '../ui/dropdown';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -27,12 +32,11 @@ const Navbar = ({
   isLoggedIn: boolean;
   user?: User | null;
 }) => {
+  // Navbar reference to change background color on scroll
   const navbar = useRef(null);
-  const dropdownRef: RefObject<HTMLDivElement> = useRef<HTMLDivElement>(null);
-  const [dropdown, toggleDropdown] = useState(false);
 
   // Links for profile dropdown menu
-  const Links = [
+  const dropdownLinks = [
     {
       name: 'My Profile',
       icon: <PiUser className='size-4' />,
@@ -51,11 +55,10 @@ const Navbar = ({
     {
       name: 'Logout',
       icon: <LuLogOut className='size-4' />,
-      path: '/',
     },
   ];
 
-  // Animation to change navbar background color on scroll
+  // GSAP animation to change navbar background color on scroll
   useGSAP(() => {
     gsap.to(navbar.current, {
       backgroundColor: 'rgb(255 255 255 / 0.45)',
@@ -71,24 +74,6 @@ const Navbar = ({
       ease: 'power1.inOut',
     });
   }, []);
-
-  // Handle dropdown menu close on outside click
-  useEffect(() => {
-    const handleOutsideClick = (event: MouseEvent) => {
-      if (
-        dropdownRef.current &&
-        !dropdownRef.current.contains(event.target as Node)
-      ) {
-        toggleDropdown(false);
-      }
-    };
-
-    document.addEventListener('click', handleOutsideClick);
-
-    return () => {
-      document.removeEventListener('click', handleOutsideClick);
-    };
-  }, [dropdown]);
 
   return (
     <nav ref={navbar} className='padding-inline fixed left-0 top-0 z-10 w-full'>
@@ -107,11 +92,10 @@ const Navbar = ({
                 <HiPlus className='transition-transform duration-300 ~size-4/5 group-hover:rotate-90 group-hover:scale-105' />
                 Create Post
               </Link>
-              <div className='relative'>
-                <button
-                  onClick={() => toggleDropdown((prev) => !prev)}
-                  className='block overflow-hidden rounded-full border ~size-10/12'
-                >
+
+              {/* Profile dropdown menu */}
+              <DropdownMenu modal={false}>
+                <DropdownMenuTrigger className='block overflow-hidden rounded-full border ~size-10/12'>
                   <Image
                     className='size-full object-cover'
                     src={user?.image || assets.profile_img}
@@ -119,43 +103,49 @@ const Navbar = ({
                     height={720}
                     alt={user?.name || 'user profile image'}
                   />
-                </button>
-                <AnimatePresence>
-                  {dropdown && (
-                    <motion.div
-                      ref={dropdownRef}
-                      initial={{ opacity: 0, x: -100 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      exit={{ opacity: 0, y: -100 }}
-                      transition={{ duration: 0.3, ease: 'easeInOut' }}
-                      className='absolute right-0 top-[calc(100%+0.7rem)] rounded-lg bg-white px-4 pb-4 pt-3 shadow-md ~w-52/64'
-                    >
-                      <p className='truncate'>
-                        <strong>{user?.name}</strong>
-                      </p>
-                      <p className='leading-none text-gray-700'>
-                        <small>{user?.email}</small>
-                      </p>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className='rounded-lg bg-white px-4 pb-4 pt-3 shadow-md ~w-52/64'>
+                  <p className='truncate'>
+                    <strong>{user?.name}</strong>
+                  </p>
+                  <p className='leading-none text-gray-700'>
+                    <small>{user?.email}</small>
+                  </p>
 
-                      <ul className='mt-4 space-y-2 px-1 text-sm font-medium'>
-                        {Links.map(({ name, icon, path }) => (
-                          <MenuItem
-                            key={path}
-                            name={name}
-                            icon={icon}
-                            path={path}
-                            className='flex w-full items-center gap-2 rounded-md border px-3 transition-colors duration-150 ~py-2/3 hover:bg-gray-200'
-                            onClick={() => toggleDropdown((prev) => !prev)}
-                          />
-                        ))}
-                      </ul>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
+                  <ul className='mt-4 space-y-2 px-1 text-sm font-medium'>
+                    {dropdownLinks.map(({ name, icon, path }) => (
+                      <li key={name}>
+                        <DropdownMenuItem
+                          asChild={name !== 'Logout'}
+                          className={cn(
+                            'flex w-full items-center gap-2 rounded-md border px-3 transition-colors duration-150 ~py-2/3 hover:bg-gray-200',
+                            { 'text-red-600': name === 'Logout' },
+                          )}
+                          onClick={() => {
+                            if (name === 'Logout') {
+                              signOut();
+                            }
+                          }}
+                        >
+                          {name === 'Logout' ? (
+                            <>
+                              {icon} {name}
+                            </>
+                          ) : (
+                            <Link href={path ?? '/'}>
+                              {icon} {name}
+                            </Link>
+                          )}
+                        </DropdownMenuItem>
+                      </li>
+                    ))}
+                  </ul>
+                </DropdownMenuContent>
+              </DropdownMenu>
             </>
           ) : (
             <>
+              {/* Get Started / Login Links (Shown when user not logged in) */}
               <Link
                 href='/auth/login'
                 className='flex items-center gap-2 border border-black font-medium shadow-offset transition-colors duration-300 ~px-3/5 ~py-1.5/2.5 hover:bg-gray-200'
@@ -178,38 +168,3 @@ const Navbar = ({
   );
 };
 export default Navbar;
-
-const MenuItem = ({
-  name,
-  icon,
-  path,
-  className,
-  onClick,
-}: {
-  name: string;
-  icon: JSX.Element;
-  path: string;
-  className: string;
-  onClick: () => void;
-}) => {
-  return (
-    <li>
-      {name === 'Logout' ? (
-        <button
-          onClick={() => {
-            signOut();
-            onClick();
-          }}
-          className={cn(className, 'text-red-600')}
-          type='button'
-        >
-          {icon} {name}
-        </button>
-      ) : (
-        <Link onClick={() => onClick()} className={cn(className)} href={path}>
-          {icon} {name}
-        </Link>
-      )}
-    </li>
-  );
-};

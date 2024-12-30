@@ -27,7 +27,7 @@ const BlogOptions = ({
   const [spaceDown, setSpaceDown] = useState(true);
   const [isDisabled, setIsDisabled] = useState(false);
   const [showConfirmation, setShowConfirmation] = useState(false);
-  const dropdownRef: RefObject<HTMLDivElement> = useRef<HTMLDivElement>(null);
+  const dropdownRef: RefObject<HTMLDivElement | null> = useRef<HTMLDivElement>(null);
 
   //Handle Toggle Effects
   const handleClick = (): void => {
@@ -96,13 +96,13 @@ const BlogOptions = ({
 
     // Attach event listener when dropdown is open
     if (isOpen) {
-      window.addEventListener('click', handleOutsideClick);
+      document.addEventListener('click', handleOutsideClick);
     } else {
     }
 
     // Clean up event listener when dropdown is closed
     return () => {
-      window.removeEventListener('click', handleOutsideClick);
+      document.removeEventListener('click', handleOutsideClick);
     };
   }, [isOpen]);
 
