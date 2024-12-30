@@ -4,11 +4,12 @@ import HomeIntro from '@/components/home/home-intro';
 import HomeSearch from '@/components/home/home-search';
 import { Suspense } from 'react';
 
-const Home = async ({
-  searchParams,
-}: {
-  searchParams: { [key: string]: string | string[] | undefined };
-}) => {
+const Home = async (
+  props: {
+    searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+  }
+) => {
+  const searchParams = await props.searchParams;
   const category = searchParams?.category?.toString() || '';
 
   return (

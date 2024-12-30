@@ -1,7 +1,8 @@
 import Password from '@/components/profile/password';
 import UseFormContextProvider from '@/context/UseFormContextProvider';
 
-const PasswordPage = async ({ params }: { params: { username: string } }) => {
+const PasswordPage = async (props: { params: Promise<{ username: string }> }) => {
+  const params = await props.params;
   return (
     <div>
       <UseFormContextProvider>

@@ -15,7 +15,7 @@ import { SubmitHandler, useFormContext } from 'react-hook-form';
 import { useEdgeStore } from '@/lib/edgestore';
 import { useDropzone } from 'react-dropzone';
 import { toast } from 'react-toastify';
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'motion/react';
 import Markdown from 'react-markdown';
 
 //Icon Imports

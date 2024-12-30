@@ -4,7 +4,8 @@ import { getBlog } from '@/lib/blog-data';
 import { unstable_cache } from 'next/cache';
 import { redirect } from 'next/navigation';
 
-const EditBlog = async ({ params }: { params: { id: string } }) => {
+const EditBlog = async (props: { params: Promise<{ id: string }> }) => {
+  const params = await props.params;
   const id = params.id;
 
   const getCachedBlog = unstable_cache(
