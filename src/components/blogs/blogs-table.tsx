@@ -81,7 +81,7 @@ const BlogsTable = async ({ title }: { title: string }) => {
               <td className='w-16 pe-4'>
                 <div className='ms-auto w-fit'>
                   <BlogOptions
-                    id={blog._id.toString()}
+                    id={blog._id}
                     url={blog.image.url}
                     title={blog.title}
                   />

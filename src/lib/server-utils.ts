@@ -48,9 +48,12 @@ export const getUser = async (query: {
         username: username.toLowerCase(),
       }).lean<User>({
         virtuals: true,
+        transform: (ret: User) => {
+          if (ret && ret._id) ret._id = ret._id.toString();
+          return ret;
+        },
       });
     }
-    if (user?._id) user._id = user?._id.toString();
     return user;
   } catch (error) {
     console.log(error);

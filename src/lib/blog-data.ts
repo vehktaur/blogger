@@ -35,11 +35,14 @@ export const getUserBlogs = async (id: string) => {
     const blogs = await Blogs.find({ author: id })
       .populate({ path: 'author', model: Users })
       .lean<PopulatedBlog[]>({
-        transform: (_: null, ret: PopulatedBlog) => {
+        transform: (ret: PopulatedBlog) => {
           if (ret && ret._id) ret._id = ret._id.toString();
+          if (ret.author && ret.author._id)
+            ret.author._id = ret.author._id.toString();
           return ret;
         },
       });
+
     return blogs;
   } catch (error) {
     console.error("Error fetching user's blogs:", error);
@@ -54,8 +57,14 @@ export const getBlog = async (id: string) => {
     // Fetch blog
     const blog = await Blogs.findById(id)
       .populate({ path: 'author', model: Users })
-      .lean<PopulatedBlog>();
-    if (blog && blog._id) blog._id = blog._id.toString();
+      .lean<PopulatedBlog>({
+        transform: (ret: PopulatedBlog) => {
+          if (ret && ret._id) ret._id = ret._id.toString();
+          if (ret.author && ret.author._id)
+            ret.author._id = ret.author._id.toString();
+          return ret;
+        },
+      });
     return blog;
   } catch (error) {
     console.error('Error fetching blog:', error);
