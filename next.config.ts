@@ -2,6 +2,10 @@ import type { NextConfig } from 'next';
 import withPlaiceholder from '@plaiceholder/next';
 
 const nextConfig: NextConfig = {
+  experimental: {
+    dynamicIO: true,
+  },
+
   images: {
     remotePatterns: [
       {

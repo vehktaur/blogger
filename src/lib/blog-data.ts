@@ -1,11 +1,14 @@
+'use cache';
+
 import 'server-only';
 import { ConnectDB } from './config/db';
 import Blogs, { PopulatedBlog } from './models/blogs';
-import { unstable_cache } from 'next/cache';
+import { unstable_cacheTag as cacheTag } from 'next/cache';
 import Users from './models/users';
 
 //Get All Blogs from the Database
 export const getAllBlogs = async () => {
+  cacheTag('blogs');
   try {
     // Connect to MongoDB
     await ConnectDB();
@@ -13,12 +16,19 @@ export const getAllBlogs = async () => {
     // Fetch blogs based on the provided query
     const blogs = await Blogs.find()
       .populate({ path: 'author', model: Users })
-      .lean<PopulatedBlog[]>({
-        transform: (_: null, ret: PopulatedBlog) => {
-          if (ret && ret._id) ret._id = ret._id.toString();
-          return ret;
-        },
-      });
+      .lean<PopulatedBlog[]>()
+      .then((docs) =>
+        docs.map((doc) => {
+          if (doc._id) doc._id = doc._id.toString();
+          if (doc.image && doc.image._id)
+            doc.image._id = doc.image._id.toString();
+          if (doc.author && doc.author._id)
+            doc.author._id = doc.author._id.toString();
+
+          return doc;
+        }),
+      );
+
     return blogs;
   } catch (error) {
     console.error('Error fetching blogs:', error);
@@ -27,6 +37,7 @@ export const getAllBlogs = async () => {
 
 //Get User's Blogs from the Database
 export const getUserBlogs = async (id: string) => {
+  cacheTag('blogs');
   try {
     // Connect to MongoDB
     await ConnectDB();
@@ -34,14 +45,18 @@ export const getUserBlogs = async (id: string) => {
     // Fetch blogs based on the provided query
     const blogs = await Blogs.find({ author: id })
       .populate({ path: 'author', model: Users })
-      .lean<PopulatedBlog[]>({
-        transform: (ret: PopulatedBlog) => {
-          if (ret && ret._id) ret._id = ret._id.toString();
-          if (ret.author && ret.author._id)
-            ret.author._id = ret.author._id.toString();
-          return ret;
-        },
-      });
+      .lean<PopulatedBlog[]>()
+      .then((docs) =>
+        docs.map((doc) => {
+          if (doc._id) doc._id = doc._id.toString();
+          if (doc.image && doc.image._id)
+            doc.image._id = doc.image._id.toString();
+          if (doc.author && doc.author._id)
+            doc.author._id = doc.author._id.toString();
+
+          return doc;
+        }),
+      );
 
     return blogs;
   } catch (error) {
@@ -50,6 +65,7 @@ export const getUserBlogs = async (id: string) => {
 };
 
 export const getBlog = async (id: string) => {
+  cacheTag(`blog_${id}`);
   try {
     // Connect to MongoDB
     await ConnectDB();
@@ -57,32 +73,21 @@ export const getBlog = async (id: string) => {
     // Fetch blog
     const blog = await Blogs.findById(id)
       .populate({ path: 'author', model: Users })
-      .lean<PopulatedBlog>({
-        transform: (ret: PopulatedBlog) => {
-          if (ret && ret._id) ret._id = ret._id.toString();
-          if (ret.author && ret.author._id)
-            ret.author._id = ret.author._id.toString();
-          return ret;
-        },
+      .lean<PopulatedBlog>()
+      .then((doc) => {
+        if (doc) {
+          if (doc._id) doc._id = doc._id.toString();
+          if (doc.image && doc.image._id)
+            doc.image._id = doc.image._id.toString();
+          if (doc.author && doc.author._id)
+            doc.author._id = doc.author._id.toString();
+        }
+        
+        return doc;
       });
+
     return blog;
   } catch (error) {
     console.error('Error fetching blog:', error);
   }
 };
-
-export const getCachedBlogs = unstable_cache(
-  async () => await getAllBlogs(),
-  ['blogs'],
-  {
-    tags: ['blogs'],
-  },
-);
-
-export const getCachedUserBlogs = unstable_cache(
-  async (id) => await getUserBlogs(id),
-  ['blogs'],
-  {
-    tags: ['blogs'],
-  },
-);

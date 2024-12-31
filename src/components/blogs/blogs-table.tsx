@@ -1,7 +1,7 @@
 import { assets } from '@/assets/assets';
 import BlogOptions from './blog-options';
 import Image from 'next/image';
-import { getCachedBlogs, getCachedUserBlogs } from '@/lib/blog-data';
+import { getAllBlogs, getUserBlogs } from '@/lib/blog-data';
 import { auth } from '@/auth';
 import { PopulatedBlog } from '@/lib/models/blogs';
 
@@ -12,9 +12,9 @@ const BlogsTable = async ({ title }: { title: string }) => {
   let blogs: PopulatedBlog[] | undefined;
 
   if (isAdmin) {
-    blogs = await getCachedBlogs();
+    blogs = await getAllBlogs();
   } else if (session?.user?._id) {
-    blogs = await getCachedUserBlogs(session.user._id);
+    blogs = await getUserBlogs(session.user._id);
   } else {
     console.error('User is not authenticated or ID is missing.');
     blogs = [];
