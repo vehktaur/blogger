@@ -1,11 +1,14 @@
+'use cache';
+
 import 'server-only';
 import { ConnectDB } from './config/db';
 import Blogs, { PopulatedBlog } from './models/blogs';
-import { unstable_cache } from 'next/cache';
+import { unstable_cacheTag as cacheTag } from 'next/cache';
 import Users from './models/users';
 
 //Get All Blogs from the Database
 export const getAllBlogs = async () => {
+  cacheTag('blogs');
   try {
     // Connect to MongoDB
     await ConnectDB();
@@ -27,6 +30,7 @@ export const getAllBlogs = async () => {
 
 //Get User's Blogs from the Database
 export const getUserBlogs = async (id: string) => {
+  cacheTag('blogs');
   try {
     // Connect to MongoDB
     await ConnectDB();
@@ -47,6 +51,7 @@ export const getUserBlogs = async (id: string) => {
 };
 
 export const getBlog = async (id: string) => {
+  cacheTag(`blog_${id}`);
   try {
     // Connect to MongoDB
     await ConnectDB();
@@ -61,19 +66,3 @@ export const getBlog = async (id: string) => {
     console.error('Error fetching blog:', error);
   }
 };
-
-export const getCachedBlogs = unstable_cache(
-  async () => await getAllBlogs(),
-  ['blogs'],
-  {
-    tags: ['blogs'],
-  },
-);
-
-export const getCachedUserBlogs = unstable_cache(
-  async (id) => await getUserBlogs(id),
-  ['blogs'],
-  {
-    tags: ['blogs'],
-  },
-);

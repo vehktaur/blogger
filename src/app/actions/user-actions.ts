@@ -6,6 +6,7 @@ import { backendClient } from '@/lib/edgestore-server';
 import Users, { User } from '@/lib/models/users';
 import { getUser } from '@/lib/server-utils';
 import bcrypt from 'bcryptjs';
+import { revalidateTag } from 'next/cache';
 
 export const createUser = async (user: User) => {
   try {
@@ -24,6 +25,9 @@ export const createUser = async (user: User) => {
 
     // Return new user and success msg
     const newUser = await getUser({ email: user.email });
+
+    revalidateTag('user');
+
     return {
       success: true,
       msg: 'User created',
@@ -56,6 +60,8 @@ export const updateUser = async (updatedData: Partial<User>, id: string) => {
     //Update the blog with the values from the updatedData
     Object.assign(user, updatedData);
     await user.save();
+
+    revalidateTag('user');
 
     //return success msg and redirect boolean
     return {
@@ -105,6 +111,8 @@ export const changePassword = async (data: Password, username: string) => {
     user.password = data.newPassword;
     await user.save();
 
+    revalidateTag('user');
+
     return {
       success: true,
       msg: 'Password changed',
@@ -139,6 +147,8 @@ export const changeProfilePic = async (url: string, id?: string) => {
     user.image = url;
     await user.save();
 
+    revalidateTag('user');
+
     return {
       success: true,
       msg: 'Profile pic updated',
@@ -172,6 +182,8 @@ export const deleteProfilePic = async (id: string, url?: string | null) => {
     // Remove image from the user profile
     user.image = undefined;
     await user.save();
+
+    revalidateTag('user');
 
     return {
       success: true,

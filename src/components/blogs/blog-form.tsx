@@ -204,6 +204,7 @@ const BlogForm = ({
           <div className='w-[85%] max-w-md space-y-8'>
             <div>
               <h3 className='form-label'>{edit ? 'Edit' : 'Upload'} Image</h3>
+
               <div
                 {...getRootProps({
                   className: cn(
@@ -214,7 +215,10 @@ const BlogForm = ({
                   tabIndex: 0,
                 })}
               >
+                {/* Image Icon */}
                 <ImageCircleIcon className='~size-[1.8rem]/[2.5rem]' />
+
+                {/* Drag and Drop Text */}
                 <p className='h- h- text-center ~text-[0.8rem]/base'>
                   {isDragActive
                     ? 'Drop the image here...'
@@ -239,10 +243,20 @@ const BlogForm = ({
                   </div>
                 )}
 
+                {/* Input for Image */}
+                <input aria-describedby='image-error' {...getInputProps()} />
+
+                {/* Error Message */}
                 {submitCount > 0 && !image && (
-                  <p className='error'>An image is required to proceed</p>
+                  <p
+                    id='image-error'
+                    aria-atomic
+                    aria-live='polite'
+                    className='error'
+                  >
+                    An image is required to proceed
+                  </p>
                 )}
-                <input {...getInputProps()} />
 
                 {/* Image Preview */}
                 <AnimatePresence>
@@ -311,6 +325,7 @@ const BlogForm = ({
                     key={index}
                   >
                     <input
+                      aria-describedby='categories-error'
                       className='peer'
                       hidden
                       type='checkbox'
@@ -339,7 +354,14 @@ const BlogForm = ({
                 ))}
               </div>
               {errors?.categories?.message && (
-                <p className='error mt-2 ps-1'>{errors.categories.message}</p>
+                <p
+                  id='categories-error'
+                  aria-live='polite'
+                  aria-atomic
+                  className='error mt-2 ps-1'
+                >
+                  {errors.categories.message}
+                </p>
               )}
             </div>
 
@@ -348,6 +370,7 @@ const BlogForm = ({
                 Description
               </label>
               <textarea
+                aria-describedby='description-error'
                 className='input-base rounded-3xl ~text-sm/base scrollbar-thin scrollbar-thumb-[#777]'
                 placeholder='Give us a sneak peek...'
                 id='description'
@@ -360,7 +383,14 @@ const BlogForm = ({
                 })}
               />
               {errors?.description?.message && (
-                <p className='error mt-2 ps-1'>{errors.description.message}</p>
+                <p
+                  id='description-error'
+                  aria-live='polite'
+                  aria-atomic
+                  className='error mt-2 ps-1'
+                >
+                  {errors.description.message}
+                </p>
               )}
             </div>
 
@@ -395,6 +425,7 @@ const BlogForm = ({
                   </div>
                 )}
                 <textarea
+                  aria-describedby='content-error'
                   className='input-base rounded-3xl ~text-sm/base scrollbar-thin scrollbar-thumb-[#777]'
                   placeholder='Compose your blog post...'
                   id='content'
@@ -421,7 +452,14 @@ const BlogForm = ({
               </p>
 
               {errors?.content?.message && (
-                <p className='error mt-2 ps-1'>{errors.content.message}</p>
+                <p
+                  id='content-error'
+                  aria-live='polite'
+                  aria-atomic
+                  className='error mt-2 ps-1'
+                >
+                  {errors.content.message}
+                </p>
               )}
             </div>
           </div>

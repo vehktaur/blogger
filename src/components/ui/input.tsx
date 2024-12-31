@@ -36,6 +36,7 @@ const Input = ({
       </label>
       <div className='relative'>
         <input
+          aria-labelledby={`${name}-error`}
           className='input-base rounded-3xl ~text-sm/base'
           placeholder={placeholder}
           id={id || name}
@@ -81,7 +82,14 @@ const Input = ({
       </div>
 
       {errors?.[name]?.message && (
-        <p className='error mt-2 ps-1'>{errors[name].message as string}</p>
+        <p
+          id={`${name}-error`}
+          aria-live='polite'
+          aria-atomic
+          className='error mt-2 ps-1'
+        >
+          {errors[name].message as string}
+        </p>
       )}
     </div>
   );

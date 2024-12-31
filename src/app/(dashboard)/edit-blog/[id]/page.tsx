@@ -1,22 +1,14 @@
 import BlogForm from '@/components/blogs/blog-form';
 import UseFormContextProvider from '@/context/UseFormContextProvider';
 import { getBlog } from '@/lib/blog-data';
-import { unstable_cache } from 'next/cache';
 import { redirect } from 'next/navigation';
 
 const EditBlog = async (props: { params: Promise<{ id: string }> }) => {
   const params = await props.params;
   const id = params.id;
 
-  const getCachedBlog = unstable_cache(
-    async (id: string) => await getBlog(id),
-    [`blog-${id}`],
-    {
-      tags: [`blog-${id}`],
-    },
-  );
 
-  const blog = await getCachedBlog(id);
+  const blog = await getBlog(id);
 
   // Go back to blogs page if blog doesn't exist
   if (!blog) {
