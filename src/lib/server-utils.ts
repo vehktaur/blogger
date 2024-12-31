@@ -1,10 +1,7 @@
-'use cache';
-
 import 'server-only';
 import { ConnectDB } from './config/db';
 import Users, { User } from './models/users';
 import { getPlaiceholder } from 'plaiceholder';
-import { unstable_cacheTag as cacheTag } from 'next/cache';
 
 export const getBlurData = async (url: string) => {
   try {
@@ -30,12 +27,10 @@ export const getUser = async (query: {
   id?: string;
   username?: string;
 }) => {
-  cacheTag('user');
-
   const { email, id, username } = query;
 
   try {
-    // Connect to the DB
+    //Connect to the DB
     await ConnectDB();
 
     let user: User | null = null;

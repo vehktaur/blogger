@@ -98,7 +98,7 @@ export const editBlog = async (updatedData: Blog, id: string) => {
     }
 
     await blog.save();
-    revalidateTag(`blog_${id}`);
+    revalidateTag(`blog-${id}`);
     revalidateTag('blogs');
 
     return {

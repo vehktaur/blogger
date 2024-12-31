@@ -1,13 +1,14 @@
 import BlurImage from '@/components/ui/blur-image';
 import { assets } from '@/assets/assets';
-import { getAllBlogs, getBlog } from '@/lib/blog-data';
+import { getCachedBlogs, getBlog } from '@/lib/blog-data';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import { redirect } from 'next/navigation';
+import { unstable_cache } from 'next/cache';
 import { FaWhatsapp, FaXTwitter } from 'react-icons/fa6';
 
 // Generate Static Blog Pages at build time
 export const generateStaticParams = async () => {
-  const blogs = await getAllBlogs();
+  const blogs = await getCachedBlogs();
   const staticBlogs = blogs?.map((blog) => ({
     title: `${blog.title}__${blog._id}`,
   }));
@@ -25,7 +26,15 @@ export const generateMetadata = async (
   const id = url.split('__').pop();
 
   if (id) {
-    const blog = await getBlog(id);
+    const getCachedBlog = unstable_cache(
+      async (id: string) => await getBlog(id),
+      [`blog-${id}`],
+      {
+        tags: [`blog-${id}`],
+      },
+    );
+
+    const blog = await getCachedBlog(id);
     return {
       title: `${blog?.title} | Logs`,
       description: blog?.description,
@@ -47,8 +56,15 @@ const Blog = async (props: { params: Promise<{ title: string }> }) => {
     redirect('/');
   }
 
+  const getCachedBlog = unstable_cache(
+    async (id: string) => await getBlog(id),
+    [`blog-${id}`],
+    {
+      tags: [`blog-${id}`],
+    },
+  );
 
-  const blog = await getBlog(id);
+  const blog = await getCachedBlog(id);
 
   if (!blog) {
     console.log('id', id);

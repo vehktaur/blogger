@@ -1,9 +1,7 @@
 import type { NextConfig } from 'next';
+import withPlaiceholder from '@plaiceholder/next';
 
 const nextConfig: NextConfig = {
-  experimental: {
-    dynamicIO: true,
-  },
   images: {
     remotePatterns: [
       {
@@ -28,4 +26,4 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default nextConfig;
+export default withPlaiceholder(nextConfig);
