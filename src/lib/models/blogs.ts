@@ -55,7 +55,7 @@ const Blogs = models.Blog || model('Blog', blogSchema);
 
 //Export blog document and object types
 export type Blog = InferSchemaType<typeof blogSchema> & {
-  image: InferSchemaType<typeof blogSchema>['image'] & { _id: string };
+  image: InferSchemaType<typeof blogSchema>['image'] & { _id?: string };
   _id: string;
 };
 export type PopulatedBlog = Omit<Blog, 'author'> & { author: User };
